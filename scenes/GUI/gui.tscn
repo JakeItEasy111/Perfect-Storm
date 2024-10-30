@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://chetgwxkpo4vn"]
+
+[ext_resource type="Script" path="res://scenes/GUI/gui.gd" id="1_yf83u"]
+[ext_resource type="PackedScene" uid="uid://3v68n1le386n" path="res://scenes/GUI/inventory_gui.tscn" id="2_g5ag2"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ylqfj"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gn7og"]
+resource_local_to_scene = true
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_ylqfj")
+
+[sub_resource type="QuadMesh" id="QuadMesh_x5c4c"]
+size = Vector2(1, 0.75)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_npafq"]
+size = Vector3(1, 0.75, 0.05)
+
+[node name="GUI" type="Node3D"]
+script = ExtResource("1_yf83u")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(640, 480)
+
+[node name="GUI_Interface" parent="SubViewport" instance=ExtResource("2_g5ag2")]
+
+[node name="Display" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_gn7og")
+mesh = SubResource("QuadMesh_x5c4c")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_npafq")

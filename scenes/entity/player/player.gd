@@ -2,15 +2,15 @@ extends CharacterBody3D
 
 signal pda_use
 
-#movement component constants
+#movement constants
 const WALK_SPEED = 2.5
 const SPRINT_SPEED = 6.0
 const CROUCH_SPEED = 1.25
-const JUMP_VELOCITY = 4
+const JUMP_VELOCITY = 3.5
 
 var current_speed = 3.0 
 
-#headbob vars
+#headbob constants
 const BOB_FREQ = 3.0
 const BOB_AMP = 0.065
 
@@ -31,13 +31,6 @@ var sprinting = false
 var crouching = false 
 var using_pda = false 
 var dead = false 
-
-#stamina vars
-var max_stamina = 100 
-var current_stamina = max_stamina
-var stamina_regen = 0.15
-var stamina_rgn_cooldown = 3.0 
-var stamina_on_cooldown = false 
 
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
@@ -97,9 +90,6 @@ func _physics_process(delta: float) -> void:
 				sprinting = false
 				can_crouch = true 
 				current_speed = WALK_SPEED
-			
-			if(sprinting):
-				current_stamina -= 0.3 
 				
 			#crouching
 			if Input.is_action_just_pressed("crouch"):
@@ -150,7 +140,7 @@ func _physics_process(delta: float) -> void:
 		#fov
 		var velocity_clamp = clamp(velocity.length(), 0.5, SPRINT_SPEED * 2)
 		var target_fov = fov + (fov_change * velocity_clamp)
-		camera.fov = lerp(camera.fov, target_fov, delta * 4.0)
+		camera.fov = lerp(camera.fov, target_fov, delta * 2.0)
 
 		move_and_slide()
 

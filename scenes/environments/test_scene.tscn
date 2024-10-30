@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://bb7pbtyh8k5dj"]
+[gd_scene load_steps=9 format=3 uid="uid://bb7pbtyh8k5dj"]
 
 [ext_resource type="PackedScene" uid="uid://dc63egb7vfe03" path="res://scenes/entity/player/player.tscn" id="1_jnr1s"]
-[ext_resource type="Texture2D" uid="uid://ddpnefmq78md6" path="res://assets/placeholder/hdris/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="2_cy4nd"]
-[ext_resource type="Texture2D" uid="uid://dtdwi31mr7fc4" path="res://assets/placeholder/textures/dev/grids/Dark/texture_07.png" id="3_erqo7"]
+[ext_resource type="Texture2D" uid="uid://ddpnefmq78md6" path="res://assets/placeholder/FPS arms/hdris/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="2_cy4nd"]
+[ext_resource type="Texture2D" uid="uid://dtdwi31mr7fc4" path="res://assets/placeholder/FPS arms/textures/dev/grids/Dark/texture_07.png" id="3_erqo7"]
+[ext_resource type="PackedScene" uid="uid://cdpxuqie2rs7e" path="res://scenes/items/test_item.tscn" id="4_4ekee"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_f00lc"]
 panorama = ExtResource("2_cy4nd")
@@ -46,3 +47,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5538, 1.53089, 0)
 material_override = SubResource("StandardMaterial3D_3yqxd")
 use_collision = true
 size = Vector3(16, 1, 16)
+
+[node name="test_item" parent="." instance=ExtResource("4_4ekee")]

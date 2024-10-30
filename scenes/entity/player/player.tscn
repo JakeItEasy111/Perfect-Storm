@@ -1,12 +1,25 @@
-[gd_scene load_steps=5 format=3 uid="uid://dc63egb7vfe03"]
+[gd_scene load_steps=11 format=3 uid="uid://dc63egb7vfe03"]
 
 [ext_resource type="Script" path="res://scenes/entity/player/player.gd" id="1_scu18"]
 [ext_resource type="PackedScene" uid="uid://cre4yfp4yuh" path="res://scenes/entity/player/fps_arms.tscn" id="2_gf3du"]
+[ext_resource type="Script" path="res://scenes/entity/player/interaction/player_interaction_handler.gd" id="3_oriau"]
+[ext_resource type="Script" path="res://scenes/items/item_data.gd" id="4_t836n"]
+[ext_resource type="PackedScene" uid="uid://cdpxuqie2rs7e" path="res://scenes/items/test_item.tscn" id="5_6xn8g"]
+[ext_resource type="Texture2D" uid="uid://dx68cmy8w5buv" path="res://assets/items/icons/BoxIcon.png" id="5_myxfi"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bnonn"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_th423"]
 height = 1.0
+
+[sub_resource type="Resource" id="Resource_kxsnl"]
+script = ExtResource("4_t836n")
+ItemName = "Qube"
+Icon = ExtResource("5_myxfi")
+ItemModelPrefab = ExtResource("5_6xn8g")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_is3fp"]
+radius = 2.0
 
 [node name="Player" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -33,4 +46,16 @@ transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 
 debug_shape_custom_color = Color(1, 0, 0, 1)
 debug_shape_thickness = 3
 
+[node name="InteractionArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("3_oriau")
+ItemTypes = Array[ExtResource("4_t836n")]([SubResource("Resource_kxsnl")])
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea"]
+shape = SubResource("SphereShape3D_is3fp")
+
 [connection signal="pda_use" from="." to="Head/Camera3D/fps_arms" method="_on_player_pda_use"]
+[connection signal="OnItemPickedUp" from="InteractionArea" to="Head/Camera3D/fps_arms" method="_on_interaction_area_on_item_picked_up"]
+[connection signal="body_entered" from="InteractionArea" to="InteractionArea" method="OnOnjectEnteredArea"]
+[connection signal="body_exited" from="InteractionArea" to="InteractionArea" method="OnObjectExitedArea"]
