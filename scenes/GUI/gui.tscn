@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://3v68n1le386n" path="res://scenes/GUI/inventory_gui.tscn" id="2_g5ag2"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ylqfj"]
-viewport_path = NodePath("SubViewport")
+viewport_path = NodePath("Viewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gn7og"]
 resource_local_to_scene = true
@@ -20,16 +20,17 @@ size = Vector3(1, 0.75, 0.05)
 [node name="GUI" type="Node3D"]
 script = ExtResource("1_yf83u")
 
-[node name="SubViewport" type="SubViewport" parent="."]
+[node name="Viewport" type="SubViewport" parent="."]
 size = Vector2i(640, 480)
 
-[node name="GUI_Interface" parent="SubViewport" instance=ExtResource("2_g5ag2")]
+[node name="GUI_Interface" parent="Viewport" instance=ExtResource("2_g5ag2")]
 
 [node name="Display" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_gn7og")
 mesh = SubResource("QuadMesh_x5c4c")
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="Area" type="Area3D" parent="."]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.000228167)
 shape = SubResource("BoxShape3D_npafq")

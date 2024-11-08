@@ -49,3 +49,5 @@ use_collision = true
 size = Vector3(16, 1, 16)
 
 [node name="test_item" parent="." instance=ExtResource("4_4ekee")]
+
+[node name="test_item2" parent="." instance=ExtResource("4_4ekee")]

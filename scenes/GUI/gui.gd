@@ -1,14 +1,12 @@
 extends Node3D
-#replace entirely? https://github.com/godotengine/godot-demo-projects/blob/3.5-9e68af3/viewport/gui_in_3d/gui_3d.gd
 
-@onready var viewport = $SubViewport
+@onready var viewport = $Viewport
 @onready var display =  $Display
-@onready var area = $Area3D
+@onready var area = $Area
 
 var mesh_size = Vector2()
 
 var mouse_entered = false
-var mouse_held = false
 var mouse_inside = false 
 
 var last_mouse_pos_3D = null
@@ -16,13 +14,10 @@ var last_mouse_pos_2D= null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
-	area.mouse_exited.connect(func(): mouse_entered = false)
 	area.mouse_entered.connect(func(): mouse_entered = true)
 	viewport.set_process_input(true) 
 	
-func _unhandled_input(event: InputEvent) -> void:
-	
+func _unhandled_input(event):
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		return
 		
@@ -30,19 +25,16 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion or event is InputEventMouseButton:
 		is_mouse_event = true
 	
-	if mouse_entered and (is_mouse_event || mouse_held): 
+	if mouse_entered and (is_mouse_event):
 		handle_mouse(event)
-	else:
-		viewport.push_input(event)
-		
+	elif not is_mouse_event:
+		viewport.push_input(event, true)
+		 
 
 func handle_mouse(event):
 	mesh_size = display.mesh.size
 	
-	if event is InputEventMouseButton:
-		mouse_held = event.pressed 
-	
-	var mouse_pos3D = find_mouse(event.global_position) #causes ERR when walking and managing inv
+	var mouse_pos3D = find_mouse(event.global_position)
 	
 	mouse_inside = mouse_pos3D != null 
 	
@@ -75,8 +67,8 @@ func handle_mouse(event):
 		else:
 			event.relative = mouse_pos2D - last_mouse_pos_2D
 			
-		last_mouse_pos_2D = mouse_pos2D
-		viewport.push_input(event)
+	last_mouse_pos_2D = mouse_pos2D
+	viewport.push_input(event)
 	
 func find_mouse(pos:Vector2):
 	var camera = get_viewport().get_camera_3d()
