@@ -1,53 +1,92 @@
-[gd_scene load_steps=9 format=3 uid="uid://bb7pbtyh8k5dj"]
+[gd_scene load_steps=12 format=3 uid="uid://bb7pbtyh8k5dj"]
 
 [ext_resource type="PackedScene" uid="uid://dc63egb7vfe03" path="res://scenes/entity/player/player.tscn" id="1_jnr1s"]
 [ext_resource type="Texture2D" uid="uid://ddpnefmq78md6" path="res://assets/placeholder/FPS arms/hdris/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="2_cy4nd"]
 [ext_resource type="Texture2D" uid="uid://dtdwi31mr7fc4" path="res://assets/placeholder/FPS arms/textures/dev/grids/Dark/texture_07.png" id="3_erqo7"]
 [ext_resource type="PackedScene" uid="uid://cdpxuqie2rs7e" path="res://scenes/items/test_item.tscn" id="4_4ekee"]
+[ext_resource type="PackedScene" uid="uid://dqoparacammhr" path="res://assets/stages/test_stage/perfectstormEnvironmentTest(1).glb" id="5_2bsgq"]
+[ext_resource type="Shader" path="res://scenes/entity/player/psx.gdshader" id="5_kim31"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7xbat"]
+shader = ExtResource("5_kim31")
+shader_parameter/enabled = true
+shader_parameter/dithering = true
+shader_parameter/colors = 10
+shader_parameter/dither_size = 2
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_f00lc"]
 panorama = ExtResource("2_cy4nd")
 
 [sub_resource type="Sky" id="Sky_0hicg"]
 sky_material = SubResource("PanoramaSkyMaterial_f00lc")
+radiance_size = 0
 
 [sub_resource type="Environment" id="Environment_v66yg"]
 background_mode = 2
 sky = SubResource("Sky_0hicg")
-tonemap_mode = 2
+tonemap_mode = 3
 glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.0941176, 0.113725, 0.0862745, 1)
+fog_light_energy = 1.4
+fog_density = 0.3
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3yqxd"]
 albedo_texture = ExtResource("3_erqo7")
 uv1_triplanar = true
 
-[node name="world" type="Node3D"]
+[node name="Main" type="Node3D"]
 
-[node name="Player" parent="." instance=ExtResource("1_jnr1s")]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+material = SubResource("ShaderMaterial_7xbat")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
 
-[node name="env" type="Node3D" parent="."]
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+physics_object_picking = true
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="env"]
+[node name="Environment" type="Node3D" parent="SubViewportContainer/SubViewport"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport/Environment"]
 environment = SubResource("Environment_v66yg")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="env"]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
-shadow_enabled = true
+[node name="stage" type="Node3D" parent="SubViewportContainer/SubViewport/Environment"]
 
-[node name="stage" type="Node3D" parent="."]
-
-[node name="CSGBox3D" type="CSGBox3D" parent="stage"]
+[node name="CSGBox3D" type="CSGBox3D" parent="SubViewportContainer/SubViewport/Environment/stage"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.503318, 0)
 material_override = SubResource("StandardMaterial3D_3yqxd")
 use_collision = true
 size = Vector3(32, 1, 32)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="stage"]
+[node name="CSGBox3D2" type="CSGBox3D" parent="SubViewportContainer/SubViewport/Environment/stage"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5538, 1.53089, 0)
 material_override = SubResource("StandardMaterial3D_3yqxd")
 use_collision = true
 size = Vector3(16, 1, 16)
 
-[node name="test_item" parent="." instance=ExtResource("4_4ekee")]
+[node name="perfectstormEnvironmentTest(1)" parent="SubViewportContainer/SubViewport/Environment/stage" instance=ExtResource("5_2bsgq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.34875, 0.238972, 1.87432)
 
-[node name="test_item2" parent="." instance=ExtResource("4_4ekee")]
+[node name="SpotLight3D" type="SpotLight3D" parent="SubViewportContainer/SubViewport/Environment/stage"]
+transform = Transform3D(-0.966348, 0.115334, 0.229933, 0.244824, 0.138045, 0.95969, 0.0789434, 0.983688, -0.161636, -6.37135, 3.50168, 0.528037)
+light_color = Color(0.976842, 0, 0.202357, 1)
+light_energy = 10.0
+light_size = 2.0
+shadow_enabled = true
+
+[node name="Items" type="Node3D" parent="SubViewportContainer/SubViewport"]
+
+[node name="test_item" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("4_4ekee")]
+
+[node name="test_item2" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("4_4ekee")]
+
+[node name="Player" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_jnr1s")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.26194, 0)

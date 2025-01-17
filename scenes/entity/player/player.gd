@@ -4,11 +4,11 @@ signal pda_use
 
 #movement constants
 const WALK_SPEED = 2.5
-const SPRINT_SPEED = 6.0
+const SPRINT_SPEED = 5.0
 const CROUCH_SPEED = 1.25
-const JUMP_VELOCITY = 3.5
+const JUMP_VELOCITY = 3.0
 
-var current_speed = 3.0 
+var current_speed = 2.5
 
 #headbob constants
 const BOB_FREQ = 3.0
@@ -33,11 +33,11 @@ var using_pda = false
 var dead = false 
 
 @onready var head = $Head
-@onready var camera = $Head/Camera3D
+@onready var camera = %Camera3D
 @onready var std_col = $standing_col_shape
 @onready var crouch_col = $crouching_col_shape
 @onready var col_above_detect_ray = $col_above_detect_ray
-@onready var fps_arms = $Head/Camera3D/fps_arms
+@onready var fps_arms = %Arms
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -49,8 +49,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			head.rotate_y(-event.relative.x * look_sensitivity)
 			camera.rotate_x(-event.relative.y * look_sensitivity)
 			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad(90))
-		
-		
+			
 		if event.is_action_pressed("inventory") && !fps_arms.anim_player.is_playing():
 			emit_signal("pda_use")
 			if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
@@ -60,7 +59,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			if(sprinting):
 				current_speed = WALK_SPEED 
 				sprinting = false  
-				can_crouch = true 
+				can_crouch = true  
 				can_sprint = false 
 	else:	
 		if event.is_action_pressed("inventory") && !fps_arms.anim_player.is_playing():

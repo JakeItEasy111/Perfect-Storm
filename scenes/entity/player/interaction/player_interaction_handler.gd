@@ -8,7 +8,7 @@ var NearbyBodies : Array[InteractibleItem]
 var inventory_handler : Node
 
 func _ready() -> void:
-	inventory_handler = get_node("/root/" + get_tree().current_scene.name + "/Player/Head/Camera3D/fps_arms/Arms_Rig/Skeleton3D/PDA/GUI/Viewport/GUI_Interface")
+	inventory_handler = get_node("/root/" + get_tree().current_scene.name + "/SubViewportContainer/SubViewport/Player/Head/Camera3D/Arms/GUI/Viewport/GUI_Interface")
 	OnItemPickedUp.connect(inventory_handler.PickupItem)
 	
 func _input(event : InputEvent) -> void:

@@ -21,7 +21,6 @@ size = Vector3(1, 0.75, 0.05)
 script = ExtResource("1_yf83u")
 
 [node name="Viewport" type="SubViewport" parent="."]
-gui_embed_subwindows = true
 size = Vector2i(640, 480)
 
 [node name="GUI_Interface" parent="Viewport" instance=ExtResource("2_g5ag2")]

@@ -12,7 +12,7 @@ var InventorySlots : Array[InventorySlot] = []
 var PlayerBody : CharacterBody3D
 
 func _ready() -> void:
-	PlayerBody = get_node("/root/" + get_tree().current_scene.name + "/Player") 
+	PlayerBody = get_node("/root/" + get_tree().current_scene.name + "/SubViewportContainer/SubViewport/Player") 
 	for i in ItemSlotsCount:
 		var slot = InventorySlotPrefab.instantiate() as InventorySlot
 		InventoryGrid.add_child(slot)

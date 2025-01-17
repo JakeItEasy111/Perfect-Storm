@@ -33,15 +33,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 shape = SubResource("CapsuleShape3D_th423")
 disabled = true
 
-[node name="Head" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-
-[node name="Camera3D" type="Camera3D" parent="Head"]
-current = true
-
-[node name="fps_arms" parent="Head/Camera3D" instance=ExtResource("2_gf3du")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.035, -2.2, 0.075)
-
 [node name="col_above_detect_ray" type="RayCast3D" parent="."]
 transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
 debug_shape_custom_color = Color(1, 0, 0, 1)
@@ -56,7 +47,18 @@ ItemTypes = Array[ExtResource("4_t836n")]([SubResource("Resource_kxsnl")])
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea"]
 shape = SubResource("SphereShape3D_is3fp")
 
-[connection signal="pda_use" from="." to="Head/Camera3D/fps_arms" method="_on_player_pda_use"]
-[connection signal="OnItemPickedUp" from="InteractionArea" to="Head/Camera3D/fps_arms" method="_on_interaction_area_on_item_picked_up"]
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+unique_name_in_owner = true
+current = true
+
+[node name="Arms" parent="Head/Camera3D" instance=ExtResource("2_gf3du")]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.035, -2.2, 0.075)
+
+[connection signal="pda_use" from="." to="Head/Camera3D/Arms" method="_on_player_pda_use"]
+[connection signal="OnItemPickedUp" from="InteractionArea" to="Head/Camera3D/Arms" method="_on_interaction_area_on_item_picked_up"]
 [connection signal="body_entered" from="InteractionArea" to="InteractionArea" method="OnOnjectEnteredArea"]
 [connection signal="body_exited" from="InteractionArea" to="InteractionArea" method="OnObjectExitedArea"]
