@@ -25,7 +25,7 @@ var _last_frame_was_on_floor = -INF
 var sprint_drain_amount = 25
 var sprint_regen_amount = 15
 var sprint_time_on_screen = 2 #time the slider stays on screen after letting go of shift
-var sprint_fade_speed = 1.5 #how fast the slider fades off once the time on screen has elapsed
+var sprint_fade_speed = 2 #how fast the slider fades off once the time on screen has elapsed
 var sprint_bar_timer  = 0
 var sprint_bar : TextureProgressBar
 
@@ -145,9 +145,8 @@ func _process(delta: float) -> void:
 				can_sprint = false
 				sprint_bar.tint_progress = Color.DARK_GRAY
 				
-			if current_speed == SPRINT_SPEED and velocity != Vector3.ZERO: #while sprinting 
+			if current_speed == SPRINT_SPEED and Input.get_vector("left", "right", "forward", "backward").length() > 0.1 :  #while sprinting 
 				sprint_bar.value = sprint_bar.value - sprint_drain_amount * delta
-				print(sprint_bar.value)
 				sprint_bar.tint_progress = Color.WHITE
 				
 				if !can_sprint:
@@ -155,20 +154,23 @@ func _process(delta: float) -> void:
 					current_speed = WALK_SPEED
 					
 			else: #not sprinting 
-				if sprint_bar_timer > 0 and !(sprint_bar.value < sprint_bar.max_value):
+				if sprint_bar_timer > 0:
 					sprint_bar_timer = sprint_bar_timer - delta
-				if sprint_bar_timer <= 0:
+				if sprint_bar_timer <= 0: 
 					sprint_bar.tint_progress.a = sprint_bar.tint_progress.a - sprint_fade_speed * delta
-				
+					
 					if sprint_bar.tint_progress.a <= 0:
 						sprint_bar.visible = false
 				
 				if sprint_bar.value < sprint_bar.max_value:
 					sprint_bar.value = sprint_bar.value + sprint_regen_amount * delta
-				if sprint_bar.value == sprint_bar.max_value:
-					can_sprint = true
 					sprint_bar_timer = sprint_time_on_screen
-					sprint_bar.tint_progress = Color.WHITE
+					
+				if sprint_bar.value == sprint_bar.max_value:
+					if sprint_bar.tint_progress == Color.DARK_GRAY: 
+						sprint_bar.tint_progress = Color.WHITE
+					can_sprint = true
+					sprint_bar_timer = 0
 
 			# crouch block 
 			if Input.is_action_just_pressed("crouch"):
