@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dc63egb7vfe03"]
+[gd_scene load_steps=10 format=3 uid="uid://dc63egb7vfe03"]
 
 [ext_resource type="Script" path="res://scenes/entity/player/player.gd" id="1_scu18"]
 [ext_resource type="PackedScene" uid="uid://cre4yfp4yuh" path="res://scenes/entity/player/fps_arms.tscn" id="2_gf3du"]
@@ -8,9 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://dx68cmy8w5buv" path="res://assets/items/icons/BoxIcon.png" id="5_myxfi"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bnonn"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_th423"]
-height = 1.0
 
 [sub_resource type="Resource" id="Resource_kxsnl"]
 script = ExtResource("4_t836n")
@@ -25,18 +22,21 @@ radius = 2.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_scu18")
 
-[node name="standing_col_shape" type="CollisionShape3D" parent="."]
+[node name="PlayerCollisionShape" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_bnonn")
 
-[node name="crouching_col_shape" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-shape = SubResource("CapsuleShape3D_th423")
-disabled = true
-
-[node name="col_above_detect_ray" type="RayCast3D" parent="."]
+[node name="ColAboveDetectRay" type="RayCast3D" parent="."]
 transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
 debug_shape_custom_color = Color(1, 0, 0, 1)
 debug_shape_thickness = 3
+
+[node name="StairsBelowRaycast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, -3.55271e-15, 0, 3.55271e-15, 1, 0.000877023, -1, 0.00293314)
+target_position = Vector3(0, -0.75, 0)
+
+[node name="StairsAheadRaycast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0.000877023, -0.451593, -0.797067)
+target_position = Vector3(0, 0.55, 0)
 
 [node name="InteractionArea" type="Area3D" parent="."]
 collision_layer = 0

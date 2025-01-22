@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://da5gotuaa5rxh"]
+
+[ext_resource type="Texture2D" uid="uid://bfw04amiwlcaw" path="res://assets/UI/SprintBar.png" id="1_7juuq"]
+
+[node name="PlayerUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SprintBar" type="TextureProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.25
+anchor_top = 0.98
+anchor_right = 0.75
+anchor_bottom = 0.99
+grow_horizontal = 2
+grow_vertical = 0
+step = 0.0
+value = 100.0
+fill_mode = 6
+nine_patch_stretch = true
+texture_under = ExtResource("1_7juuq")
+texture_progress = ExtResource("1_7juuq")
+tint_under = Color(0.223103, 0.223103, 0.223103, 1)
