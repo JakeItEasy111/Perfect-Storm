@@ -39,8 +39,7 @@ var can_jump = true
 var can_sprint = true
 var can_crouch = true 
 var can_open_pda = true
-var using_pda = false 
-var dead = false 
+var using_pda = false
 
 @onready var head = $Head
 @onready var camera = %Camera3D
@@ -70,8 +69,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			using_pda = true 
 			
 			if(current_speed == SPRINT_SPEED):
-				current_speed = WALK_SPEED 
-				current_speed == SPRINT_SPEED
+				current_speed = WALK_SPEED
 				can_crouch = true  
 				can_sprint = false 
 	else:	
@@ -82,8 +80,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			can_sprint = true
 
 func _physics_process(delta: float) -> void:
-	
-	if(!dead):
+
 		if(!using_pda):
 			
 			#jumping
@@ -127,68 +124,67 @@ func _physics_process(delta: float) -> void:
 			_snap_down_to_stairs_check()
 			
 func _process(delta: float) -> void:
-	if(!dead):
-		if(!using_pda):
+	if(!using_pda):
+		
+		# sprint block 
+		if Input.is_action_just_pressed("sprint"): #use SetGet to simplify? 
+			if(current_speed == SPRINT_SPEED):
+				can_crouch = true 
+				current_speed = WALK_SPEED
+				sprint_bar_timer = sprint_time_on_screen
+			elif (can_sprint && current_speed != CROUCH_SPEED):
+				can_crouch = false 
+				current_speed = SPRINT_SPEED
+				sprint_bar.visible = true
 			
-			# sprint block 
-			if Input.is_action_just_pressed("sprint"): #use SetGet to simplify? 
-				if(current_speed == SPRINT_SPEED):
-					can_crouch = true 
-					current_speed = WALK_SPEED
-					sprint_bar_timer = sprint_time_on_screen
-				elif (can_sprint && current_speed != CROUCH_SPEED):
-					can_crouch = false 
-					current_speed = SPRINT_SPEED
-					sprint_bar.visible = true
+		if sprint_bar.value <= sprint_bar.min_value:
+			can_sprint = false
+			sprint_bar.tint_progress = Color.DARK_GRAY
+			
+		if current_speed == SPRINT_SPEED and Input.get_vector("left", "right", "forward", "backward").length() > 0.1 :  #while sprinting 
+			sprint_bar.value = sprint_bar.value - sprint_drain_amount * delta
+			sprint_bar.tint_progress = Color.WHITE
+			
+			if !can_sprint:
+				can_crouch = true 
+				current_speed = WALK_SPEED
 				
-			if sprint_bar.value <= sprint_bar.min_value:
-				can_sprint = false
-				sprint_bar.tint_progress = Color.DARK_GRAY
+		else: #not sprinting 
+			if sprint_bar_timer > 0:
+				sprint_bar_timer = sprint_bar_timer - delta
+			if sprint_bar_timer <= 0: 
+				sprint_bar.tint_progress.a = sprint_bar.tint_progress.a - sprint_fade_speed * delta
 				
-			if current_speed == SPRINT_SPEED and Input.get_vector("left", "right", "forward", "backward").length() > 0.1 :  #while sprinting 
-				sprint_bar.value = sprint_bar.value - sprint_drain_amount * delta
-				sprint_bar.tint_progress = Color.WHITE
+				if sprint_bar.tint_progress.a <= 0:
+					sprint_bar.visible = false
+			
+			if sprint_bar.value < sprint_bar.max_value:
+				sprint_bar.value = sprint_bar.value + sprint_regen_amount * delta
+				sprint_bar_timer = sprint_time_on_screen
 				
-				if !can_sprint:
-					can_crouch = true 
-					current_speed = WALK_SPEED
-					
-			else: #not sprinting 
-				if sprint_bar_timer > 0:
-					sprint_bar_timer = sprint_bar_timer - delta
-				if sprint_bar_timer <= 0: 
-					sprint_bar.tint_progress.a = sprint_bar.tint_progress.a - sprint_fade_speed * delta
-					
-					if sprint_bar.tint_progress.a <= 0:
-						sprint_bar.visible = false
-				
-				if sprint_bar.value < sprint_bar.max_value:
-					sprint_bar.value = sprint_bar.value + sprint_regen_amount * delta
-					sprint_bar_timer = sprint_time_on_screen
-					
-				if sprint_bar.value == sprint_bar.max_value:
-					if sprint_bar.tint_progress == Color.DARK_GRAY: 
-						sprint_bar.tint_progress = Color.WHITE
-					can_sprint = true
-					sprint_bar_timer = 0
+			if sprint_bar.value == sprint_bar.max_value:
+				if sprint_bar.tint_progress == Color.DARK_GRAY: 
+					sprint_bar.tint_progress = Color.WHITE
+				can_sprint = true
+				sprint_bar_timer = 0
 
-			# crouch block 
-			if Input.is_action_just_pressed("crouch"):
-				if(current_speed == CROUCH_SPEED && !col_above_detect_ray.is_colliding()):
-					current_speed = WALK_SPEED 
-					can_jump = true
-					collision.shape.height = original_capsule_height
-					collision.position.y = 0
-				elif(can_crouch):
-					current_speed = CROUCH_SPEED
-					can_jump = false
-					collision.shape.height = original_capsule_height - (CROUCH_TRANSLATE * 4)
-					collision.position.y = -(collision.shape.height / 2)
-					
-			if(current_speed == CROUCH_SPEED):
-				head.position.y = lerp(head.position.y, -CROUCH_TRANSLATE, delta * 4.0) 
-			elif(!col_above_detect_ray.is_colliding()):
-				head.position.y = lerp(head.position.y, CROUCH_TRANSLATE, delta * 4.0)  
+		# crouch block 
+		if Input.is_action_just_pressed("crouch"):
+			if(current_speed == CROUCH_SPEED && !col_above_detect_ray.is_colliding()):
+				current_speed = WALK_SPEED 
+				can_jump = true
+				collision.shape.height = original_capsule_height
+				collision.position.y = 0
+			elif(can_crouch):
+				current_speed = CROUCH_SPEED
+				can_jump = false
+				collision.shape.height = original_capsule_height - (CROUCH_TRANSLATE * 4)
+				collision.position.y = -(collision.shape.height / 2)
+				
+		if(current_speed == CROUCH_SPEED):
+			head.position.y = lerp(head.position.y, -CROUCH_TRANSLATE, delta * 4.0) 
+		elif(!col_above_detect_ray.is_colliding()):
+			head.position.y = lerp(head.position.y, CROUCH_TRANSLATE, delta * 4.0)  
 
 func _headbob(time) -> Vector3:
 	var pos = Vector3.ZERO
@@ -240,3 +236,7 @@ func _snap_down_to_stairs_check() -> void:
 			apply_floor_snap()
 			did_snap = true
 	_snapped_to_stairs_last_frame = did_snap
+
+
+func _on_health_component_died() -> void:
+	pass # Replace with function body.

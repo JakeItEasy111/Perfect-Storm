@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://dady57frxafhs"]
+
+[ext_resource type="Texture2D" uid="uid://dx68cmy8w5buv" path="res://assets/items/icons/BoxIcon.png" id="1_3h1s4"]
+[ext_resource type="PackedScene" uid="uid://cdpxuqie2rs7e" path="res://scenes/items/test_item.tscn" id="2_vkxsr"]
+[ext_resource type="Script" path="res://scenes/items/item_data.gd" id="3_o66yo"]
+
+[resource]
+script = ExtResource("3_o66yo")
+ItemName = "Qube"
+Icon = ExtResource("1_3h1s4")
+ItemModelPrefab = ExtResource("2_vkxsr")

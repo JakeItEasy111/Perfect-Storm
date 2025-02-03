@@ -1,19 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://dc63egb7vfe03"]
+[gd_scene load_steps=9 format=3 uid="uid://dc63egb7vfe03"]
 
-[ext_resource type="Script" path="res://scenes/entity/player/player.gd" id="1_scu18"]
-[ext_resource type="PackedScene" uid="uid://cre4yfp4yuh" path="res://scenes/entity/player/fps_arms.tscn" id="2_gf3du"]
-[ext_resource type="Script" path="res://scenes/entity/player/interaction/player_interaction_handler.gd" id="3_oriau"]
+[ext_resource type="Script" path="res://scenes/entities/player/player.gd" id="1_scu18"]
+[ext_resource type="PackedScene" uid="uid://cre4yfp4yuh" path="res://scenes/entities/player/fps_arms.tscn" id="2_gf3du"]
+[ext_resource type="Script" path="res://scenes/entities/player/interaction/player_interaction_handler.gd" id="3_oriau"]
+[ext_resource type="Resource" uid="uid://dady57frxafhs" path="res://scenes/items/itemdata/testcube.tres" id="4_2x7ji"]
 [ext_resource type="Script" path="res://scenes/items/item_data.gd" id="4_t836n"]
-[ext_resource type="PackedScene" uid="uid://cdpxuqie2rs7e" path="res://scenes/items/test_item.tscn" id="5_6xn8g"]
-[ext_resource type="Texture2D" uid="uid://dx68cmy8w5buv" path="res://assets/items/icons/BoxIcon.png" id="5_myxfi"]
+[ext_resource type="PackedScene" uid="uid://calwupcbsccj3" path="res://scenes/components/health_component.tscn" id="6_08ryp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bnonn"]
-
-[sub_resource type="Resource" id="Resource_kxsnl"]
-script = ExtResource("4_t836n")
-ItemName = "Qube"
-Icon = ExtResource("5_myxfi")
-ItemModelPrefab = ExtResource("5_6xn8g")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_is3fp"]
 radius = 2.0
@@ -42,7 +36,7 @@ target_position = Vector3(0, 0.55, 0)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("3_oriau")
-ItemTypes = Array[ExtResource("4_t836n")]([SubResource("Resource_kxsnl")])
+ItemTypes = Array[ExtResource("4_t836n")]([ExtResource("4_2x7ji")])
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea"]
 shape = SubResource("SphereShape3D_is3fp")
@@ -58,7 +52,10 @@ current = true
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.035, -2.2, 0.075)
 
+[node name="HealthComponent" parent="." instance=ExtResource("6_08ryp")]
+
 [connection signal="pda_use" from="." to="Head/Camera3D/Arms" method="_on_player_pda_use"]
 [connection signal="OnItemPickedUp" from="InteractionArea" to="Head/Camera3D/Arms" method="_on_interaction_area_on_item_picked_up"]
 [connection signal="body_entered" from="InteractionArea" to="InteractionArea" method="OnOnjectEnteredArea"]
 [connection signal="body_exited" from="InteractionArea" to="InteractionArea" method="OnObjectExitedArea"]
+[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
