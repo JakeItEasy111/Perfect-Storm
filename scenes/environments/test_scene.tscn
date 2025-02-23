@@ -1,13 +1,14 @@
-[gd_scene load_steps=14 format=3 uid="uid://bb7pbtyh8k5dj"]
+[gd_scene load_steps=15 format=3 uid="uid://bb7pbtyh8k5dj"]
 
 [ext_resource type="PackedScene" uid="uid://dc63egb7vfe03" path="res://scenes/entities/player/player.tscn" id="1_jnr1s"]
 [ext_resource type="Texture2D" uid="uid://ddpnefmq78md6" path="res://assets/placeholder/FPS arms/hdris/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="2_cy4nd"]
 [ext_resource type="Texture2D" uid="uid://dtdwi31mr7fc4" path="res://assets/placeholder/FPS arms/textures/dev/grids/Dark/texture_07.png" id="3_erqo7"]
 [ext_resource type="PackedScene" uid="uid://bak8ltrhbmlv5" path="res://assets/placeholder/CSGStairMaker3D.tscn" id="3_rv1fj"]
-[ext_resource type="PackedScene" uid="uid://cdpxuqie2rs7e" path="res://scenes/items/test_item.tscn" id="4_4ekee"]
+[ext_resource type="PackedScene" uid="uid://cdpxuqie2rs7e" path="res://scenes/items/prefabs/test_item.tscn" id="4_4ekee"]
 [ext_resource type="PackedScene" uid="uid://dqoparacammhr" path="res://assets/stages/test_stage/perfectstormEnvironmentTest(1).glb" id="5_2bsgq"]
 [ext_resource type="Shader" path="res://scenes/entities/player/psx.gdshader" id="5_kim31"]
 [ext_resource type="PackedScene" uid="uid://da5gotuaa5rxh" path="res://scenes/GUI/player_ui.tscn" id="8_ib0sg"]
+[ext_resource type="PackedScene" uid="uid://cyussufkwu443" path="res://scenes/items/prefabs/coffee_item.tscn" id="9_0n8qs"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7xbat"]
 shader = ExtResource("5_kim31")
@@ -101,11 +102,26 @@ shadow_enabled = true
 
 [node name="test_item2" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("4_4ekee")]
 
+[node name="CoffeeItem" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("9_0n8qs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.438887, 0.149096, 0.30745)
+
+[node name="CoffeeItem2" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("9_0n8qs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.03251, 0.149096, 0.30745)
+
+[node name="CoffeeItem3" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("9_0n8qs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.03251, 0.149096, 0.0196546)
+
+[node name="CoffeeItem4" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("9_0n8qs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.177454, 0.149096, 0.0196546)
+
+[node name="CoffeeItem5" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("9_0n8qs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.177454, 0.149096, 0.537331)
+
 [node name="Player" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_jnr1s")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.26194, 0)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="SubViewportContainer/SubViewport"]
-
 [node name="PlayerUI" parent="." instance=ExtResource("8_ib0sg")]
 mouse_filter = 2
+
+[connection signal="pda_use" from="SubViewportContainer/SubViewport/Player" to="PlayerUI" method="_on_player_pda_use"]

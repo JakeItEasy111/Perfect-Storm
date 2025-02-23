@@ -3,8 +3,7 @@
 [ext_resource type="Script" path="res://scenes/entities/player/player.gd" id="1_scu18"]
 [ext_resource type="PackedScene" uid="uid://cre4yfp4yuh" path="res://scenes/entities/player/fps_arms.tscn" id="2_gf3du"]
 [ext_resource type="Script" path="res://scenes/entities/player/interaction/player_interaction_handler.gd" id="3_oriau"]
-[ext_resource type="Resource" uid="uid://dady57frxafhs" path="res://scenes/items/itemdata/testcube.tres" id="4_2x7ji"]
-[ext_resource type="Script" path="res://scenes/items/item_data.gd" id="4_t836n"]
+[ext_resource type="Script" path="res://scenes/entities/player/equipment.gd" id="4_fwww4"]
 [ext_resource type="PackedScene" uid="uid://calwupcbsccj3" path="res://scenes/components/health_component.tscn" id="6_08ryp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bnonn"]
@@ -12,9 +11,13 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_is3fp"]
 radius = 2.0
 
-[node name="Player" type="CharacterBody3D"]
+[sub_resource type="BoxMesh" id="BoxMesh_v0aj6"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("health_component") groups=["player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_scu18")
+health_component = NodePath("HealthComponent")
 
 [node name="PlayerCollisionShape" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_bnonn")
@@ -32,13 +35,12 @@ target_position = Vector3(0, -0.75, 0)
 transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0.000877023, -0.451593, -0.797067)
 target_position = Vector3(0, 0.55, 0)
 
-[node name="InteractionArea" type="Area3D" parent="."]
+[node name="InteractionHandler" type="Area3D" parent="."]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("3_oriau")
-ItemTypes = Array[ExtResource("4_t836n")]([ExtResource("4_2x7ji")])
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionHandler"]
 shape = SubResource("SphereShape3D_is3fp")
 
 [node name="Head" type="Node3D" parent="."]
@@ -52,10 +54,17 @@ current = true
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.035, -2.2, 0.075)
 
+[node name="Equipment" type="Marker3D" parent="Head/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.798226, -0.632583, -1.10707)
+script = ExtResource("4_fwww4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Head/Camera3D/Equipment"]
+mesh = SubResource("BoxMesh_v0aj6")
+
 [node name="HealthComponent" parent="." instance=ExtResource("6_08ryp")]
 
 [connection signal="pda_use" from="." to="Head/Camera3D/Arms" method="_on_player_pda_use"]
-[connection signal="OnItemPickedUp" from="InteractionArea" to="Head/Camera3D/Arms" method="_on_interaction_area_on_item_picked_up"]
-[connection signal="body_entered" from="InteractionArea" to="InteractionArea" method="OnOnjectEnteredArea"]
-[connection signal="body_exited" from="InteractionArea" to="InteractionArea" method="OnObjectExitedArea"]
+[connection signal="OnItemPickedUp" from="InteractionHandler" to="Head/Camera3D/Arms" method="_on_interaction_area_on_item_picked_up"]
+[connection signal="body_entered" from="InteractionHandler" to="InteractionHandler" method="OnOnjectEnteredArea"]
+[connection signal="body_exited" from="InteractionHandler" to="InteractionHandler" method="OnObjectExitedArea"]
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]

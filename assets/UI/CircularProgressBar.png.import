@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvpo3tghfhip3"
-path="res://.godot/imported/D_FileCabinet.png-b4cb7ed78eda8267b5b0d0823f11c611.ctex"
+uid="uid://bytsdlnie8ox6"
+path="res://.godot/imported/CircularProgressBar.png-a08aecab8dad9fde1b2db8c71c3634b5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/placeholder/CaseFile/Textures/D_FileCabinet.png"
-dest_files=["res://.godot/imported/D_FileCabinet.png-b4cb7ed78eda8267b5b0d0823f11c611.ctex"]
+source_file="res://assets/UI/CircularProgressBar.png"
+dest_files=["res://.godot/imported/CircularProgressBar.png-a08aecab8dad9fde1b2db8c71c3634b5.ctex"]
 
 [params]
 

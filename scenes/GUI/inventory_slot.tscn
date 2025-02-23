@@ -1,37 +1,22 @@
-[gd_scene load_steps=5 format=3 uid="uid://dbw117jr1a2fb"]
+[gd_scene load_steps=4 format=3 uid="uid://dbw117jr1a2fb"]
 
 [ext_resource type="Script" path="res://scenes/GUI/inventory_slot.gd" id="1_a8c6k"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ovqa0"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a8cau"]
 content_margin_left = 50.0
 content_margin_top = 50.0
 content_margin_right = 50.0
 content_margin_bottom = 50.0
-bg_color = Color(0.409456, 0.446963, 0.460019, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-shadow_color = Color(0, 0, 0, 0.141176)
-shadow_size = 5
-shadow_offset = Vector2(2, 2)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eayun"]
-content_margin_left = 50.0
-content_margin_top = 50.0
-content_margin_right = 50.0
-content_margin_bottom = 50.0
-bg_color = Color(0.409456, 0.446963, 0.460019, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-shadow_color = Color(0, 0, 0, 0.141176)
-shadow_size = 5
+bg_color = Color(0.553779, 0.840178, 0.915347, 1)
+border_width_top = 50
+border_color = Color(0.877352, 0.931551, 0.961004, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0.014, 0.014, 0.014, 0.206)
+shadow_size = 10
 shadow_offset = Vector2(2, 2)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_drvje"]
@@ -39,19 +24,23 @@ content_margin_left = 50.0
 content_margin_top = 50.0
 content_margin_right = 50.0
 content_margin_bottom = 50.0
-bg_color = Color(0.35083, 0.385143, 0.397081, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-shadow_color = Color(0, 0, 0, 0.141176)
-shadow_size = 5
+bg_color = Color(0.366164, 0.711006, 0.796898, 1)
+border_width_top = 50
+border_color = Color(0.762053, 0.866952, 0.923253, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0.014, 0.014, 0.014, 0.206)
+shadow_size = 10
 shadow_offset = Vector2(2, 2)
 
 [node name="InventorySlot" type="Button" node_paths=PackedStringArray("IconSlot")]
-theme_override_styles/hover = SubResource("StyleBoxFlat_ovqa0")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_eayun")
+theme_override_styles/hover = SubResource("StyleBoxFlat_a8cau")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_a8cau")
 theme_override_styles/normal = SubResource("StyleBoxFlat_drvje")
+icon_alignment = 1
 script = ExtResource("1_a8c6k")
 IconSlot = NodePath("TextureRect")
 
@@ -60,3 +49,24 @@ layout_mode = 0
 offset_right = 100.0
 offset_bottom = 100.0
 expand_mode = 1
+
+[node name="QuantityLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -53.0
+offset_top = -39.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_type_variation = &"HeaderLarge"
+theme_override_constants/outline_size = 10
+horizontal_alignment = 2
+vertical_alignment = 1
+uppercase = true
+max_lines_visible = 3
+visible_characters = 3
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

@@ -2,18 +2,19 @@ extends Area3D
 
 signal OnItemPickedUp(item)
 
-@export var ItemTypes : Array[ItemData] = []
+var ItemTypes : Array[ItemData] = ItemDatabase.items
 
 var NearbyBodies : Array[InteractibleItem]
-var inventory_handler : Node
+var inventory_handler: InventoryHandler
 
 func _ready() -> void:
-	inventory_handler = get_node("/root/" + get_tree().current_scene.name + "/SubViewportContainer/SubViewport/Player/Head/Camera3D/Arms/GUI/Viewport/GUI_Interface")
+	inventory_handler = get_node("/root/" + get_tree().current_scene.name + "/SubViewportContainer/SubViewport/Player/Head/Camera3D/Arms/GUI/Viewport/InventoryHandler")
 	OnItemPickedUp.connect(inventory_handler.PickupItem)
 	
 func _input(event : InputEvent) -> void:
 	if(event.is_action_pressed("interact") && !get_parent().using_pda):
 		PickupNearestItem()
+	#Handle use item here 
 		
 func PickupNearestItem():
 	var nearestItem : InteractibleItem = null

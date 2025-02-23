@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bpe5tk4cbh064"
-path.s3tc="res://.godot/imported/N_CaseFile.png-57a8c72bbe8d765cd7573fe757b4b1a1.s3tc.ctex"
+path.s3tc="res://.godot/imported/N_CaseFile.png-b9c8c4e2dd5f799c0ed699bc84fe575b.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/placeholder/CaseFile/Textures/N_CaseFile.png"
-dest_files=["res://.godot/imported/N_CaseFile.png-57a8c72bbe8d765cd7573fe757b4b1a1.s3tc.ctex"]
+source_file="res://assets/placeholder/File/Textures/N_CaseFile.png"
+dest_files=["res://.godot/imported/N_CaseFile.png-b9c8c4e2dd5f799c0ed699bc84fe575b.s3tc.ctex"]
 
 [params]
 

@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://da5gotuaa5rxh"]
+[gd_scene load_steps=6 format=3 uid="uid://da5gotuaa5rxh"]
 
 [ext_resource type="Texture2D" uid="uid://bfw04amiwlcaw" path="res://assets/UI/SprintBar.png" id="1_7juuq"]
+[ext_resource type="Script" path="res://scenes/GUI/player_ui.gd" id="1_wliv0"]
+[ext_resource type="Texture2D" uid="uid://dwarq7aa5fynk" path="res://assets/UI/tab_button_small.png" id="2_rfdbk"]
+[ext_resource type="Texture2D" uid="uid://bsopwkwu6arcw" path="res://assets/UI/crosshair.png" id="3_qm6sa"]
+[ext_resource type="Texture2D" uid="uid://b7slqypwt1861" path="res://assets/UI/CircularProgressBarSmall.png" id="4_u5n7f"]
 
 [node name="PlayerUI" type="Control"]
 layout_mode = 3
@@ -9,6 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_wliv0")
 
 [node name="SprintBar" type="TextureProgressBar" parent="."]
 layout_mode = 1
@@ -26,3 +31,65 @@ nine_patch_stretch = true
 texture_under = ExtResource("1_7juuq")
 texture_progress = ExtResource("1_7juuq")
 tint_under = Color(0.223103, 0.223103, 0.223103, 1)
+
+[node name="PDAHint" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.025
+anchor_top = 0.975
+anchor_right = 0.025
+anchor_bottom = 0.975
+offset_top = -25.0
+offset_right = 45.0
+grow_vertical = 0
+mouse_filter = 2
+texture = ExtResource("2_rfdbk")
+
+[node name="Label" type="Label" parent="PDAHint"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 15
+text = "Open PDA"
+
+[node name="Crosshair" type="TextureRect" parent="."]
+modulate = Color(100, 100, 100, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_qm6sa")
+
+[node name="ActionProgressBar" type="TextureProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.5
+offset_top = -37.5
+offset_right = 37.5
+offset_bottom = 37.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+step = 0.01
+fill_mode = 4
+texture_progress = ExtResource("4_u5n7f")
+
+[node name="ActionProgressTimer" type="Timer" parent="ActionProgressBar"]
+one_shot = true

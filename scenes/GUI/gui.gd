@@ -12,7 +12,8 @@ var mouse_inside = false
 var last_mouse_pos_3D = null
 var last_mouse_pos_2D= null
 
-# Called when the node enters the scene tree for the first time.
+# DIAGETIC UI SYSTEM 
+
 func _ready() -> void:
 	area.mouse_entered.connect(func(): mouse_entered = true)
 	viewport.set_process_input(true) 

@@ -2630,11 +2630,9 @@ _data = {
 "PDA_Unequip": SubResource("Animation_a6wp7")
 }
 
-[node name="fps_arms" type="Node3D"]
+[node name="Arms" type="Node3D"]
 visible = false
 script = ExtResource("1_2nqie")
-
-[node name="TargetRef" type="Node3D" parent="."]
 
 [node name="Arms_Rig" type="Node3D" parent="."]
 transform = Transform3D(0.999993, 0, 0, 0, 0, -0.999996, 0, 0.999994, 0, 0, 0, 0)
@@ -3112,7 +3110,8 @@ skin = SubResource("Skin_oma27")
 libraries = {
 "": SubResource("AnimationLibrary_i17d2")
 }
+speed_scale = 1.5
 
 [node name="GUI" parent="." instance=ExtResource("10_t6g2l")]
-transform = Transform3D(-0.199997, 1.75207e-08, 0.000984358, 1.74799e-08, 0.199999, -8.34192e-09, -0.000984352, -8.25577e-09, -0.199997, -0.00615916, 2.19453, 0.217507)
+transform = Transform3D(-0.249997, 2.1901e-08, 0.00123045, 2.18499e-08, 0.25, -1.04274e-08, -0.00123045, -1.03198e-08, -0.249997, -0.0326895, 2.19453, 0.217507)
 visible = false
