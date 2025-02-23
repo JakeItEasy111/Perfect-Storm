@@ -2,6 +2,7 @@ extends Control
 class_name InventorySlot
 
 signal OnItemDropped(fromSlotID, toSlotID)
+signal SlotSelected(index)
 
 @export var IconSlot : TextureRect
 @onready var quantity_label: Label = $QuantityLabel
@@ -9,24 +10,24 @@ signal OnItemDropped(fromSlotID, toSlotID)
 var InventorySlotID : int = -1
 var SlotFilled : bool = false
 var SlotData : ItemData
+var stack : int = 1
 
-func FillSlot(data: ItemData):
+func FillSlot(data: ItemData, stack_size : int):
 	SlotData = data
 	if(SlotData != null):
 		SlotFilled = true
 		IconSlot.texture = data.Icon
 		
-		quantity_label.text = ""
-		
-		match SlotData.type:
-			SlotData.ITEM_TYPE.CONSUMABLE:
-				SlotData.connect("stack_depleted", on_stack_depleted)
-				SlotData.connect("stack_updated", on_stack_updated)
-				on_stack_updated()
+		#match SlotData.type:
+			#SlotData.ITEM_TYPE.CONSUMABLE:
+				#SlotData.connect("stack_depleted", on_stack_depleted)
+				#SlotData.connect("stack_updated", on_stack_updated)
+				#on_stack_updated()
 	else:
 		SlotFilled  = false
 		IconSlot.texture = null 
-		quantity_label.text = ""
+	stack = stack_size
+	update_stack()
 
 func _get_drag_data(_at_position: Vector2) -> Variant:
 	if (SlotFilled):
@@ -47,13 +48,27 @@ func _can_drop_data(_at_position: Vector2, data: Variant) -> bool:
 func _drop_data(_at_position: Vector2, data: Variant) -> void:
 	OnItemDropped.emit(data["ID"], InventorySlotID)
 
-func on_stack_depleted():
-	FillSlot(null)
+func deplete_stack():
+	FillSlot(null, 1)
 
-func on_stack_updated():
-	quantity_label.text = str(SlotData.quantity)
+func addQuantity(addedQuant : int):
+	if stack + addedQuant <= SlotData.max_quantity:
+		stack += addedQuant
+		update_stack()
+#
+func decrementQuantity():
+	stack -= 1
+	if stack <= 0:
+		deplete_stack()
+		stack = 1
+	else:
+		update_stack()
+
+func update_stack():
+	quantity_label.visible = stack > 1
+	quantity_label.text = str(stack)
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.double_click:
 		if SlotFilled and SlotData:
-			SlotData.use_item(Global.player)
+			SlotSelected.emit(InventorySlotID)

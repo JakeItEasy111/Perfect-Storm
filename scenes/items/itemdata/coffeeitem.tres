@@ -10,7 +10,6 @@ resource_local_to_scene = true
 script = ExtResource("1_oy1x2")
 use_time = 2.0
 max_quantity = 4
-quantity = 1
 ItemName = "Old Coffee"
 type = 1
 ItemEffects = Array[ExtResource("2_64liw")]([])
