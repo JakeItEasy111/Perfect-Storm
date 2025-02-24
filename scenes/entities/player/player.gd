@@ -53,6 +53,7 @@ var using_pda = false
 @onready var equipment: Marker3D = $Head/Camera3D/Equipment
 
 @export var health_component : HealthComponent
+@export var equipment_component : EquipmentComponent
 
 func _ready():
 	Global.player = self 
@@ -68,7 +69,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			camera.rotate_x(-event.relative.y * look_sensitivity)
 			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 		
-		if equipment.get_child_count() != 0: #interface this better
+		if equipment_component.get_child_count() != 0: #interface this better
 			if event.is_action_pressed("use"):
 				use_timer_begin.emit(5.0) #replace with item use time
 			if event.is_action_released("use"):

@@ -14,10 +14,11 @@ radius = 2.0
 [sub_resource type="BoxMesh" id="BoxMesh_v0aj6"]
 size = Vector3(0.5, 0.5, 0.5)
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("health_component") groups=["player"]]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("health_component", "equipment_component") groups=["player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_scu18")
 health_component = NodePath("HealthComponent")
+equipment_component = NodePath("Head/Camera3D/EquipmentComponent")
 
 [node name="PlayerCollisionShape" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_bnonn")
@@ -54,11 +55,11 @@ current = true
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.035, -2.2, 0.075)
 
-[node name="Equipment" type="Marker3D" parent="Head/Camera3D"]
+[node name="EquipmentComponent" type="Marker3D" parent="Head/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.798226, -0.632583, -1.10707)
 script = ExtResource("4_fwww4")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Head/Camera3D/Equipment"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Head/Camera3D/EquipmentComponent"]
 mesh = SubResource("BoxMesh_v0aj6")
 
 [node name="HealthComponent" parent="." instance=ExtResource("6_08ryp")]

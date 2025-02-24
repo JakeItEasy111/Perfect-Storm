@@ -1,3 +1,4 @@
+class_name EquipmentComponent
 extends Marker3D
 
 var use_timer : Timer 

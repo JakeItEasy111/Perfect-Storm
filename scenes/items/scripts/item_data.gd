@@ -5,9 +5,10 @@ class_name ItemData
 signal item_equipped(ItemData)
 
 @export var ItemName : String
-enum ITEM_TYPE { GENERIC, CONSUMABLE, EQUIPMENT, CURRENCY, ARTIFACT }
+enum ITEM_TYPE { GENERIC, CONSUMABLE, TOOL, CURRENCY, ARTIFACT }
 @export var type: ITEM_TYPE
 @export var ItemEffects : Array[ItemEffect] = [] 
+@export var Equipable : bool
 @export var EquipItem : PackedScene
 
 @export_category("Visual Settings")
@@ -19,5 +20,4 @@ func use_item(target):
 	
 func call_item_effects(target): 
 	for effect in ItemEffects:
-		if effect.has_method("apply_effect"):
-			effect.apply_effect(target)
+		effect.apply_effect(target)

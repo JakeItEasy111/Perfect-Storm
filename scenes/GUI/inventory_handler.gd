@@ -18,12 +18,13 @@ func _ready() -> void:
 		InventoryGrid.add_child(slot)
 		slot.InventorySlotID = i
 		slot.OnItemDropped.connect(ItemDroppedOnSlot.bind())
-		slot.SlotSelected.connect(UseItemAtSlot.bind())
+		slot.ItemConsumed.connect(UseItemAtSlot.bind())
 		InventorySlots.append(slot)
 
 func PickupItem(item : ItemData): #handled by signal from interactionArea
 	for slot in InventorySlots:
 		if(slot.SlotFilled):
+			
 			match slot.SlotData.type:
 				slot.SlotData.ITEM_TYPE.CONSUMABLE:
 					if slot.SlotData == item:
@@ -39,6 +40,9 @@ func UseItemAtSlot(index : int) -> void:
 	if index < 0 || index >= InventorySlots.size() || !InventorySlots[index].SlotData: return
 	
 	var slot = InventorySlots[index]
+	
+	if !slot.SlotData.Equipable: return 
+	
 	use_item.emit(slot.SlotData)
 	slot.SlotData.use_item(Global.player)
 	

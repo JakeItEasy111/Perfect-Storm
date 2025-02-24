@@ -8,10 +8,12 @@
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_oy1x2")
-use_time = 2.0
+use_time_sec = 0.0
+cooldown_sec = 0.0
 max_quantity = 4
 ItemName = "Old Coffee"
 type = 1
 ItemEffects = Array[ExtResource("2_64liw")]([])
+Equipable = true
 Icon = ExtResource("1_mc28q")
 ItemModelPrefab = ExtResource("2_ct0ub")

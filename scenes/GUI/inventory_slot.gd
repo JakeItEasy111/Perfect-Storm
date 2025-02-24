@@ -2,7 +2,7 @@ extends Control
 class_name InventorySlot
 
 signal OnItemDropped(fromSlotID, toSlotID)
-signal SlotSelected(index)
+signal ItemConsumed(index)
 
 @export var IconSlot : TextureRect
 @onready var quantity_label: Label = $QuantityLabel
@@ -17,12 +17,7 @@ func FillSlot(data: ItemData, stack_size : int):
 	if(SlotData != null):
 		SlotFilled = true
 		IconSlot.texture = data.Icon
-		
-		#match SlotData.type:
-			#SlotData.ITEM_TYPE.CONSUMABLE:
-				#SlotData.connect("stack_depleted", on_stack_depleted)
-				#SlotData.connect("stack_updated", on_stack_updated)
-				#on_stack_updated()
+
 	else:
 		SlotFilled  = false
 		IconSlot.texture = null 
@@ -71,4 +66,6 @@ func update_stack():
 func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.double_click:
 		if SlotFilled and SlotData:
-			SlotSelected.emit(InventorySlotID)
+			match SlotData.type:
+				SlotData.ITEM_TYPE.CONSUMABLE:
+					ItemConsumed.emit(InventorySlotID)
