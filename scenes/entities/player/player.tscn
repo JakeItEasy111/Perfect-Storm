@@ -15,7 +15,7 @@ radius = 2.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_scu18")
 health_component = NodePath("HealthComponent")
-equipment_component = NodePath("Head/EquipmentComponent")
+equipment_component = NodePath("Head/SubViewportContainer/SubViewport/EquipCam/EquipmentComponent")
 
 [node name="PlayerCollisionShape" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_bnonn")
@@ -53,8 +53,26 @@ current = true
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.035, -2.2, 0.075)
 
-[node name="EquipmentComponent" parent="Head" instance=ExtResource("4_momwo")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.396084, -0.505376, -0.455555)
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Head"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Head/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="EquipCam" type="Camera3D" parent="Head/SubViewportContainer/SubViewport"]
+unique_name_in_owner = true
+cull_mask = 2
+
+[node name="EquipmentComponent" parent="Head/SubViewportContainer/SubViewport/EquipCam" instance=ExtResource("4_momwo")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.522094, -0.359155, -0.744464)
 
 [node name="HealthComponent" parent="." instance=ExtResource("6_08ryp")]
 

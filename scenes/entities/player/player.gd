@@ -43,6 +43,7 @@ var using_pda = false
 
 @onready var head = $Head
 @onready var camera = %Camera3D
+@onready var equip_cam: Camera3D = %EquipCam
 @onready var collision = $PlayerCollisionShape
 @onready var col_above_detect_ray = $ColAboveDetectRay
 @onready var fps_arms = %Arms
@@ -124,6 +125,8 @@ func _physics_process(delta: float) -> void:
 			_snap_down_to_stairs_check()
 			
 func _process(delta: float) -> void:
+	equip_cam.global_transform = camera.global_transform
+	
 	# sprint block 
 	if Input.is_action_just_pressed("sprint"): 
 		if (current_speed == SPRINT_SPEED):

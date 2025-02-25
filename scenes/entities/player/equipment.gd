@@ -29,10 +29,12 @@ func load_item(item_slot : InventorySlot):
 			var equipped_item_prefab = current_item.EquipModel
 			var instance = equipped_item_prefab.instantiate()
 			add_child(instance)
+			
 	else:
 		current_item_slot = -1
 		current_item = null
 		get_children()[0].queue_free()
+
 
 func item_equipped():
 	return get_child_count() > 0 and current_item != null
