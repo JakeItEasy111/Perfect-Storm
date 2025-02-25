@@ -2,9 +2,7 @@ extends CharacterBody3D
 class_name Player
 
 # signals 
-signal pda_use(is_open)
-signal use_timer_begin(duration)
-signal use_timer_end()
+signal pda_use(is_open) #sent to PDA
 
 # constants
 const WALK_SPEED = 2.5
@@ -50,7 +48,6 @@ var using_pda = false
 @onready var fps_arms = %Arms
 @onready var stairs_below_raycast_3d: RayCast3D = $StairsBelowRaycast3D
 @onready var stairs_ahead_raycast_3d: RayCast3D = $StairsAheadRaycast3D
-@onready var equipment: Marker3D = $Head/Camera3D/Equipment
 
 @export var health_component : HealthComponent
 @export var equipment_component : EquipmentComponent
@@ -68,12 +65,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			head.rotate_y(-event.relative.x * look_sensitivity) 
 			camera.rotate_x(-event.relative.y * look_sensitivity)
 			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad(90))
-		
-		if equipment_component.get_child_count() != 0: #interface this better
-			if event.is_action_pressed("use"):
-				use_timer_begin.emit(5.0) #replace with item use time
-			if event.is_action_released("use"):
-				use_timer_end.emit(0.25)
 		
 		if event.is_action_pressed("inventory") && !fps_arms.anim_player.is_playing():
 			pda_use.emit(false) 
@@ -128,13 +119,13 @@ func _physics_process(delta: float) -> void:
 			# headbob
 			t_bob += delta * velocity.length() * float(is_on_floor())
 			camera.transform.origin = _headbob(t_bob)
-		
+			
 			move_and_slide()
 			_snap_down_to_stairs_check()
 			
 func _process(delta: float) -> void:
 	# sprint block 
-	if Input.is_action_just_pressed("sprint"): #use SetGet to simplify? 
+	if Input.is_action_just_pressed("sprint"): 
 		if (current_speed == SPRINT_SPEED):
 			can_crouch = true 
 			current_speed = WALK_SPEED
@@ -248,6 +239,3 @@ func _snap_down_to_stairs_check() -> void:
 
 func _on_health_component_died() -> void:
 	pass # Replace with function body.
-
-func get_health_component(): 
-	return $HealthComponent

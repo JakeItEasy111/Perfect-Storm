@@ -118,7 +118,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.177454, 0.149096, 0.0196546
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.177454, 0.149096, 0.537331)
 
 [node name="Player" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_jnr1s")]
-unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.26194, 0)
 
 [node name="PlayerUI" parent="." instance=ExtResource("8_ib0sg")]

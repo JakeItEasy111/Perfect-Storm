@@ -2,7 +2,6 @@ extends Control
 class_name InventorySlot
 
 signal OnItemDropped(fromSlotID, toSlotID)
-signal ItemConsumed(index)
 
 @export var IconSlot : TextureRect
 @onready var quantity_label: Label = $QuantityLabel
@@ -66,6 +65,5 @@ func update_stack():
 func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.double_click:
 		if SlotFilled and SlotData:
-			match SlotData.type:
-				SlotData.ITEM_TYPE.CONSUMABLE:
-					ItemConsumed.emit(InventorySlotID)
+			if SlotData.Equipable:
+				EventBus.equip_item.emit(self)

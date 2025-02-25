@@ -10,7 +10,7 @@ func _on_player_pda_use(open) -> void:
 		await anim_player.animation_finished
 		gui.visible = true 
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	else:
 		gui.visible = false 
 		anim_player.play_backwards("PDA_Equip2")

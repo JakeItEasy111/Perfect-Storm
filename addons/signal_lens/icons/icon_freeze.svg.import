@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bsopwkwu6arcw"
-path="res://.godot/imported/crosshair.png-2bddd4657c9c3c8417b1e0e32c7c787c.ctex"
+uid="uid://cqov1ma4i73db"
+path="res://.godot/imported/icon_freeze.svg-290320d7c0d2f555061c3a8857046dfa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/crosshair.png"
-dest_files=["res://.godot/imported/crosshair.png-2bddd4657c9c3c8417b1e0e32c7c787c.ctex"]
+source_file="res://addons/signal_lens/icons/icon_freeze.svg"
+dest_files=["res://.godot/imported/icon_freeze.svg-290320d7c0d2f555061c3a8857046dfa.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

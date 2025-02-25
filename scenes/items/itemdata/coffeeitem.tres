@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="ConsumableItemData" load_steps=5 format=3 uid="uid://3exr3bf76a7p"]
+[gd_resource type="Resource" script_class="ConsumableItemData" load_steps=6 format=3 uid="uid://3exr3bf76a7p"]
 
+[ext_resource type="PackedScene" uid="uid://v6a3jpy2qpc4" path="res://assets/placeholder/Polybucks Coffee/CoffeePlaybucks.blend" id="1_lsqim"]
 [ext_resource type="Texture2D" uid="uid://b6tyco81r62ac" path="res://assets/placeholder/Polybucks Coffee/textures/D_CoffeePolybucks.png" id="1_mc28q"]
 [ext_resource type="Script" path="res://scenes/items/scripts/consumable_item_data.gd" id="1_oy1x2"]
 [ext_resource type="Script" path="res://scenes/items/scripts/item_effect.gd" id="2_64liw"]
@@ -8,12 +9,13 @@
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_oy1x2")
-use_time_sec = 0.0
-cooldown_sec = 0.0
 max_quantity = 4
 ItemName = "Old Coffee"
 type = 1
 ItemEffects = Array[ExtResource("2_64liw")]([])
 Equipable = true
+UseTime = 4.0
+CooldownTime = 0.25
 Icon = ExtResource("1_mc28q")
 ItemModelPrefab = ExtResource("2_ct0ub")
+EquipModel = ExtResource("1_lsqim")

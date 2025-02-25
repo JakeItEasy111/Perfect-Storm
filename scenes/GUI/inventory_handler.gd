@@ -1,8 +1,6 @@
 extends Control
 class_name InventoryHandler
 
-signal use_item()
-
 @export_flags_3d_physics var CollisionMask : int
 
 @export var ItemSlotsCount : int = 8
@@ -13,12 +11,14 @@ signal use_item()
 var InventorySlots : Array[InventorySlot] = []
 
 func _ready() -> void:
+	EventBus.on_item_picked_up.connect(PickupItem.bind())
+	EventBus.equipped_item_used.connect(UseItemAtSlot.bind())
+	
 	for i in ItemSlotsCount:
 		var slot = InventorySlotPrefab.instantiate() as InventorySlot
 		InventoryGrid.add_child(slot)
 		slot.InventorySlotID = i
 		slot.OnItemDropped.connect(ItemDroppedOnSlot.bind())
-		slot.ItemConsumed.connect(UseItemAtSlot.bind())
 		InventorySlots.append(slot)
 
 func PickupItem(item : ItemData): #handled by signal from interactionArea
@@ -41,9 +41,6 @@ func UseItemAtSlot(index : int) -> void:
 	
 	var slot = InventorySlots[index]
 	
-	if !slot.SlotData.Equipable: return 
-	
-	use_item.emit(slot.SlotData)
 	slot.SlotData.use_item(Global.player)
 	
 	if slot.stack > 1:

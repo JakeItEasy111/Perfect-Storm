@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bv8fraojrdvf"]
+
+[ext_resource type="Script" path="res://scenes/entities/player/equipment.gd" id="1_8oqwq"]
+
+[node name="EquipmentComponent" type="Marker3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.798226, -0.632583, -1.10707)
+script = ExtResource("1_8oqwq")
