@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=8 format=3 uid="uid://c03et54as32yj"]
+
+[ext_resource type="Texture2D" uid="uid://bs4kxnki67e7u" path="res://assets/items/textures/inventory_items_texture_MAT_fak_AlbedoTransparency.png" id="1_gu6pu"]
+[ext_resource type="Script" path="res://scenes/items/custom_resources/effect.gd" id="1_pxido"]
+[ext_resource type="Script" path="res://scenes/items/custom_resources/item_data.gd" id="2_rlkva"]
+[ext_resource type="Script" path="res://scenes/items/custom_resources/health_effect.gd" id="3_4j8tu"]
+[ext_resource type="PackedScene" uid="uid://coko17y3rlsag" path="res://scenes/items/viewmodels/medkit_viewmodel.tscn" id="4_lh8f5"]
+[ext_resource type="PackedScene" uid="uid://duxihvjxin0en" path="res://scenes/items/world_prefabs/medkit_item.tscn" id="4_xw3ci"]
+
+[sub_resource type="Resource" id="Resource_ore7t"]
+script = ExtResource("3_4j8tu")
+flat = true
+amount = 60
+
+[resource]
+script = ExtResource("2_rlkva")
+ItemName = "Emergency Medical Kit"
+Type = 0
+ItemEffects = Array[ExtResource("1_pxido")]([SubResource("Resource_ore7t")])
+Equipable = true
+Consumable = true
+UseTime = 5.0
+max_quantity = 1
+Icon = ExtResource("1_gu6pu")
+WorldPrefab = ExtResource("4_xw3ci")
+ViewModel = ExtResource("4_lh8f5")

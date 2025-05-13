@@ -95,3 +95,7 @@ use={
 
 3d_render/layer_1="World"
 3d_render/layer_2="Viewmodel"
+
+[rendering]
+
+textures/default_filters/use_nearest_mipmap_filter=true

@@ -95,3 +95,9 @@ texture_progress = ExtResource("4_u5n7f")
 
 [node name="ActionProgressTimer" type="Timer" parent="ActionProgressBar"]
 one_shot = true
+
+[node name="TempHP" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 25

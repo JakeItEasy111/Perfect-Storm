@@ -23,7 +23,7 @@ func PickupNearestItem():
 		NearbyBodies.remove_at(NearbyBodies.find(nearestItem))
 		var itemPrefab = nearestItem.scene_file_path
 		for i in ItemTypes.size(): #if proper item type 
-			if(ItemTypes[i].ItemModelPrefab != null and ItemTypes[i].ItemModelPrefab.resource_path == itemPrefab):
+			if(ItemTypes[i].WorldPrefab != null and ItemTypes[i].WorldPrefab.resource_path == itemPrefab):
 				print("Item ID: " + str(i) + " Item Name: " + ItemTypes[i].ItemName) 
 				EventBus.on_item_picked_up.emit(ItemTypes[i])
 				return 

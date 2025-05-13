@@ -6,10 +6,8 @@ signal pda_use(is_open) #sent to PDA
 
 # constants
 const WALK_SPEED = 2.5
-const SPRINT_SPEED = 4.5
+const SPRINT_SPEED = 5.5
 const CROUCH_SPEED = 1.25
-const PDA_SPEED = 1.75
-const CROUCH_TRANSLATE = 0.25
 const JUMP_VELOCITY = 3.0
 const BOB_FREQ = 3.0
 const BOB_AMP = 0.07
@@ -18,7 +16,8 @@ const MAX_STEP_HEIGHT = 0.5
 var look_sensitivity = 0.003 
 var current_speed = 2.5
 var direction = Vector3.ZERO
-var original_capsule_height = 2.0
+var original_capsule_height = 1.75
+var original_head_pos = 0.8
 var _snapped_to_stairs_last_frame := false
 var _last_frame_was_on_floor = -INF
 
@@ -106,28 +105,17 @@ func _physics_process(delta: float) -> void:
 		if not is_on_floor():
 			velocity += get_gravity() * delta
 		
-		#fov
-		var velocity_clamp = clamp(velocity.length(), 0.5, SPRINT_SPEED * 2)
-		var target_fov = fov + (fov_change * velocity_clamp)
-		camera.fov = lerp(camera.fov, target_fov, delta * 2.0)
-		
 		#stair handling
 		if is_on_floor(): _last_frame_was_on_floor = Engine.get_physics_frames()
 		
 		if not _snap_up_stairs_check(delta): 
 			# because _snap_up_stairs_check moves the body manually 
 			
-			# headbob
-			t_bob += delta * velocity.length() * float(is_on_floor())
-			camera.transform.origin = _headbob(t_bob)
-			
 			move_and_slide()
 			_snap_down_to_stairs_check()
 			
 func _process(delta: float) -> void:
-	equip_cam.global_transform = camera.global_transform
-	
-	# sprint block 
+	# sprinting
 	if Input.is_action_just_pressed("sprint"): 
 		if (current_speed == SPRINT_SPEED):
 			can_crouch = true 
@@ -141,7 +129,7 @@ func _process(delta: float) -> void:
 		can_sprint = false
 		sprint_bar.tint_progress = Color.DARK_GRAY
 		
-	if current_speed == SPRINT_SPEED and Input.get_vector("left", "right", "forward", "backward").length() > 0.1 :  #while sprinting 
+	if current_speed == SPRINT_SPEED and Input.get_vector("left", "right", "forward", "backward").length() > 0.1 :  
 		if(!using_pda):
 			sprint_bar.visible = true
 			sprint_bar.value = sprint_bar.value - sprint_drain_amount * delta
@@ -151,7 +139,7 @@ func _process(delta: float) -> void:
 				can_crouch = true 
 				current_speed = WALK_SPEED
 			
-	else: #not sprinting 
+	else: # not sprinting 
 		if sprint_bar_timer > 0:
 			sprint_bar_timer = sprint_bar_timer - delta
 		if sprint_bar_timer <= 0: 
@@ -171,23 +159,34 @@ func _process(delta: float) -> void:
 				can_sprint = true
 			sprint_bar_timer = 0
 
-	# crouch block 
+	# crouching 
 	if Input.is_action_just_pressed("crouch"):
-		if(current_speed == CROUCH_SPEED && !col_above_detect_ray.is_colliding()):
+		if(current_speed == CROUCH_SPEED and !col_above_detect_ray.is_colliding()):
 			current_speed = WALK_SPEED 
 			can_jump = true
 			collision.shape.height = original_capsule_height
 			collision.position.y = 0
-		elif(can_crouch):
+		elif(can_crouch and !col_above_detect_ray.is_colliding()):
 			current_speed = CROUCH_SPEED
 			can_jump = false
-			collision.shape.height = original_capsule_height - (CROUCH_TRANSLATE * 4)
-			collision.position.y = -(collision.shape.height / 2)
+			collision.shape.height = original_capsule_height - (collision.shape.height / original_capsule_height)
+			collision.position.y = -(collision.shape.height / original_capsule_height)
 			
 	if(current_speed == CROUCH_SPEED):
-		head.position.y = lerp(head.position.y, -CROUCH_TRANSLATE, delta * 4.0) 
-	elif(!col_above_detect_ray.is_colliding()):
-		head.position.y = lerp(head.position.y, CROUCH_TRANSLATE, delta * 4.0)  
+		head.position.y = lerp(head.position.y, -(original_head_pos / 2), delta * 2.0) 
+	elif(head.position.y != original_head_pos and !col_above_detect_ray.is_colliding()):
+		head.position.y = lerp(head.position.y, original_head_pos, delta * 2.0)  
+		
+	# fov
+	var velocity_clamp = clamp(velocity.length(), 0.5, SPRINT_SPEED * 2)
+	var target_fov = fov + (fov_change * velocity_clamp)
+	camera.fov = lerp(camera.fov, target_fov, delta * 2.0)
+	
+	# headbob
+	t_bob += delta * velocity.length() * float(is_on_floor())
+	camera.transform.origin = _headbob(t_bob)
+	
+	equip_cam.global_transform = camera.global_transform
 
 func _headbob(time) -> Vector3:
 	var pos = Vector3.ZERO
@@ -241,4 +240,4 @@ func _snap_down_to_stairs_check() -> void:
 	_snapped_to_stairs_last_frame = did_snap
 
 func _on_health_component_died() -> void:
-	pass # Replace with function body.
+	get_tree().quit()

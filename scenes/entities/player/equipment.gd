@@ -13,7 +13,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.is_action_pressed("use"):
 			EventBus.action_timer_begin.emit(current_item.UseTime) #replace with item use time
 		if event.is_action_released("use"):
-			EventBus.action_timer_end.emit(current_item.CooldownTime)
+			EventBus.action_timer_end.emit()
 	
 func load_item(item_slot : InventorySlot):
 	if(item_slot != null):
@@ -26,7 +26,7 @@ func load_item(item_slot : InventorySlot):
 			current_item_slot = item_slot.InventorySlotID
 			current_item = item_slot.SlotData
 			
-			var equipped_item_prefab = current_item.EquipModel
+			var equipped_item_prefab = current_item.ViewModel
 			var instance = equipped_item_prefab.instantiate()
 			add_child(instance)
 			
@@ -41,5 +41,7 @@ func item_equipped():
 
 func use_equipped_item():
 	if item_equipped():
-		EventBus.equipped_item_used.emit(current_item_slot)
-		load_item(null)
+		EventBus.use_equipped_item.emit(current_item_slot)
+		
+		if current_item.Consumable:
+			load_item(null)

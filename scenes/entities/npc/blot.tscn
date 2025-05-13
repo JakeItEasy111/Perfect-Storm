@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://dltfusiov8tcy"]
+
+[ext_resource type="Shader" path="res://scenes/entities/npc/spatial_pixelation.gdshader" id="4_i3kdd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lw2hk"]
+render_priority = 0
+shader = ExtResource("4_i3kdd")
+shader_parameter/pixelation = 0.02
+shader_parameter/opacity = 1.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_tu8np"]
+lightmap_size_hint = Vector2i(33, 17)
+radius = 1.0
+height = 2.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_22ew8"]
+radius = 1.0
+
+[node name="Blot" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_overlay = SubResource("ShaderMaterial_lw2hk")
+transparency = 1.0
+cast_shadow = 0
+ignore_occlusion_culling = true
+mesh = SubResource("SphereMesh_tu8np")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_22ew8")

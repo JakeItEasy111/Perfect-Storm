@@ -3,12 +3,15 @@
 [ext_resource type="Script" path="res://scenes/GUI/inventory_slot.gd" id="1_a8c6k"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a8cau"]
-content_margin_left = 50.0
-content_margin_top = 50.0
-content_margin_right = 50.0
-content_margin_bottom = 50.0
-bg_color = Color(0.553779, 0.840178, 0.915347, 1)
+content_margin_left = 60.0
+content_margin_top = 60.0
+content_margin_right = 60.0
+content_margin_bottom = 60.0
+bg_color = Color(0.479498, 0.802027, 0.884974, 1)
+border_width_left = 10
 border_width_top = 50
+border_width_right = 10
+border_width_bottom = 10
 border_color = Color(0.877352, 0.931551, 0.961004, 1)
 border_blend = true
 corner_radius_top_left = 8
@@ -20,13 +23,13 @@ shadow_size = 10
 shadow_offset = Vector2(2, 2)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_drvje"]
-content_margin_left = 50.0
-content_margin_top = 50.0
-content_margin_right = 50.0
-content_margin_bottom = 50.0
-bg_color = Color(0.366164, 0.711006, 0.796898, 1)
+content_margin_left = 60.0
+content_margin_top = 60.0
+content_margin_right = 60.0
+content_margin_bottom = 60.0
+bg_color = Color(0.233843, 0.598267, 0.783043, 1)
 border_width_top = 50
-border_color = Color(0.762053, 0.866952, 0.923253, 1)
+border_color = Color(0.372081, 0.916603, 0.889327, 1)
 border_blend = true
 corner_radius_top_left = 8
 corner_radius_top_right = 8
@@ -37,17 +40,20 @@ shadow_size = 10
 shadow_offset = Vector2(2, 2)
 
 [node name="InventorySlot" type="Button" node_paths=PackedStringArray("IconSlot")]
+theme_override_styles/focus = SubResource("StyleBoxFlat_a8cau")
 theme_override_styles/hover = SubResource("StyleBoxFlat_a8cau")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_a8cau")
 theme_override_styles/normal = SubResource("StyleBoxFlat_drvje")
 icon_alignment = 1
 script = ExtResource("1_a8c6k")
 IconSlot = NodePath("TextureRect")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 100.0
-offset_bottom = 100.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 expand_mode = 1
 
 [node name="QuantityLabel" type="Label" parent="."]

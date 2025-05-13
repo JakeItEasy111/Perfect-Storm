@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://3v68n1le386n"]
+[gd_scene load_steps=5 format=3 uid="uid://3v68n1le386n"]
 
 [ext_resource type="Script" path="res://scenes/GUI/inventory_handler.gd" id="1_ae3jl"]
+[ext_resource type="Texture2D" uid="uid://cqsfl1hvl8111" path="res://assets/UI/temp_frutaero_bg_2.jpg" id="2_a6si2"]
+[ext_resource type="Texture2D" uid="uid://bshbknecwd6b" path="res://assets/UI/crosshair025.png" id="2_svc83"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ql478"]
 bg_color = Color(0.459302, 0.485339, 0.515013, 1)
@@ -27,6 +29,13 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ql478")
 
+[node name="TextureRect" type="TextureRect" parent="Panel"]
+layout_mode = 0
+offset_top = -123.0
+offset_right = 1278.0
+offset_bottom = 721.0
+texture = ExtResource("2_a6si2")
+
 [node name="MarginContainer" type="MarginContainer" parent="Panel"]
 layout_mode = 1
 anchors_preset = 15
@@ -45,3 +54,12 @@ size_flags_horizontal = 4
 theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
 columns = 4
+
+[node name="Selector" type="Sprite2D" parent="Panel/MarginContainer/GridContainer"]
+visible = false
+modulate = Color(0.854338, 1, 0.991613, 1)
+z_index = 1
+texture_filter = 1
+position = Vector2(-640, -5)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("2_svc83")

@@ -6,14 +6,17 @@ extends Control
 @onready var action_progress_timer: Timer = $ActionProgressBar/ActionProgressTimer
 @onready var equipped_item : Node = Global.player.equipment_component
 
+@onready var temp_hp: Label = $TempHP
+
 var can_charge = true
 var charging = false 
+var ui_fade_speed := 0.33
 
 func _ready() -> void:
 	EventBus.connect("action_timer_begin", begin_action)
 	EventBus.connect("action_timer_end", end_action)
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if charging:
 		action_progress_bar.value = action_progress_timer.time_left
 		if action_progress_bar.value <= 0: #later specify based on action 
@@ -36,15 +39,15 @@ func begin_action(duration):
 		action_progress_bar.show()
 		action_progress_timer.start()
 	
-func end_action(cooldown):
-	if can_charge and cooldown > 0:
+func end_action():
+	if can_charge:
 		can_charge = false
 		charging = false
 		var progress_remaining = action_progress_bar.value
 		action_progress_timer.stop()
 		action_progress_bar.value = progress_remaining
 		var tween = get_tree().create_tween()
-		tween.tween_property(action_progress_bar, "tint_progress", Color(1, 0, 0, 0), cooldown)
-		await get_tree().create_timer(cooldown).timeout
+		tween.tween_property(action_progress_bar, "tint_progress", Color(1, 0, 0, 0), ui_fade_speed)
+		await get_tree().create_timer(ui_fade_speed).timeout
 		action_progress_bar.hide()
 		can_charge = true

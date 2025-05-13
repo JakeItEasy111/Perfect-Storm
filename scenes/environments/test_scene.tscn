@@ -1,21 +1,29 @@
-[gd_scene load_steps=15 format=3 uid="uid://bb7pbtyh8k5dj"]
+[gd_scene load_steps=22 format=3 uid="uid://bb7pbtyh8k5dj"]
 
 [ext_resource type="PackedScene" uid="uid://dc63egb7vfe03" path="res://scenes/entities/player/player.tscn" id="1_jnr1s"]
 [ext_resource type="Texture2D" uid="uid://ddpnefmq78md6" path="res://assets/placeholder/FPS arms/hdris/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="2_cy4nd"]
-[ext_resource type="Texture2D" uid="uid://dtdwi31mr7fc4" path="res://assets/placeholder/FPS arms/textures/dev/grids/Dark/texture_07.png" id="3_erqo7"]
-[ext_resource type="PackedScene" uid="uid://bak8ltrhbmlv5" path="res://assets/placeholder/CSGStairMaker3D.tscn" id="3_rv1fj"]
-[ext_resource type="PackedScene" uid="uid://cdpxuqie2rs7e" path="res://scenes/items/prefabs/test_item.tscn" id="4_4ekee"]
-[ext_resource type="PackedScene" uid="uid://dqoparacammhr" path="res://assets/stages/test_stage/perfectstormEnvironmentTest(1).glb" id="5_2bsgq"]
+[ext_resource type="Texture2D" uid="uid://ckr0xbk2e88aa" path="res://assets/placeholder/kenney_particle-pack/PNG (Black background)/magic_01.png" id="3_cnb2j"]
+[ext_resource type="Texture2D" uid="uid://cuusdo42jh70c" path="res://assets/placeholder/kenney_particle-pack/PNG (Black background)/light_03.png" id="4_av0mf"]
+[ext_resource type="Texture2D" uid="uid://daujibgpdrd8k" path="res://assets/placeholder/kenney_particle-pack/PNG (Black background)/window_02.png" id="5_6he04"]
 [ext_resource type="Shader" path="res://scenes/entities/player/psx.gdshader" id="5_kim31"]
+[ext_resource type="PackedScene" uid="uid://bxks16bf3tgu0" path="res://scenes/entities/npc/stretchy.tscn" id="7_n8iwv"]
+[ext_resource type="PackedScene" uid="uid://cyussufkwu443" path="res://scenes/items/world_prefabs/coffee_item.tscn" id="7_rht8s"]
+[ext_resource type="Texture2D" uid="uid://cvd54qbp81wk0" path="res://assets/placeholder/kenney_particle-pack/PNG (Black background)/window_03.png" id="8_e0o4y"]
 [ext_resource type="PackedScene" uid="uid://da5gotuaa5rxh" path="res://scenes/GUI/player_ui.tscn" id="8_ib0sg"]
-[ext_resource type="PackedScene" uid="uid://cyussufkwu443" path="res://scenes/items/prefabs/coffee_item.tscn" id="9_0n8qs"]
+[ext_resource type="PackedScene" uid="uid://cdpxuqie2rs7e" path="res://scenes/items/world_prefabs/test_item.tscn" id="8_mme7b"]
+[ext_resource type="PackedScene" uid="uid://dlt6codyfktr8" path="res://scenes/items/world_prefabs/adrenaline_item.tscn" id="9_cjc8j"]
+[ext_resource type="PackedScene" uid="uid://djqm8y5jabkyi" path="res://assets/stages/prototype_map/prototype_environment.tscn" id="9_lm0kf"]
+[ext_resource type="PackedScene" uid="uid://duxihvjxin0en" path="res://scenes/items/world_prefabs/medkit_item.tscn" id="10_o8xk6"]
+[ext_resource type="PackedScene" uid="uid://bg4j86to2gx1" path="res://scenes/items/world_prefabs/bandage_item.tscn" id="11_am4cr"]
+[ext_resource type="PackedScene" uid="uid://bu4git7irg1t7" path="res://scenes/items/world_prefabs/painkiller_item.tscn" id="14_tj6k1"]
+[ext_resource type="PackedScene" uid="uid://cekdf4wxympcg" path="res://assets/entity/midwife/midwife.fbx" id="14_wwy3s"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7xbat"]
 shader = ExtResource("5_kim31")
 shader_parameter/enabled = true
 shader_parameter/dithering = true
-shader_parameter/colors = 10
-shader_parameter/dither_size = 2
+shader_parameter/colors = 16
+shader_parameter/dither_size = 3
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_f00lc"]
 panorama = ExtResource("2_cy4nd")
@@ -33,10 +41,6 @@ fog_enabled = true
 fog_light_color = Color(0.0941176, 0.113725, 0.0862745, 1)
 fog_light_energy = 1.4
 fog_density = 0.3
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3yqxd"]
-albedo_texture = ExtResource("3_erqo7")
-uv1_triplanar = true
 
 [node name="Main" type="Node3D"]
 
@@ -62,65 +66,104 @@ environment = SubResource("Environment_v66yg")
 
 [node name="Stage" type="Node3D" parent="SubViewportContainer/SubViewport/Environment"]
 
-[node name="CSGStairMaker3D" parent="SubViewportContainer/SubViewport/Environment/Stage" instance=ExtResource("3_rv1fj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.56417, 0.973852, -1.13898)
-use_collision = true
-size = Vector3(3.87768, 1.94952, 1.44007)
-num_stairs = 12
-
-[node name="CSGStairMaker3D2" parent="SubViewportContainer/SubViewport/Environment/Stage" instance=ExtResource("3_rv1fj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.56417, 0.973852, 1.80663)
-use_collision = true
-size = Vector3(3.87768, 1.94952, 1.87774)
-num_stairs = 12
-
-[node name="CSGBox3D" type="CSGBox3D" parent="SubViewportContainer/SubViewport/Environment/Stage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.503318, 0)
-material_override = SubResource("StandardMaterial3D_3yqxd")
-use_collision = true
-size = Vector3(32, 1, 32)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="SubViewportContainer/SubViewport/Environment/Stage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5538, 1.53089, 0)
-material_override = SubResource("StandardMaterial3D_3yqxd")
-use_collision = true
-size = Vector3(16, 1, 16)
-
-[node name="perfectstormEnvironmentTest(1)" parent="SubViewportContainer/SubViewport/Environment/Stage" instance=ExtResource("5_2bsgq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.34875, 0.238972, 1.87432)
+[node name="environment" parent="SubViewportContainer/SubViewport/Environment/Stage" instance=ExtResource("9_lm0kf")]
+transform = Transform3D(150, 0, 0, 0, 150, 0, 0, 0, 150, 0.712545, -0.0909412, 2.1)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="SubViewportContainer/SubViewport/Environment/Stage"]
-transform = Transform3D(-0.966348, 0.115334, 0.229933, 0.244824, 0.138045, 0.95969, 0.0789434, 0.983688, -0.161636, -6.37135, 3.50168, 0.528037)
+transform = Transform3D(-0.966348, 0.115334, 0.229933, 0.244824, 0.138045, 0.95969, 0.0789434, 0.983688, -0.161636, -3.42052, 2.8228, -0.322023)
 light_color = Color(0.976842, 0, 0.202357, 1)
-light_energy = 10.0
+light_energy = 200.0
+light_projector = ExtResource("3_cnb2j")
 light_size = 2.0
 shadow_enabled = true
 
+[node name="SpotLight3D2" type="SpotLight3D" parent="SubViewportContainer/SubViewport/Environment/Stage"]
+transform = Transform3D(-0.966348, 0.115334, 0.229933, 0.244824, 0.138045, 0.95969, 0.0789434, 0.983688, -0.161636, -7.66135, 2.8228, -4.47952)
+light_color = Color(0.988173, 0.791591, 0.467727, 1)
+light_energy = 50.0
+light_projector = ExtResource("4_av0mf")
+shadow_enabled = true
+spot_angle = 46.51
+spot_angle_attenuation = 1.10957
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="SubViewportContainer/SubViewport/Environment/Stage"]
+transform = Transform3D(-0.892719, 0.0350516, 0.44925, 0.449799, 0.129283, 0.883723, -0.0271045, 0.990988, -0.13118, -2.35792, 2.8228, -18.1393)
+light_color = Color(0.988173, 0.791591, 0.467727, 1)
+light_energy = 50.0
+light_projector = ExtResource("5_6he04")
+shadow_enabled = true
+spot_range = 14.266
+spot_angle = 47.66
+spot_angle_attenuation = 1.10957
+
+[node name="OmniLight3D" type="OmniLight3D" parent="SubViewportContainer/SubViewport/Environment/Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.3648, -2.53856, -4.01021)
+light_color = Color(0.999919, 0.451325, 0.393808, 1)
+light_energy = 16.0
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="SubViewportContainer/SubViewport/Environment/Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.5605, -0.515941, -4.01021)
+light_color = Color(0.856944, 0.921956, 0.605927, 1)
+light_energy = 10.0
+omni_range = 6.0
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="SubViewportContainer/SubViewport/Environment/Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.6355, -0.515941, -4.01021)
+light_color = Color(0.856944, 0.921956, 0.605927, 1)
+light_energy = 10.0
+omni_range = 6.0
+
+[node name="SpotLight3D4" type="SpotLight3D" parent="SubViewportContainer/SubViewport/Environment/Stage"]
+transform = Transform3D(-1, 7.53394e-15, 2.98023e-07, 2.73737e-07, 0.395401, 0.918509, -1.17839e-07, 0.918509, -0.395401, 0, 3.54561, 19.3843)
+light_color = Color(0.969557, 0.868421, 0.630034, 1)
+light_energy = 50.0
+light_projector = ExtResource("8_e0o4y")
+shadow_enabled = true
+spot_range = 20.0
+spot_angle = 60.0
+
+[node name="Stretchy" parent="SubViewportContainer/SubViewport/Environment/Stage" instance=ExtResource("7_n8iwv")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.995148, -1.7, 22.6)
+
 [node name="Items" type="Node3D" parent="SubViewportContainer/SubViewport"]
 
-[node name="test_item" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("4_4ekee")]
+[node name="CoffeeItem" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("7_rht8s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.46282, 0, 0.292385)
 
-[node name="test_item2" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("4_4ekee")]
+[node name="CoffeeItem2" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("7_rht8s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2025, 0, -1.36172)
 
-[node name="CoffeeItem" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("9_0n8qs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.438887, 0.149096, 0.30745)
+[node name="CoffeeItem3" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("7_rht8s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.22988, 0, -1.36172)
 
-[node name="CoffeeItem2" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("9_0n8qs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.03251, 0.149096, 0.30745)
+[node name="CoffeeItem4" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("7_rht8s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.17765, 0, 0.838804)
 
-[node name="CoffeeItem3" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("9_0n8qs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.03251, 0.149096, 0.0196546)
+[node name="CoffeeItem5" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("7_rht8s")]
+transform = Transform3D(0.939693, -0.340719, -0.029809, 0, 0.0871558, -0.996195, 0.34202, 0.936117, 0.0818997, -3.89706, 0, 1.95599)
 
-[node name="CoffeeItem4" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("9_0n8qs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.177454, 0.149096, 0.0196546)
+[node name="test_item" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("8_mme7b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.22239, -0.0163969, 0.311178)
 
-[node name="CoffeeItem5" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("9_0n8qs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.177454, 0.149096, 0.537331)
+[node name="AdrenalineItem" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("9_cjc8j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05522, 0.0584583, 0)
+
+[node name="MedkitItem" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("10_o8xk6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.97479, 0, -0.857878)
+
+[node name="BandageItem" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("11_am4cr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.90053, 0, 1.11029)
+
+[node name="midwife" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("14_wwy3s")]
+transform = Transform3D(-4.37114e-09, 0, -0.1, 0, 0.1, 0, 0.1, 0, -4.37114e-09, 5.6, -3.2, 22.1)
 
 [node name="Player" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_jnr1s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.26194, 0)
 
 [node name="PlayerUI" parent="." instance=ExtResource("8_ib0sg")]
 mouse_filter = 2
+
+[node name="PainkillerItem" parent="." instance=ExtResource("14_tj6k1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.19205, 0, -3.10229)
 
 [connection signal="pda_use" from="SubViewportContainer/SubViewport/Player" to="PlayerUI" method="_on_player_pda_use"]

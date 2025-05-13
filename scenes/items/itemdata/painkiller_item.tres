@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=6 format=3 uid="uid://dnh4on1tve7n6"]
+
+[ext_resource type="Texture2D" uid="uid://tmfeuxwh7yob" path="res://assets/items/textures/inventory_items_texture_MAT_Painkillers_AlbedoTransparency.png" id="1_ly0tm"]
+[ext_resource type="Script" path="res://scenes/items/custom_resources/effect.gd" id="1_xw6v5"]
+[ext_resource type="Script" path="res://scenes/items/custom_resources/item_data.gd" id="2_xw0ue"]
+[ext_resource type="PackedScene" uid="uid://dmuywxpu88fme" path="res://scenes/items/viewmodels/painkiller_viewmodel.tscn" id="3_fwfly"]
+[ext_resource type="PackedScene" uid="uid://bu4git7irg1t7" path="res://scenes/items/world_prefabs/painkiller_item.tscn" id="3_xxqja"]
+
+[resource]
+script = ExtResource("2_xw0ue")
+ItemName = "Painkillers"
+Type = 0
+ItemEffects = Array[ExtResource("1_xw6v5")]([])
+Equipable = true
+Consumable = true
+UseTime = 1.0
+max_quantity = 2
+Icon = ExtResource("1_ly0tm")
+WorldPrefab = ExtResource("3_xxqja")
+ViewModel = ExtResource("3_fwfly")
