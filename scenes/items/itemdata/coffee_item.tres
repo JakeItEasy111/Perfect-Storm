@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="ItemData" load_steps=8 format=3 uid="uid://qiiymj2riele"]
 
-[ext_resource type="Script" path="res://scenes/items/custom_resources/effect.gd" id="1_j2hv4"]
+[ext_resource type="Script" uid="uid://baoy6u33e3c3d" path="res://scenes/items/custom_resources/effect.gd" id="1_j2hv4"]
 [ext_resource type="Texture2D" uid="uid://b6tyco81r62ac" path="res://assets/placeholder/Polybucks Coffee/textures/D_CoffeePolybucks.png" id="1_xbeko"]
-[ext_resource type="Script" path="res://scenes/items/custom_resources/item_data.gd" id="2_avfyl"]
-[ext_resource type="Script" path="res://scenes/items/custom_resources/health_effect.gd" id="3_2ww4p"]
+[ext_resource type="Script" uid="uid://dn4l2qsl25b66" path="res://scenes/items/custom_resources/item_data.gd" id="2_avfyl"]
+[ext_resource type="Script" uid="uid://y1vl35xqwxq7" path="res://scenes/items/custom_resources/health_effect.gd" id="3_2ww4p"]
 [ext_resource type="PackedScene" uid="uid://ddk82takxii8l" path="res://scenes/items/viewmodels/coffee_viewmodel.tscn" id="4_jh4pe"]
 [ext_resource type="PackedScene" uid="uid://cyussufkwu443" path="res://scenes/items/world_prefabs/coffee_item.tscn" id="5_aqe47"]
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dltfusiov8tcy"]
 
-[ext_resource type="Shader" path="res://scenes/entities/npc/spatial_pixelation.gdshader" id="4_i3kdd"]
+[ext_resource type="Shader" uid="uid://nrvhux70hxlu" path="res://scenes/entities/npc/spatial_pixelation.gdshader" id="4_i3kdd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lw2hk"]
 render_priority = 0

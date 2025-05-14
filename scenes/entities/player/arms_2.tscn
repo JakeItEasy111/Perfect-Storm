@@ -1,15 +1,20 @@
 [gd_scene load_steps=8 format=4 uid="uid://b04m8vnyl60ua"]
 
-[ext_resource type="Texture2D" uid="uid://daw8uy5f88u16" path="res://assets/placeholder/arms_wip/PerfectStorm_Arms_lambert1_AlbedoTransparency.png" id="1_g4d73"]
-[ext_resource type="Texture2D" uid="uid://bmbkngcans12r" path="res://assets/placeholder/arms_wip/PerfectStorm_Arms_lambert1_MetallicSmoothness.png" id="2_ehhh8"]
-[ext_resource type="Texture2D" uid="uid://be55qmtwdguf8" path="res://assets/placeholder/arms_wip/PerfectStorm_Arms_lambert1_Normal.png" id="3_c8by4"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_iglkj"]
+load_path = "res://.godot/imported/PerfectStorm_Arms_lambert1_AlbedoTransparency.png-266c15c4e8f8cd2f38b14e10d60cb4c9.s3tc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_440tv"]
+load_path = "res://.godot/imported/PerfectStorm_Arms_lambert1_MetallicSmoothness.png-2fb01823b11dd2a9a095a36119568b37.s3tc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_17gvy"]
+load_path = "res://.godot/imported/PerfectStorm_Arms_lambert1_Normal.png-a0d136e6116e76367f5a0714be02d21d.s3tc.ctex"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_apcka"]
-albedo_texture = ExtResource("1_g4d73")
+albedo_texture = SubResource("CompressedTexture2D_iglkj")
 metallic = 1.0
-metallic_texture = ExtResource("2_ehhh8")
+metallic_texture = SubResource("CompressedTexture2D_440tv")
 normal_enabled = true
-normal_texture = ExtResource("3_c8by4")
+normal_texture = SubResource("CompressedTexture2D_17gvy")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0vd65"]
 resource_name = "lambert1"

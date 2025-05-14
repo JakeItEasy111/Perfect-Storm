@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="ItemData" load_steps=8 format=3 uid="uid://qchubvlyjppd"]
 
 [ext_resource type="Texture2D" uid="uid://cqxys502v7tli" path="res://assets/items/textures/inventory_items_texture_MAT_adrenaline_AlbedoTransparency.png" id="1_8nd7j"]
-[ext_resource type="Script" path="res://scenes/items/custom_resources/effect.gd" id="1_gjb2v"]
-[ext_resource type="Script" path="res://scenes/items/custom_resources/item_data.gd" id="2_kk85r"]
-[ext_resource type="Script" path="res://scenes/items/custom_resources/damage_effect.gd" id="2_nslhs"]
+[ext_resource type="Script" uid="uid://baoy6u33e3c3d" path="res://scenes/items/custom_resources/effect.gd" id="1_gjb2v"]
+[ext_resource type="Script" uid="uid://dn4l2qsl25b66" path="res://scenes/items/custom_resources/item_data.gd" id="2_kk85r"]
+[ext_resource type="Script" uid="uid://c006j4ppd4mw2" path="res://scenes/items/custom_resources/damage_effect.gd" id="2_nslhs"]
 [ext_resource type="PackedScene" uid="uid://52cwh3a6c18l" path="res://scenes/items/viewmodels/adrenaline_viewmodel.tscn" id="4_dhk0b"]
 [ext_resource type="PackedScene" uid="uid://dlt6codyfktr8" path="res://scenes/items/world_prefabs/adrenaline_item.tscn" id="4_uao47"]
 

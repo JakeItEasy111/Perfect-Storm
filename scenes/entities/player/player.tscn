@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://dc63egb7vfe03"]
+[gd_scene load_steps=8 format=3 uid="uid://dc63egb7vfe03"]
 
-[ext_resource type="Script" path="res://scenes/entities/player/player.gd" id="1_scu18"]
+[ext_resource type="Script" uid="uid://di46u7eu1edbu" path="res://scenes/entities/player/player.gd" id="1_scu18"]
 [ext_resource type="PackedScene" uid="uid://cre4yfp4yuh" path="res://scenes/entities/player/fps_arms.tscn" id="2_gf3du"]
-[ext_resource type="Script" path="res://scenes/entities/player/interaction/player_interaction_handler.gd" id="3_oriau"]
+[ext_resource type="Script" uid="uid://di6twue8qm6df" path="res://scenes/entities/player/interaction/player_interaction_handler.gd" id="3_oriau"]
 [ext_resource type="PackedScene" uid="uid://bv8fraojrdvf" path="res://scenes/components/equipment_component.tscn" id="4_momwo"]
-[ext_resource type="PackedScene" uid="uid://b04m8vnyl60ua" path="res://scenes/entities/player/arms_2.tscn" id="4_n8275"]
 [ext_resource type="PackedScene" uid="uid://calwupcbsccj3" path="res://scenes/components/health_component.tscn" id="6_08ryp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bnonn"]
@@ -56,9 +55,6 @@ current = true
 [node name="Arms" parent="Head/Camera3D" instance=ExtResource("2_gf3du")]
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -0.035, -2.2, 0.075)
-
-[node name="Arms_2" parent="Head/Camera3D" instance=ExtResource("4_n8275")]
-transform = Transform3D(-0.834093, -0.215405, -0.507829, -0.538349, 0.518624, 0.664237, 0.120292, 0.827424, -0.548544, 0.341123, -1.66157, -1.58642)
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="Head"]
 anchors_preset = 15

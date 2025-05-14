@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=4 uid="uid://52cwh3a6c18l"]
 
-[ext_resource type="Shader" path="res://scenes/items/viewmodels/viewmodel_shader.gdshader" id="1_3x7xb"]
+[ext_resource type="Shader" uid="uid://dxslt1cclesbu" path="res://scenes/items/viewmodels/viewmodel_shader.gdshader" id="1_3x7xb"]
 [ext_resource type="Texture2D" uid="uid://cqxys502v7tli" path="res://assets/items/textures/inventory_items_texture_MAT_adrenaline_AlbedoTransparency.png" id="2_q7r7s"]
 [ext_resource type="Texture2D" uid="uid://c4n5uxdxlmqxl" path="res://assets/items/textures/inventory_items_texture_MAT_adrenaline_MetallicSmoothness.png" id="3_ce3ko"]
 [ext_resource type="Texture2D" uid="uid://yi6gjpgsrpor" path="res://assets/items/textures/inventory_items_texture_MAT_adrenaline_Normal.png" id="4_p5ndg"]
@@ -47,17 +47,17 @@ shadow_mesh = SubResource("ArrayMesh_pqhie")
 render_priority = 0
 shader = ExtResource("1_3x7xb")
 shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/texture_albedo = ExtResource("2_q7r7s")
 shader_parameter/specular = 0.5
 shader_parameter/metallic = 1.0
 shader_parameter/roughness = 1.0
+shader_parameter/texture_metallic = ExtResource("3_ce3ko")
 shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
 shader_parameter/roughness_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/texture_normal = ExtResource("4_p5ndg")
 shader_parameter/normal_scale = 1.0
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/texture_albedo = ExtResource("2_q7r7s")
-shader_parameter/texture_metallic = ExtResource("3_ce3ko")
-shader_parameter/texture_normal = ExtResource("4_p5ndg")
 
 [node name="AdrenalineItem" type="Node3D"]
 

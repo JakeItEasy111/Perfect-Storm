@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=4 uid="uid://cre4yfp4yuh"]
 
-[ext_resource type="Script" path="res://scenes/entities/player/fps_arms.gd" id="1_2nqie"]
+[ext_resource type="Script" uid="uid://0dsgw3tr1wpo" path="res://scenes/entities/player/fps_arms.gd" id="1_2nqie"]
 [ext_resource type="Texture2D" uid="uid://cahab8lbq4wo1" path="res://assets/placeholder/FPS arms/Arm_Textures/Animated ArmsGettingUpDone_Hands_AlbedoTransparency.png" id="2_a3gni"]
 [ext_resource type="Texture2D" uid="uid://drod253dy8dtp" path="res://assets/placeholder/FPS arms/Arm_Textures/Animated ArmsGettingUpDone_Hands_Normal.png" id="3_28pdy"]
 [ext_resource type="Texture2D" uid="uid://b553idxjaaaeg" path="res://assets/placeholder/FPS arms/Arm_Textures/Clothes_Clothes_AlbedoTransparency.png" id="4_csti3"]
@@ -2623,11 +2623,11 @@ tracks/66/keys = PackedFloat32Array(0, 1, 0.021166, -0.0256467, 0.920187, 0.3900
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i17d2"]
 _data = {
-"PDA_Click1": SubResource("Animation_uwg1p"),
-"PDA_Equip": SubResource("Animation_73xmq"),
-"PDA_Equip2": SubResource("Animation_p488q"),
-"PDA_Idle": SubResource("Animation_57fyt"),
-"PDA_Unequip": SubResource("Animation_a6wp7")
+&"PDA_Click1": SubResource("Animation_uwg1p"),
+&"PDA_Equip": SubResource("Animation_73xmq"),
+&"PDA_Equip2": SubResource("Animation_p488q"),
+&"PDA_Idle": SubResource("Animation_57fyt"),
+&"PDA_Unequip": SubResource("Animation_a6wp7")
 }
 
 [node name="Arms" type="Node3D"]
@@ -3108,7 +3108,7 @@ skin = SubResource("Skin_oma27")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_i17d2")
+&"": SubResource("AnimationLibrary_i17d2")
 }
 speed_scale = 1.5
 

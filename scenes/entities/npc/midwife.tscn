@@ -1,22 +1,25 @@
-[gd_scene load_steps=7 format=4 uid="uid://bhwfo02uoe5si"]
+[gd_scene load_steps=7 format=4 uid="uid://dbpghayd6aoxl"]
 
-[ext_resource type="Texture2D" uid="uid://dwfw08qrgxxu8" path="res://assets/entity/midwife/midwife_insides.png" id="1_qwbmq"]
-[ext_resource type="Texture2D" uid="uid://dr7mhwartq6dh" path="res://assets/entity/midwife/midwife_membrane.png" id="2_ygl1n"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_j2r23"]
+load_path = "res://.godot/imported/midwife_insides.png-cd930107bfc4e25c26bc56b8844cde2a.s3tc.ctex"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ly7hm"]
 resource_name = "blinn1"
 transparency = 4
 vertex_color_use_as_albedo = true
 albedo_color = Color(0.906332, 0.906332, 0.906332, 0.8)
-albedo_texture = ExtResource("1_qwbmq")
+albedo_texture = SubResource("CompressedTexture2D_j2r23")
 emission_enabled = true
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_f2p3p"]
+load_path = "res://.godot/imported/midwife_membrane.png-75dd913d2e3a7582eb5cc7baf19ed98a.s3tc.ctex"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y6atp"]
 resource_name = "blinn2"
 transparency = 4
 vertex_color_use_as_albedo = true
 albedo_color = Color(0.906332, 0.906332, 0.906332, 0.8)
-albedo_texture = ExtResource("2_ygl1n")
+albedo_texture = SubResource("CompressedTexture2D_f2p3p")
 emission_enabled = true
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_ym78n"]

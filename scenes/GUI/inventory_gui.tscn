@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://3v68n1le386n"]
 
-[ext_resource type="Script" path="res://scenes/GUI/inventory_handler.gd" id="1_ae3jl"]
+[ext_resource type="Script" uid="uid://d5nau7mp8fvm" path="res://scenes/GUI/inventory_handler.gd" id="1_ae3jl"]
 [ext_resource type="Texture2D" uid="uid://cqsfl1hvl8111" path="res://assets/UI/temp_frutaero_bg_2.jpg" id="2_a6si2"]
 [ext_resource type="Texture2D" uid="uid://bshbknecwd6b" path="res://assets/UI/crosshair025.png" id="2_svc83"]
 

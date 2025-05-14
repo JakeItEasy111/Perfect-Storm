@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bs866e70gxptk"]
 
-[ext_resource type="Shader" path="res://scenes/items/viewmodels/viewmodel_shader.gdshader" id="1_hgkr6"]
+[ext_resource type="Shader" uid="uid://dxslt1cclesbu" path="res://scenes/items/viewmodels/viewmodel_shader.gdshader" id="1_hgkr6"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_q7yqv"]
 lightmap_size_hint = Vector2i(9, 13)
@@ -69,7 +69,7 @@ shader = SubResource("Shader_yndfh")
 shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/point_size = 1.0
 shader_parameter/roughness = 1.0
-shader_parameter/metallic_texture_channel = null
+shader_parameter/metallic_texture_channel = Vector4(0, 0, 0, 0)
 shader_parameter/specular = 0.5
 shader_parameter/metallic = 0.0
 shader_parameter/uv1_scale = Vector3(1, 1, 1)

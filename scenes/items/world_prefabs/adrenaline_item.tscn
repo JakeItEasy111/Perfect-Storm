@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=4 uid="uid://dlt6codyfktr8"]
 
-[ext_resource type="Script" path="res://scenes/items/custom_resources/interactible_item.gd" id="1_46fsf"]
+[ext_resource type="Script" uid="uid://cgws83agneyi7" path="res://scenes/items/custom_resources/interactible_item.gd" id="1_46fsf"]
 [ext_resource type="Texture2D" uid="uid://cqxys502v7tli" path="res://assets/items/textures/inventory_items_texture_MAT_adrenaline_AlbedoTransparency.png" id="1_qht2c"]
 [ext_resource type="Texture2D" uid="uid://c4n5uxdxlmqxl" path="res://assets/items/textures/inventory_items_texture_MAT_adrenaline_MetallicSmoothness.png" id="2_aoxer"]
 [ext_resource type="Texture2D" uid="uid://yi6gjpgsrpor" path="res://assets/items/textures/inventory_items_texture_MAT_adrenaline_Normal.png" id="3_5hieq"]

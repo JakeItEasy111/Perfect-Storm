@@ -1,11 +1,11 @@
-[gd_scene load_steps=22 format=3 uid="uid://bb7pbtyh8k5dj"]
+[gd_scene load_steps=21 format=3 uid="uid://bb7pbtyh8k5dj"]
 
 [ext_resource type="PackedScene" uid="uid://dc63egb7vfe03" path="res://scenes/entities/player/player.tscn" id="1_jnr1s"]
 [ext_resource type="Texture2D" uid="uid://ddpnefmq78md6" path="res://assets/placeholder/FPS arms/hdris/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="2_cy4nd"]
 [ext_resource type="Texture2D" uid="uid://ckr0xbk2e88aa" path="res://assets/placeholder/kenney_particle-pack/PNG (Black background)/magic_01.png" id="3_cnb2j"]
 [ext_resource type="Texture2D" uid="uid://cuusdo42jh70c" path="res://assets/placeholder/kenney_particle-pack/PNG (Black background)/light_03.png" id="4_av0mf"]
 [ext_resource type="Texture2D" uid="uid://daujibgpdrd8k" path="res://assets/placeholder/kenney_particle-pack/PNG (Black background)/window_02.png" id="5_6he04"]
-[ext_resource type="Shader" path="res://scenes/entities/player/psx.gdshader" id="5_kim31"]
+[ext_resource type="Shader" uid="uid://bkmvxlkbe84vk" path="res://scenes/entities/player/psx.gdshader" id="5_kim31"]
 [ext_resource type="PackedScene" uid="uid://bxks16bf3tgu0" path="res://scenes/entities/npc/stretchy.tscn" id="7_n8iwv"]
 [ext_resource type="PackedScene" uid="uid://cyussufkwu443" path="res://scenes/items/world_prefabs/coffee_item.tscn" id="7_rht8s"]
 [ext_resource type="Texture2D" uid="uid://cvd54qbp81wk0" path="res://assets/placeholder/kenney_particle-pack/PNG (Black background)/window_03.png" id="8_e0o4y"]
@@ -16,7 +16,6 @@
 [ext_resource type="PackedScene" uid="uid://duxihvjxin0en" path="res://scenes/items/world_prefabs/medkit_item.tscn" id="10_o8xk6"]
 [ext_resource type="PackedScene" uid="uid://bg4j86to2gx1" path="res://scenes/items/world_prefabs/bandage_item.tscn" id="11_am4cr"]
 [ext_resource type="PackedScene" uid="uid://bu4git7irg1t7" path="res://scenes/items/world_prefabs/painkiller_item.tscn" id="14_tj6k1"]
-[ext_resource type="PackedScene" uid="uid://cekdf4wxympcg" path="res://assets/entity/midwife/midwife.fbx" id="14_wwy3s"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7xbat"]
 shader = ExtResource("5_kim31")
@@ -36,7 +35,6 @@ radiance_size = 0
 background_mode = 2
 sky = SubResource("Sky_0hicg")
 tonemap_mode = 3
-glow_enabled = true
 fog_enabled = true
 fog_light_color = Color(0.0941176, 0.113725, 0.0862745, 1)
 fog_light_energy = 1.4
@@ -128,7 +126,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.9951
 [node name="Items" type="Node3D" parent="SubViewportContainer/SubViewport"]
 
 [node name="CoffeeItem" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("7_rht8s")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.46282, 0, 0.292385)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.46282, 0, -0.105454)
 
 [node name="CoffeeItem2" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("7_rht8s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2025, 0, -1.36172)
@@ -145,25 +143,22 @@ transform = Transform3D(0.939693, -0.340719, -0.029809, 0, 0.0871558, -0.996195,
 [node name="test_item" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("8_mme7b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.22239, -0.0163969, 0.311178)
 
-[node name="AdrenalineItem" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("9_cjc8j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05522, 0.0584583, 0)
-
 [node name="MedkitItem" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("10_o8xk6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.97479, 0, -0.857878)
 
 [node name="BandageItem" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("11_am4cr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.90053, 0, 1.11029)
 
-[node name="midwife" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("14_wwy3s")]
-transform = Transform3D(-4.37114e-09, 0, -0.1, 0, 0.1, 0, 0.1, 0, -4.37114e-09, 5.6, -3.2, 22.1)
+[node name="AdrenalineItem" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("9_cjc8j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.93321, -0.0833067, 0.496941)
+
+[node name="PainkillerItem" parent="SubViewportContainer/SubViewport/Items" instance=ExtResource("14_tj6k1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.19205, 0, -3.10229)
 
 [node name="Player" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_jnr1s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.26194, 0)
 
 [node name="PlayerUI" parent="." instance=ExtResource("8_ib0sg")]
 mouse_filter = 2
-
-[node name="PainkillerItem" parent="." instance=ExtResource("14_tj6k1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.19205, 0, -3.10229)
 
 [connection signal="pda_use" from="SubViewportContainer/SubViewport/Player" to="PlayerUI" method="_on_player_pda_use"]

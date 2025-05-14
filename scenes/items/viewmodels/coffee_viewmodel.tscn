@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=4 uid="uid://ddk82takxii8l"]
 
-[ext_resource type="Shader" path="res://scenes/items/viewmodels/viewmodel_shader.gdshader" id="1_jbnuo"]
+[ext_resource type="Shader" uid="uid://dxslt1cclesbu" path="res://scenes/items/viewmodels/viewmodel_shader.gdshader" id="1_jbnuo"]
 [ext_resource type="Texture2D" uid="uid://bb47tunuw3s0u" path="res://assets/placeholder/Polybucks Coffee/D_CoffeePolybucks.png" id="2_ngqsf"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_stk2f"]
@@ -24,6 +24,7 @@ blend_shape_mode = 0
 render_priority = 0
 shader = ExtResource("1_jbnuo")
 shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/texture_albedo = ExtResource("2_ngqsf")
 shader_parameter/specular = 0.5
 shader_parameter/metallic = 0.0
 shader_parameter/roughness = 1.0
@@ -32,7 +33,6 @@ shader_parameter/roughness_texture_channel = Vector4(1, 0, 0, 0)
 shader_parameter/normal_scale = 0.5
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/texture_albedo = ExtResource("2_ngqsf")
 
 [node name="CoffeeItem" type="Node3D"]
 

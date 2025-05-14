@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=4 uid="uid://cyussufkwu443"]
 
-[ext_resource type="Script" path="res://scenes/items/custom_resources/interactible_item.gd" id="1_cojir"]
+[ext_resource type="Script" uid="uid://cgws83agneyi7" path="res://scenes/items/custom_resources/interactible_item.gd" id="1_cojir"]
 [ext_resource type="Texture2D" uid="uid://bb47tunuw3s0u" path="res://assets/placeholder/Polybucks Coffee/D_CoffeePolybucks.png" id="2_kpk64"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4nvyu"]

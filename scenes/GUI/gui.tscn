@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://chetgwxkpo4vn"]
 
-[ext_resource type="Script" path="res://scenes/GUI/gui.gd" id="1_yf83u"]
+[ext_resource type="Script" uid="uid://dukbe4pah6ckl" path="res://scenes/GUI/gui.gd" id="1_yf83u"]
 [ext_resource type="PackedScene" uid="uid://3v68n1le386n" path="res://scenes/GUI/inventory_gui.tscn" id="2_g5ag2"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ylqfj"]

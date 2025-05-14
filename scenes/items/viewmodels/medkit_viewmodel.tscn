@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=4 uid="uid://coko17y3rlsag"]
 
-[ext_resource type="Shader" path="res://scenes/items/viewmodels/viewmodel_shader.gdshader" id="1_1ms3t"]
+[ext_resource type="Shader" uid="uid://dxslt1cclesbu" path="res://scenes/items/viewmodels/viewmodel_shader.gdshader" id="1_1ms3t"]
 [ext_resource type="Texture2D" uid="uid://bs4kxnki67e7u" path="res://assets/items/textures/inventory_items_texture_MAT_fak_AlbedoTransparency.png" id="2_tknhh"]
 [ext_resource type="Texture2D" uid="uid://cf60d0sx7eoey" path="res://assets/items/textures/inventory_items_texture_MAT_fak_MetallicSmoothness.png" id="4_c4vtg"]
 [ext_resource type="Texture2D" uid="uid://ba6pdquvhuod3" path="res://assets/items/textures/inventory_items_texture_MAT_fak_Normal.png" id="5_imsky"]
@@ -49,17 +49,17 @@ shadow_mesh = SubResource("ArrayMesh_25dnj")
 render_priority = 0
 shader = ExtResource("1_1ms3t")
 shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/texture_albedo = ExtResource("2_tknhh")
 shader_parameter/specular = 0.5
 shader_parameter/metallic = 1.0
 shader_parameter/roughness = 1.0
+shader_parameter/texture_metallic = ExtResource("4_c4vtg")
 shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
 shader_parameter/roughness_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/texture_normal = ExtResource("5_imsky")
 shader_parameter/normal_scale = 1.0
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/texture_albedo = ExtResource("2_tknhh")
-shader_parameter/texture_metallic = ExtResource("4_c4vtg")
-shader_parameter/texture_normal = ExtResource("5_imsky")
 
 [node name="MedkitItem" type="Node3D"]
 
