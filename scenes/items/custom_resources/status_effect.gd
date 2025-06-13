@@ -1,17 +1,16 @@
-extends Resource
+extends Effect
 class_name StatusEffect
 
 signal status_applied(status : StatusEffect)
 signal status_changed()
 
-enum Type {PERSISTENT, ON_HIT, ON_ACTION, WHILE_STILL, ON_ITEM_PICKUP, ON_ITEM_USE} #instant means the effect is applied as soon as this resource is initialized
+enum Type {PERSISTENT, ON_HIT, ON_ACTION, WHILE_STILL, ON_ITEM_PICKUP, ON_ITEM_USE} 
 enum StackType {NONE, INTENSITY, DURATION}
 
 @export_group("Status Data")
 @export var id : String
 @export var type : Type
 @export var stack_type : StackType
-@export var can_stack : bool
 @export var can_expire: bool
 @export var duration: int : set = set_duration
 @export var stacks : int : set = set_stacks
@@ -31,6 +30,7 @@ func set_stacks(new_stacks):
 func initialize_status(_target: Node) -> void:
 	pass
 
-func apply_effect(_target: Node) -> void:
+func apply_status(target: Node) -> void:
+	execute(target)
 	status_applied.emit(self)
  

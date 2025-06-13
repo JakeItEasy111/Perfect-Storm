@@ -35,7 +35,6 @@ func load_item(item_slot : InventorySlot):
 		current_item = null
 		get_children()[0].queue_free()
 
-
 func item_equipped():
 	return get_child_count() > 0 and current_item != null
 

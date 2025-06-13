@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dc63egb7vfe03"]
+[gd_scene load_steps=9 format=3 uid="uid://dc63egb7vfe03"]
 
 [ext_resource type="Script" uid="uid://di46u7eu1edbu" path="res://scenes/entities/player/player.gd" id="1_scu18"]
 [ext_resource type="PackedScene" uid="uid://cre4yfp4yuh" path="res://scenes/entities/player/fps_arms.tscn" id="2_gf3du"]
 [ext_resource type="Script" uid="uid://di6twue8qm6df" path="res://scenes/entities/player/interaction/player_interaction_handler.gd" id="3_oriau"]
 [ext_resource type="PackedScene" uid="uid://bv8fraojrdvf" path="res://scenes/components/equipment_component.tscn" id="4_momwo"]
+[ext_resource type="PackedScene" uid="uid://wbjb2lrcxndv" path="res://scenes/components/status_handler.tscn" id="6_8akj5"]
 [ext_resource type="PackedScene" uid="uid://calwupcbsccj3" path="res://scenes/components/health_component.tscn" id="6_08ryp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bnonn"]
@@ -12,11 +13,11 @@ height = 1.75
 [sub_resource type="SphereShape3D" id="SphereShape3D_is3fp"]
 radius = 2.0
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("health_component", "equipment_component") groups=["player"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("health_component", "equipment_component", "status_handler_component") groups=["player"]]
 script = ExtResource("1_scu18")
 health_component = NodePath("HealthComponent")
 equipment_component = NodePath("Head/SubViewportContainer/SubViewport/EquipCam/EquipmentComponent")
+status_handler_component = NodePath("StatusHandler")
 
 [node name="PlayerCollisionShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
@@ -36,25 +37,23 @@ target_position = Vector3(0, -0.75, 0)
 transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0.000877023, -0.451593, -0.797067)
 target_position = Vector3(0, 0.55, 0)
 
-[node name="InteractionHandler" type="Area3D" parent="."]
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+
+[node name="InteractionHandler" type="Area3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("3_oriau")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionHandler"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Head/InteractionHandler"]
 shape = SubResource("SphereShape3D_is3fp")
-
-[node name="Head" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+debug_color = Color(0.658154, 0.515216, 0.0374781, 0.42)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
 unique_name_in_owner = true
 cull_mask = 1048573
 current = true
-
-[node name="Arms" parent="Head/Camera3D" instance=ExtResource("2_gf3du")]
-unique_name_in_owner = true
-transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -0.035, -2.2, 0.075)
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="Head"]
 anchors_preset = 15
@@ -67,19 +66,26 @@ stretch = true
 [node name="SubViewport" type="SubViewport" parent="Head/SubViewportContainer"]
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(1152, 648)
+size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
 [node name="EquipCam" type="Camera3D" parent="Head/SubViewportContainer/SubViewport"]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 cull_mask = 2
 
 [node name="EquipmentComponent" parent="Head/SubViewportContainer/SubViewport/EquipCam" instance=ExtResource("4_momwo")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.522094, -0.359155, -0.744464)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.209501, -0.165546, -0.354059)
+
+[node name="Arms" parent="Head/SubViewportContainer/SubViewport/EquipCam" instance=ExtResource("2_gf3du")]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -0.035, -2.2, 0.070878)
 
 [node name="HealthComponent" parent="." instance=ExtResource("6_08ryp")]
 
-[connection signal="pda_use" from="." to="Head/Camera3D/Arms" method="_on_player_pda_use"]
-[connection signal="body_entered" from="InteractionHandler" to="InteractionHandler" method="OnOnjectEnteredArea"]
-[connection signal="body_exited" from="InteractionHandler" to="InteractionHandler" method="OnObjectExitedArea"]
+[node name="StatusHandler" parent="." instance=ExtResource("6_8akj5")]
+
+[connection signal="pda_use" from="." to="Head/SubViewportContainer/SubViewport/EquipCam/Arms" method="_on_player_pda_use"]
+[connection signal="body_entered" from="Head/InteractionHandler" to="Head/InteractionHandler" method="OnOnjectEnteredArea"]
+[connection signal="body_exited" from="Head/InteractionHandler" to="Head/InteractionHandler" method="OnObjectExitedArea"]
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]

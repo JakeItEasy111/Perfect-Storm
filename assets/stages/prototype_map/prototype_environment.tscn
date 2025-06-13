@@ -10,6 +10,7 @@ vertex_color_use_as_albedo = true
 albedo_color = Color(0.906332, 0.906332, 0.906332, 0.8)
 albedo_texture = ExtResource("1_860ha")
 emission_enabled = true
+texture_filter = 0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3df2c"]
 resource_name = "MATERIAL_floors"
@@ -17,6 +18,7 @@ vertex_color_use_as_albedo = true
 albedo_color = Color(0.906332, 0.906332, 0.906332, 0.8)
 albedo_texture = ExtResource("2_rr03j")
 emission_enabled = true
+texture_filter = 0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dln17"]
 resource_name = "MATERIAL_ceiling"
@@ -24,12 +26,14 @@ vertex_color_use_as_albedo = true
 albedo_color = Color(0.906332, 0.906332, 0.906332, 0.8)
 albedo_texture = ExtResource("3_6b1se")
 emission_enabled = true
+texture_filter = 0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_si4g6"]
 resource_name = "lambert1"
 vertex_color_use_as_albedo = true
 albedo_color = Color(0.665185, 0.665185, 0.665185, 1)
 emission_enabled = true
+texture_filter = 0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_33c31"]
 _surfaces = [{

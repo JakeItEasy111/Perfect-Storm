@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=4 uid="uid://bg4j86to2gx1"]
 
 [ext_resource type="Texture2D" uid="uid://csiu3i30dvjiw" path="res://assets/items/textures/inventory_items_texture_MAT_bandage_AlbedoTransparency.png" id="1_hbg1e"]
-[ext_resource type="Script" uid="uid://cgws83agneyi7" path="res://scenes/items/custom_resources/interactible_item.gd" id="1_vdyit"]
+[ext_resource type="Script" uid="uid://cgws83agneyi7" path="res://scenes/items/interactible_item.gd" id="1_vdyit"]
 [ext_resource type="Texture2D" uid="uid://cc5cwouumt425" path="res://assets/items/textures/inventory_items_texture_MAT_bandage_MetallicSmoothness.png" id="2_axiei"]
 [ext_resource type="Texture2D" uid="uid://7vnjcmwuknco" path="res://assets/items/textures/inventory_items_texture_MAT_bandage_Normal.png" id="3_f20al"]
 

@@ -6,7 +6,7 @@ var NearbyBodies : Array[InteractibleItem]
 var inventory_handler: InventoryHandler
 	
 func _input(event : InputEvent) -> void:
-	if(event.is_action_pressed("interact") && !get_parent().using_pda):
+	if(event.is_action_pressed("interact") && !Global.player.using_pda):
 		PickupNearestItem()
 		
 func PickupNearestItem():
@@ -25,7 +25,13 @@ func PickupNearestItem():
 		for i in ItemTypes.size(): #if proper item type 
 			if(ItemTypes[i].WorldPrefab != null and ItemTypes[i].WorldPrefab.resource_path == itemPrefab):
 				print("Item ID: " + str(i) + " Item Name: " + ItemTypes[i].ItemName) 
-				EventBus.on_item_picked_up.emit(ItemTypes[i])
+				if ItemTypes[i].ITEM_TYPE.UPGRADE: #add to artifacts 
+					Global.player.artifacts.append(ItemTypes[i])
+					EventBus.on_upgrade_picked_up.emit(ItemTypes[i])
+				elif ItemTypes[i].ITEM_TYPE.PICKUP: #immediately execute 
+					ItemTypes[i].apply_effects(Global.player)
+					EventBus.on_pickup.emit(ItemTypes[i])
+				EventBus.on_item_picked_up.emit(ItemTypes[i]) #add to inventory 
 				return 
 		
 func OnOnjectEnteredArea(body: Node3D):

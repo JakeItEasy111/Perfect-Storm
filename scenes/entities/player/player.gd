@@ -6,22 +6,22 @@ signal pda_use(is_open) #sent to PDA
 
 # constants
 const WALK_SPEED = 2.5
-const SPRINT_SPEED = 5.5
+const SPRINT_SPEED = 6.0
 const CROUCH_SPEED = 1.25
 const JUMP_VELOCITY = 3.0
 const BOB_FREQ = 3.0
-const BOB_AMP = 0.07
+const BOB_AMP = 0.08
 const MAX_STEP_HEIGHT = 0.5
 
 var look_sensitivity = 0.003 
-var current_speed = 2.5
+var current_speed = WALK_SPEED
 var direction = Vector3.ZERO
 var original_capsule_height = 1.75
 var original_head_pos = 0.8
 var _snapped_to_stairs_last_frame := false
 var _last_frame_was_on_floor = -INF
 
-#sprint bar variables
+#sprint variables
 var sprint_drain_amount = 25
 var sprint_regen_amount = 15
 var sprint_time_on_screen = 2 #time the slider stays on screen after letting go of shift
@@ -34,11 +34,16 @@ var fov = 60
 var fov_change = 1.25 
 var t_bob = 0.0 
 
-# states
+# flags
 var can_jump = true
 var can_sprint = true
 var can_crouch = true 
 var using_pda = false
+var uncrouching = false
+
+#items
+var artifacts : Array[ItemData]
+var stat_modifiers : Array[Node]
 
 @onready var head = $Head
 @onready var camera = %Camera3D
@@ -51,15 +56,19 @@ var using_pda = false
 
 @export var health_component : HealthComponent
 @export var equipment_component : EquipmentComponent
+@export var status_handler_component : StatusHandler
 
 func _ready():
 	Global.player = self 
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	current_speed = WALK_SPEED
-	sprint_bar = get_node("/root/" + get_tree().current_scene.name + "/PlayerUI/SprintBar")
-
+	
+	EventBus.on_upgrade_picked_up.connect(update_items)
+	EventBus.on_pickup.connect(add_pickup)
+	sprint_bar = get_node("/root/" + get_tree().current_scene.name + "/PlayerUI/SprintBar") #REPLACE
+ 
 func _unhandled_input(event: InputEvent) -> void:
-	if(!using_pda):
+	if not using_pda:
 		
 		if event is InputEventMouseMotion:
 			head.rotate_y(-event.relative.x * look_sensitivity) 
@@ -69,75 +78,73 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.is_action_pressed("inventory") && !fps_arms.anim_player.is_playing():
 			pda_use.emit(false) 
 			using_pda = true 
-			can_sprint = false 
-			
-			if(current_speed == SPRINT_SPEED):
-				current_speed = WALK_SPEED
-				can_crouch = true 
 		
-	else:	
-		if event.is_action_pressed("inventory") && !fps_arms.anim_player.is_playing():
+	elif event.is_action_pressed("inventory") && !fps_arms.anim_player.is_playing():
 			pda_use.emit(true)
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 			using_pda = false
-			can_sprint = true
 
 func _physics_process(delta: float) -> void:
-		#jumping
-		if(can_jump && (is_on_floor() or _snapped_to_stairs_last_frame) && Input.is_action_just_pressed("jump")):
-			velocity.y = JUMP_VELOCITY
-			
-		# Get the input direction and handle the movement/deceleration.
+
+	#jumping
+	if(can_jump && (is_on_floor() or _snapped_to_stairs_last_frame) && Input.is_action_just_pressed("jump")):
+		velocity.y = JUMP_VELOCITY
+
+	# Get the input direction 
+	if not using_pda: 
 		var input_dir := Input.get_vector("left", "right", "forward", "backward")
 		direction = lerp(direction, (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized(), delta*10.0) 
-		if is_on_floor():
-			if direction:
-				velocity.x = direction.x * current_speed
-				velocity.z = direction.z * current_speed
-			else:
-				velocity.x = lerp(velocity.x, direction.x * current_speed, delta * 5.0)
-				velocity.z = lerp(velocity.z, direction.z * current_speed, delta * 5.0)
+	else: 
+		direction = Vector3(0, 0, 0)
+	
+	#movement acceleration
+	if is_on_floor():
+		if direction:
+			velocity.x = direction.x * current_speed
+			velocity.z = direction.z * current_speed
 		else:
-			velocity.x = lerp(velocity.x, direction.x * current_speed, delta * 2.0)
-			velocity.z = lerp(velocity.z, direction.z * current_speed, delta * 2.0)
+			velocity.x = lerp(velocity.x, direction.x * current_speed, delta * 5.0)
+			velocity.z = lerp(velocity.z, direction.z * current_speed, delta * 5.0)
+	else:
+		velocity.x = lerp(velocity.x, direction.x * current_speed, delta * 2.0)
+		velocity.z = lerp(velocity.z, direction.z * current_speed, delta * 2.0)
+	
+	#stair handling
+	if is_on_floor(): _last_frame_was_on_floor = Engine.get_physics_frames()
+	
+	if not _snap_up_stairs_check(delta): 
+		# because _snap_up_stairs_check moves the body manually 
 		
-		# gravity.
-		if not is_on_floor():
-			velocity += get_gravity() * delta
-		
-		#stair handling
-		if is_on_floor(): _last_frame_was_on_floor = Engine.get_physics_frames()
-		
-		if not _snap_up_stairs_check(delta): 
-			# because _snap_up_stairs_check moves the body manually 
+		move_and_slide()
+		_snap_down_to_stairs_check()
 			
-			move_and_slide()
-			_snap_down_to_stairs_check()
-			
+	# gravity
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+
 func _process(delta: float) -> void:
+	
 	# sprinting
-	if Input.is_action_just_pressed("sprint"): 
-		if (current_speed == SPRINT_SPEED):
-			can_crouch = true 
-			current_speed = WALK_SPEED
-			sprint_bar_timer = sprint_time_on_screen
-		elif (can_sprint && current_speed != CROUCH_SPEED):
-			can_crouch = false 
+	if Input.is_action_pressed("sprint"): 
+		if (can_sprint && current_speed != CROUCH_SPEED):
 			current_speed = SPRINT_SPEED
+	
+	if Input.is_action_just_released("sprint") and current_speed == SPRINT_SPEED:
+		current_speed = WALK_SPEED
+		sprint_bar_timer = sprint_time_on_screen
 		
 	if sprint_bar.value <= sprint_bar.min_value:
 		can_sprint = false
 		sprint_bar.tint_progress = Color.DARK_GRAY
 		
 	if current_speed == SPRINT_SPEED and Input.get_vector("left", "right", "forward", "backward").length() > 0.1 :  
-		if(!using_pda):
-			sprint_bar.visible = true
-			sprint_bar.value = sprint_bar.value - sprint_drain_amount * delta
-			sprint_bar.tint_progress = Color.WHITE
+		sprint_bar.visible = true
+		sprint_bar.value = sprint_bar.value - sprint_drain_amount * delta
+		sprint_bar.tint_progress = Color.WHITE
 			
-			if !can_sprint:
-				can_crouch = true 
-				current_speed = WALK_SPEED
+		if !can_sprint:
+			can_crouch = true 
+			current_speed = WALK_SPEED
 			
 	else: # not sprinting 
 		if sprint_bar_timer > 0:
@@ -155,36 +162,39 @@ func _process(delta: float) -> void:
 		if sprint_bar.value == sprint_bar.max_value:
 			if sprint_bar.tint_progress == Color.DARK_GRAY: 
 				sprint_bar.tint_progress = Color.WHITE
-			if !using_pda:
 				can_sprint = true
 			sprint_bar_timer = 0
 
 	# crouching 
 	if Input.is_action_just_pressed("crouch"):
-		if(current_speed == CROUCH_SPEED and !col_above_detect_ray.is_colliding()):
-			current_speed = WALK_SPEED 
-			can_jump = true
-			collision.shape.height = original_capsule_height
-			collision.position.y = 0
+		if(current_speed == CROUCH_SPEED):
+			if !col_above_detect_ray.is_colliding():
+				cancel_crouch()
+			else:
+				uncrouching = true 
 		elif(can_crouch and !col_above_detect_ray.is_colliding()):
 			current_speed = CROUCH_SPEED
 			can_jump = false
+			can_sprint = false
 			collision.shape.height = original_capsule_height - (collision.shape.height / original_capsule_height)
 			collision.position.y = -(collision.shape.height / original_capsule_height)
 			
 	if(current_speed == CROUCH_SPEED):
 		head.position.y = lerp(head.position.y, -(original_head_pos / 2), delta * 2.0) 
+		if uncrouching and !col_above_detect_ray.is_colliding():
+			cancel_crouch()
+			uncrouching = false
 	elif(head.position.y != original_head_pos and !col_above_detect_ray.is_colliding()):
 		head.position.y = lerp(head.position.y, original_head_pos, delta * 2.0)  
 		
-	# fov
-	var velocity_clamp = clamp(velocity.length(), 0.5, SPRINT_SPEED * 2)
-	var target_fov = fov + (fov_change * velocity_clamp)
-	camera.fov = lerp(camera.fov, target_fov, delta * 2.0)
+		# fov
+		var velocity_clamp = clamp(velocity.length(), 0.5, SPRINT_SPEED * 1.5)
+		var target_fov = fov + (fov_change * velocity_clamp)
+		camera.fov = lerp(camera.fov, target_fov, delta * 2.0)
 	
-	# headbob
-	t_bob += delta * velocity.length() * float(is_on_floor())
-	camera.transform.origin = _headbob(t_bob)
+		# headbob
+		t_bob += delta * velocity.length() * float(is_on_floor())
+		camera.transform.origin = _headbob(t_bob)
 	
 	equip_cam.global_transform = camera.global_transform
 
@@ -241,3 +251,16 @@ func _snap_down_to_stairs_check() -> void:
 
 func _on_health_component_died() -> void:
 	get_tree().quit()
+	
+func update_items():
+	pass
+	
+func add_pickup():
+	pass
+	
+func cancel_crouch():
+	current_speed = WALK_SPEED 
+	can_sprint = true
+	can_jump = true
+	collision.shape.height = original_capsule_height
+	collision.position.y = 0

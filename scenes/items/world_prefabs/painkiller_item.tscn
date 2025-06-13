@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=4 uid="uid://bu4git7irg1t7"]
 
-[ext_resource type="Script" uid="uid://cgws83agneyi7" path="res://scenes/items/custom_resources/interactible_item.gd" id="1_n25ij"]
+[ext_resource type="Script" uid="uid://cgws83agneyi7" path="res://scenes/items/interactible_item.gd" id="1_n25ij"]
 [ext_resource type="Texture2D" uid="uid://tmfeuxwh7yob" path="res://assets/items/textures/inventory_items_texture_MAT_Painkillers_AlbedoTransparency.png" id="1_toxme"]
 [ext_resource type="Texture2D" uid="uid://6158rxrxpjrg" path="res://assets/items/textures/inventory_items_texture_MAT_Painkillers_MetallicSmoothness.png" id="2_dws64"]
 [ext_resource type="Texture2D" uid="uid://bhyuwx1xv8whu" path="res://assets/items/textures/inventory_items_texture_MAT_Painkillers_Normal.png" id="3_vgyak"]

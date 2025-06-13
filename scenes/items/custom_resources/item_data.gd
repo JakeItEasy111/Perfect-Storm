@@ -4,7 +4,7 @@ class_name ItemData
 
 @export var ItemName : String
 enum ITEM_TYPE {INVENTORY, UPGRADE, PICKUP}
-@export var Type: ITEM_TYPE = ITEM_TYPE.INVENTORY #unusable 
+@export var Type: ITEM_TYPE = ITEM_TYPE.INVENTORY 
 @export var ItemEffects : Array[Effect] = [] 
 
 @export_category("Inventory Items")

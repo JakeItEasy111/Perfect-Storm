@@ -8,6 +8,7 @@ uniform bool enabled = true;
 uniform bool dithering = true;
 uniform int colors : hint_range(1, MAXCOLORS) = 12;
 uniform int dither_size: hint_range(1, 8) = 1;
+uniform float pixelation : hint_range(1, 1000) = 10;
 
 float dithering_pattern(ivec2 fragcoord) {
 	const float pattern[] = {
