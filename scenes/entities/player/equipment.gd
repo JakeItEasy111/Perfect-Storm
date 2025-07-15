@@ -4,9 +4,12 @@ extends Marker3D
 var current_item : ItemData #holds item data
 var current_item_slot : int = -1 #holds slot ID
 
+@onready var player: Player = $"../../../../.."
+
 func _ready() -> void:
 	EventBus.connect("equip_item", load_item.bind())
 	EventBus.connect("action_timer_complete", use_equipped_item)
+	player.pda_use.connect(unequip_animation)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if item_equipped():
@@ -44,3 +47,11 @@ func use_equipped_item():
 		
 		if current_item.Consumable:
 			load_item(null)
+
+func unequip_animation(pda_open):
+	var tween : Tween = create_tween()
+	tween.set_trans(tween.TRANS_SINE)
+	if pda_open:
+		tween.tween_property(self, 'position', Vector3(0.25, -0.166, -0.25), 0.5)
+	else:
+		tween.tween_property(self, 'position', Vector3(0.25, -0.666, -0.25), 0.5)

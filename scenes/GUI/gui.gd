@@ -10,7 +10,7 @@ var mouse_entered = false
 var mouse_inside = false 
 
 var last_mouse_pos_3D = null
-var last_mouse_pos_2D= null
+var last_mouse_pos_2D = null
 
 # DIAGETIC UI SYSTEM 
 
@@ -35,7 +35,7 @@ func _unhandled_input(event):
 func handle_mouse(event):
 	mesh_size = display.mesh.size
 	
-	var mouse_pos3D = find_mouse(event.global_position)
+	var mouse_pos3D = find_mouse(event.position)
 	
 	mouse_inside = mouse_pos3D != null 
 	
@@ -60,7 +60,6 @@ func handle_mouse(event):
 	mouse_pos2D.y = mouse_pos2D.y * viewport.size.y
 	
 	event.position = mouse_pos2D
-	event.global_position = mouse_pos2D
 	
 	if event is InputEventMouseMotion:
 		if last_mouse_pos_2D == null:

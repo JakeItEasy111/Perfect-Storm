@@ -2631,7 +2631,6 @@ _data = {
 }
 
 [node name="Arms" type="Node3D"]
-visible = false
 script = ExtResource("1_2nqie")
 
 [node name="Arms_Rig" type="Node3D" parent="."]
@@ -3110,8 +3109,8 @@ skin = SubResource("Skin_oma27")
 libraries = {
 &"": SubResource("AnimationLibrary_i17d2")
 }
-speed_scale = 1.5
+speed_scale = 2.0
 
 [node name="GUI" parent="." instance=ExtResource("10_t6g2l")]
-transform = Transform3D(-0.249997, 2.1901e-08, 0.00123045, 2.18499e-08, 0.25, -1.04274e-08, -0.00123045, -1.03198e-08, -0.249997, -0.0326895, 2.19453, 0.217507)
+transform = Transform3D(-0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, -0.25, -0.0326895, 2.19453, 0.217507)
 visible = false

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bs866e70gxptk"]
 
-[ext_resource type="Shader" uid="uid://dxslt1cclesbu" path="res://scenes/items/viewmodels/viewmodel_shader.gdshader" id="1_hgkr6"]
+[ext_resource type="Shader" uid="uid://cofhyq16mrxl4" path="res://shaders/viewmodel_shader.gdshader" id="1_hgkr6"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_q7yqv"]
 lightmap_size_hint = Vector2i(9, 13)

@@ -1,4 +1,4 @@
-extends Node3D
+extends RigidBody3D
 class_name InteractibleItem
 
 @export var ItemHighlightMesh : MeshInstance3D

@@ -33,5 +33,5 @@ mesh = SubResource("QuadMesh_x5c4c")
 [node name="Area" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.000228167)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00285878)
 shape = SubResource("BoxShape3D_npafq")

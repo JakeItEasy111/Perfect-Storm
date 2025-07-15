@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=4 uid="uid://cdpxuqie2rs7e"]
 
 [ext_resource type="Script" uid="uid://cgws83agneyi7" path="res://scenes/items/interactible_item.gd" id="1_lx85d"]
-[ext_resource type="Shader" uid="uid://nrvhux70hxlu" path="res://scenes/entities/npc/spatial_pixelation.gdshader" id="2_uxrkd"]
+[ext_resource type="Shader" uid="uid://nrvhux70hxlu" path="res://shaders/spatial_pixelation.gdshader" id="2_uxrkd"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_q7yqv"]
 lightmap_size_hint = Vector2i(9, 13)

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://di46u7eu1edbu" path="res://scenes/entities/player/player.gd" id="1_scu18"]
 [ext_resource type="PackedScene" uid="uid://cre4yfp4yuh" path="res://scenes/entities/player/fps_arms.tscn" id="2_gf3du"]
-[ext_resource type="Script" uid="uid://di6twue8qm6df" path="res://scenes/entities/player/interaction/player_interaction_handler.gd" id="3_oriau"]
+[ext_resource type="Script" uid="uid://di6twue8qm6df" path="res://scenes/entities/player/player_interaction_handler.gd" id="3_oriau"]
 [ext_resource type="PackedScene" uid="uid://bv8fraojrdvf" path="res://scenes/components/equipment_component.tscn" id="4_momwo"]
 [ext_resource type="PackedScene" uid="uid://wbjb2lrcxndv" path="res://scenes/components/status_handler.tscn" id="6_8akj5"]
 [ext_resource type="PackedScene" uid="uid://calwupcbsccj3" path="res://scenes/components/health_component.tscn" id="6_08ryp"]
@@ -71,19 +71,23 @@ render_target_update_mode = 4
 
 [node name="EquipCam" type="Camera3D" parent="Head/SubViewportContainer/SubViewport"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
-cull_mask = 2
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00323367, 0.8, -0.0133681)
+cull_mask = 3
 
 [node name="EquipmentComponent" parent="Head/SubViewportContainer/SubViewport/EquipCam" instance=ExtResource("4_momwo")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.209501, -0.165546, -0.354059)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.210902, -0.165546, -0.262134)
 
 [node name="Arms" parent="Head/SubViewportContainer/SubViewport/EquipCam" instance=ExtResource("2_gf3du")]
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -0.035, -2.2, 0.070878)
+visible = false
 
 [node name="HealthComponent" parent="." instance=ExtResource("6_08ryp")]
 
 [node name="StatusHandler" parent="." instance=ExtResource("6_8akj5")]
+
+[node name="GroundPos" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9, 0)
 
 [connection signal="pda_use" from="." to="Head/SubViewportContainer/SubViewport/EquipCam/Arms" method="_on_player_pda_use"]
 [connection signal="body_entered" from="Head/InteractionHandler" to="Head/InteractionHandler" method="OnOnjectEnteredArea"]

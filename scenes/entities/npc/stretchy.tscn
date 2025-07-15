@@ -1,11 +1,11 @@
 [gd_scene load_steps=20 format=4 uid="uid://bxks16bf3tgu0"]
 
-[ext_resource type="Texture2D" uid="uid://cxukam5ukxitl" path="res://assets/entity/001_Stretchy/textures/stretchy_low_MAT_stretchy_head_AlbedoTransparency.png" id="1_vk08n"]
-[ext_resource type="Texture2D" uid="uid://bettx7nm82knl" path="res://assets/entity/001_Stretchy/textures/stretchy_low_MAT_stretchy_head_MetallicSmoothness.png" id="2_4rmfr"]
-[ext_resource type="Texture2D" uid="uid://dhy2jpyy3qhpp" path="res://assets/entity/001_Stretchy/textures/stretchy_low_MAT_stretchy_head_Normal.png" id="3_poblg"]
-[ext_resource type="Texture2D" uid="uid://dkgbavju28vmk" path="res://assets/entity/001_Stretchy/textures/stretchy_low_MAT_stretchy_AlbedoTransparency.png" id="4_f80dg"]
-[ext_resource type="Texture2D" uid="uid://vv05ahic1o2y" path="res://assets/entity/001_Stretchy/textures/stretchy_low_MAT_stretchy_MetallicSmoothness.png" id="5_hn3kd"]
-[ext_resource type="Texture2D" uid="uid://ckhke43rt01p6" path="res://assets/entity/001_Stretchy/textures/stretchy_low_MAT_stretchy_Normal.png" id="6_bxsri"]
+[ext_resource type="Texture2D" uid="uid://cxukam5ukxitl" path="res://assets/entities/001_Stretchy/textures/stretchy_low_MAT_stretchy_head_AlbedoTransparency.png" id="1_vk08n"]
+[ext_resource type="Texture2D" uid="uid://bettx7nm82knl" path="res://assets/entities/001_Stretchy/textures/stretchy_low_MAT_stretchy_head_MetallicSmoothness.png" id="2_4rmfr"]
+[ext_resource type="Texture2D" uid="uid://dhy2jpyy3qhpp" path="res://assets/entities/001_Stretchy/textures/stretchy_low_MAT_stretchy_head_Normal.png" id="3_poblg"]
+[ext_resource type="Texture2D" uid="uid://dkgbavju28vmk" path="res://assets/entities/001_Stretchy/textures/stretchy_low_MAT_stretchy_AlbedoTransparency.png" id="4_f80dg"]
+[ext_resource type="Texture2D" uid="uid://vv05ahic1o2y" path="res://assets/entities/001_Stretchy/textures/stretchy_low_MAT_stretchy_MetallicSmoothness.png" id="5_hn3kd"]
+[ext_resource type="Texture2D" uid="uid://ckhke43rt01p6" path="res://assets/entities/001_Stretchy/textures/stretchy_low_MAT_stretchy_Normal.png" id="6_bxsri"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ywwmj"]
 resource_name = "MAT_stretchy"

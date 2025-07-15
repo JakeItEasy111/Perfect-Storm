@@ -6,15 +6,10 @@ const STATUS_APPLY_INTERVAL := 0.25
 @export var status_owner : Node
 var status_effects : Array[StatusEffect]
 
-func apply_statuses_by_type(type : StatusEffect.Type):
-	
-	var status_queue: Array[StatusEffect] = status_effects.filter(
-		func(status:StatusEffect):
-			return status.type == type 
-	)
+func apply_statuses():
 	
 	var tween := create_tween()
-	for status in status_queue:
+	for status in status_effects:
 		tween.tween_callback(status.apply_status.bind(status_owner))
 		tween.tween_interval(STATUS_APPLY_INTERVAL)
 		_on_status_applied(status)
@@ -71,8 +66,22 @@ func run_status_duration(status : StatusEffect) -> void:
 		timer.one_shot = true
 		timer.connect("timeout", status_expired(status))
 		timer.start()
+		
+		if status is TickStatus:
+			run_tick_status(status) 
+			
 		await timer.timeout
 		timer.queue_free()
 	
 func status_expired(expired_status : StatusEffect):
+	expired_status.on_status_removed(status_owner)
 	status_effects.erase(expired_status)
+
+func run_tick_status(status : TickStatus):
+	var timer := Timer.new()
+	timer.name = status.id + "Interval"
+	timer.wait_time = status.tick_interval
+	
+	await timer.timeout
+	status.base_effect.execute(status_owner)
+	run_tick_status(status)

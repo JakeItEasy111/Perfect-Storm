@@ -15,12 +15,17 @@ run/main_scene="res://scenes/environments/test_scene.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[audio]
+
+driver/output_latency=5
+
 [autoload]
 
 ItemDatabase="*res://scenes/items/item_database.gd"
 Global="*res://globals/globals.gd"
 EventBus="*res://globals/events.gd"
 SignalLens="*res://addons/signal_lens/autoload/signal_lens_autoload.gd"
+AudioManager="*res://globals/global_audio_manager.tscn"
 
 [display]
 

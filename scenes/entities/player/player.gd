@@ -5,45 +5,46 @@ class_name Player
 signal pda_use(is_open) #sent to PDA
 
 # constants
-const WALK_SPEED = 2.5
-const SPRINT_SPEED = 6.0
-const CROUCH_SPEED = 1.25
-const JUMP_VELOCITY = 3.0
-const BOB_FREQ = 3.0
-const BOB_AMP = 0.08
-const MAX_STEP_HEIGHT = 0.5
+const WALK_SPEED := 2.5
+const SPRINT_SPEED := 5.0
+const CROUCH_SPEED := 1.25
+const JUMP_VELOCITY := 3.0
+const BOB_FREQ := 3.0
+const BOB_AMP := 0.08
+const MAX_STEP_HEIGHT := 0.5
 
-var look_sensitivity = 0.003 
-var current_speed = WALK_SPEED
-var direction = Vector3.ZERO
-var original_capsule_height = 1.75
-var original_head_pos = 0.8
+var look_sensitivity := 0.003 
+var current_speed := WALK_SPEED
+var direction := Vector3.ZERO
+var original_capsule_height := 1.75
+var original_head_pos := 0.8
 var _snapped_to_stairs_last_frame := false
 var _last_frame_was_on_floor = -INF
 
 #sprint variables
-var sprint_drain_amount = 25
-var sprint_regen_amount = 15
-var sprint_time_on_screen = 2 #time the slider stays on screen after letting go of shift
-var sprint_fade_speed = 2 #how fast the slider fades off once the time on screen has elapsed
-var sprint_bar_timer  = 0
+var sprint_drain_amount := 25
+var sprint_regen_amount := 15
+var sprint_time_on_screen := 2 #time the slider stays on screen after letting go of shift
+var sprint_fade_speed := 2 #how fast the slider fades off once the time on screen has elapsed
+var sprint_bar_timer  := 0
 var sprint_bar : TextureProgressBar
 
 # fov variables
-var fov = 60
-var fov_change = 1.25 
-var t_bob = 0.0 
+var fov := 60
+var fov_change := 1.25 
+var t_bob := 0.0 
 
 # flags
-var can_jump = true
-var can_sprint = true
-var can_crouch = true 
-var using_pda = false
-var uncrouching = false
+var can_jump := true
+var can_sprint := true
+var can_crouch := true 
+var using_pda := false
+var uncrouching := false
+var can_play_footstep := false  
 
 #items
 var artifacts : Array[ItemData]
-var stat_modifiers : Array[Node]
+var stat_modifiers : Array[StatModifier]
 
 @onready var head = $Head
 @onready var camera = %Camera3D
@@ -53,10 +54,11 @@ var stat_modifiers : Array[Node]
 @onready var fps_arms = %Arms
 @onready var stairs_below_raycast_3d: RayCast3D = $StairsBelowRaycast3D
 @onready var stairs_ahead_raycast_3d: RayCast3D = $StairsAheadRaycast3D
+@onready var ground_pos: Marker3D = $GroundPos
 
 @export var health_component : HealthComponent
 @export var equipment_component : EquipmentComponent
-@export var status_handler_component : StatusHandler
+@export var status_handler_component : StatusHandlerComponent
 
 func _ready():
 	Global.player = self 
@@ -64,7 +66,7 @@ func _ready():
 	current_speed = WALK_SPEED
 	
 	EventBus.on_upgrade_picked_up.connect(update_items)
-	EventBus.on_pickup.connect(add_pickup)
+	EventBus.on_pickup.connect(use_pickup)
 	sprint_bar = get_node("/root/" + get_tree().current_scene.name + "/PlayerUI/SprintBar") #REPLACE
  
 func _unhandled_input(event: InputEvent) -> void:
@@ -154,6 +156,7 @@ func _process(delta: float) -> void:
 			
 			if sprint_bar.tint_progress.a <= 0:
 				sprint_bar.visible = false
+				can_sprint = true
 		
 		if sprint_bar.value < sprint_bar.max_value:
 			sprint_bar.value = sprint_bar.value + sprint_regen_amount * delta
@@ -187,14 +190,14 @@ func _process(delta: float) -> void:
 	elif(head.position.y != original_head_pos and !col_above_detect_ray.is_colliding()):
 		head.position.y = lerp(head.position.y, original_head_pos, delta * 2.0)  
 		
-		# fov
-		var velocity_clamp = clamp(velocity.length(), 0.5, SPRINT_SPEED * 1.5)
-		var target_fov = fov + (fov_change * velocity_clamp)
-		camera.fov = lerp(camera.fov, target_fov, delta * 2.0)
+	# fov
+	var velocity_clamp = clamp(velocity.length(), 0.5, SPRINT_SPEED * 1.5)
+	var target_fov = fov + (fov_change * velocity_clamp)
+	camera.fov = lerp(camera.fov, target_fov, delta * 2.0)
 	
-		# headbob
-		t_bob += delta * velocity.length() * float(is_on_floor())
-		camera.transform.origin = _headbob(t_bob)
+	# headbob
+	t_bob += delta * velocity.length() * float(is_on_floor())
+	camera.transform.origin = _headbob(t_bob)
 	
 	equip_cam.global_transform = camera.global_transform
 
@@ -202,6 +205,16 @@ func _headbob(time) -> Vector3:
 	var pos = Vector3.ZERO
 	pos.y = sin(time * BOB_FREQ) * BOB_AMP #scale w/ health when implemented
 	pos.x = cos(time * BOB_FREQ / 2) * BOB_AMP
+	
+	var low_pos = BOB_AMP - 0.06
+	if pos.y > -low_pos:
+		can_play_footstep = true
+	
+	if pos.y < -low_pos and can_play_footstep:
+		can_play_footstep = false
+		print("Camera global position: ", get_viewport().get_camera_3d().global_transform.origin)
+		print("Camera World3D: ", get_viewport().get_camera_3d().get_world_3d())
+		AudioManager.play_3d_audio_at_location(ground_pos, SoundEffect.SOUND_EFFECT_TYPE.FOOTSTEP_CONCRETE)
 	return pos
 
 func is_surface_too_steep(normal : Vector3) -> bool:
@@ -252,10 +265,10 @@ func _snap_down_to_stairs_check() -> void:
 func _on_health_component_died() -> void:
 	get_tree().quit()
 	
-func update_items():
+func update_items(item): #trigger item effects 
 	pass
 	
-func add_pickup():
+func use_pickup(pickup : ItemData): #add simple pickup effect 
 	pass
 	
 func cancel_crouch():

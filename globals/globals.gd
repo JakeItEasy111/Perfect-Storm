@@ -5,5 +5,3 @@ var player : Player :
 		player = player_node
 
 var rng : RandomNumberGenerator
-
-@onready var event_bus = get_node("/root/EventBus")
