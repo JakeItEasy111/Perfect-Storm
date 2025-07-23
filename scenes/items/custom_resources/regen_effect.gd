@@ -7,3 +7,5 @@ extends HealthEffect
 func execute(target: Node) -> void:
 	if target is Player:
 		target.health_component.regen(amount, num_ticks, tick_rate_seconds, flat)
+		
+#MIGHT be irrelevant

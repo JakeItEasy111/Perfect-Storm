@@ -80,11 +80,8 @@ func play_3d_audio_at_location(location : Node, type : SoundEffect.SOUND_EFFECT_
 			new_3d_audio.pitch_scale += randf_range(-sound_effect_setting.pitch_randomness, sound_effect_setting.pitch_randomness)
 			new_3d_audio.finished.connect(sound_effect_setting.on_audio_finished)
 			new_3d_audio.finished.connect(new_3d_audio.queue_free)
-			print("Emitter global position: ", new_3d_audio.global_transform.origin)
 			await get_tree().process_frame
 			new_3d_audio.play()
-			print("Audio playing: ", new_3d_audio.playing)
-			print("Audio node World3D: ", new_3d_audio.get_world_3d())
 			sound_effect_played.emit(type)
 
 	else:

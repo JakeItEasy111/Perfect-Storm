@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://yg6nqyrnah8q"]
+
+[node name="ItemContextMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+anchor_right = 0.0630208
+anchor_bottom = 0.0611111
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Equip"
+
+[node name="Button2" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Drop"

@@ -1,11 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://dc63egb7vfe03"]
+[gd_scene load_steps=11 format=3 uid="uid://dc63egb7vfe03"]
 
 [ext_resource type="Script" uid="uid://di46u7eu1edbu" path="res://scenes/entities/player/player.gd" id="1_scu18"]
+[ext_resource type="Resource" uid="uid://o4stqua285h0" path="res://scenes/entities/player/stats/movement_speed.tres" id="2_bj7e2"]
 [ext_resource type="PackedScene" uid="uid://cre4yfp4yuh" path="res://scenes/entities/player/fps_arms.tscn" id="2_gf3du"]
 [ext_resource type="Script" uid="uid://di6twue8qm6df" path="res://scenes/entities/player/player_interaction_handler.gd" id="3_oriau"]
 [ext_resource type="PackedScene" uid="uid://bv8fraojrdvf" path="res://scenes/components/equipment_component.tscn" id="4_momwo"]
 [ext_resource type="PackedScene" uid="uid://wbjb2lrcxndv" path="res://scenes/components/status_handler.tscn" id="6_8akj5"]
 [ext_resource type="PackedScene" uid="uid://calwupcbsccj3" path="res://scenes/components/health_component.tscn" id="6_08ryp"]
+[ext_resource type="Script" uid="uid://c5mmyb47hmyh7" path="res://scenes/entities/player/ability_item_handler.gd" id="8_1murt"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bnonn"]
 height = 1.75
@@ -15,6 +17,7 @@ radius = 2.0
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("health_component", "equipment_component", "status_handler_component") groups=["player"]]
 script = ExtResource("1_scu18")
+movement_speed = ExtResource("2_bj7e2")
 health_component = NodePath("HealthComponent")
 equipment_component = NodePath("Head/SubViewportContainer/SubViewport/EquipCam/EquipmentComponent")
 status_handler_component = NodePath("StatusHandler")
@@ -84,10 +87,14 @@ visible = false
 
 [node name="HealthComponent" parent="." instance=ExtResource("6_08ryp")]
 
-[node name="StatusHandler" parent="." instance=ExtResource("6_8akj5")]
+[node name="StatusHandler" parent="." node_paths=PackedStringArray("status_owner") instance=ExtResource("6_8akj5")]
+status_owner = NodePath("..")
 
 [node name="GroundPos" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9, 0)
+
+[node name="AbilityItemHandler" type="Node" parent="."]
+script = ExtResource("8_1murt")
 
 [connection signal="pda_use" from="." to="Head/SubViewportContainer/SubViewport/EquipCam/Arms" method="_on_player_pda_use"]
 [connection signal="body_entered" from="Head/InteractionHandler" to="Head/InteractionHandler" method="OnOnjectEnteredArea"]

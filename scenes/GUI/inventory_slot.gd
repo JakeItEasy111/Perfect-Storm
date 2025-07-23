@@ -63,7 +63,8 @@ func update_stack():
 	quantity_label.text = str(stack)
 
 func _on_gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if SlotFilled and SlotData:
-			if SlotData.Equipable:
-				EventBus.equip_item.emit(self)
+	if event is InputEventMouseButton: 
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			if SlotFilled and SlotData:
+				if SlotData.Equipable:
+					EventBus.equip_item.emit(self)

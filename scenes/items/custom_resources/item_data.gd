@@ -3,7 +3,7 @@ extends Resource
 class_name ItemData
 
 @export var ItemName : String
-enum ITEM_TYPE {INVENTORY, UPGRADE, PICKUP}
+enum ITEM_TYPE {INVENTORY, ARTIFACT, INSTANT_TRIGGER,}
 @export var Type: ITEM_TYPE = ITEM_TYPE.INVENTORY 
 @export var ItemEffects : Array[Effect] = [] 
 
@@ -24,4 +24,4 @@ func use_item(target):
 	
 func apply_effects(target): 
 	for effect in ItemEffects:
-		effect.execute(target)
+		effect.execute(target) #instead add to effect list and they will execute when triggered 

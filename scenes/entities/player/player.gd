@@ -2,60 +2,64 @@ extends CharacterBody3D
 class_name Player
 
 # signals 
-signal pda_use(is_open) #sent to PDA
+signal pda_use(is_closed) #sent to PDA
+signal update_sprint_bar #sent to player UI 
 
 # constants
-const WALK_SPEED := 2.5
-const SPRINT_SPEED := 5.0
-const CROUCH_SPEED := 1.25
-const JUMP_VELOCITY := 3.0
-const BOB_FREQ := 3.0
-const BOB_AMP := 0.08
-const MAX_STEP_HEIGHT := 0.5
+const WALK_SPEED : float = 2.5
+const SPRINT_SPEED : float = 5.0 
+const CROUCH_SPEED : float = 1.25
+const JUMP_VELOCITY : float = 3.0
+const BOB_FREQ : float = 3.0
+const BOB_AMP : float = 0.08
+const MAX_STEP_HEIGHT : float = 0.5
 
-var look_sensitivity := 0.003 
-var current_speed := WALK_SPEED
-var direction := Vector3.ZERO
-var original_capsule_height := 1.75
-var original_head_pos := 0.8
-var _snapped_to_stairs_last_frame := false
+var look_sensitivity : float = 0.003 
+var direction : Vector3 = Vector3.ZERO
+var original_capsule_height : float = 1.75
+var original_head_pos : float = 0.8
+var _snapped_to_stairs_last_frame : bool = false
 var _last_frame_was_on_floor = -INF
 
 #sprint variables
-var sprint_drain_amount := 25
-var sprint_regen_amount := 15
-var sprint_time_on_screen := 2 #time the slider stays on screen after letting go of shift
-var sprint_fade_speed := 2 #how fast the slider fades off once the time on screen has elapsed
-var sprint_bar_timer  := 0
+var sprint_drain_amount : int = 25
+var sprint_regen_amount : int = 15
+var sprint_time_on_screen : int = 2 #time the slider stays on screen after letting go of shift
+var sprint_fade_speed : int = 2 #how fast the slider fades off once the time on screen has elapsed
+var sprint_bar_timer  : int = 0
 var sprint_bar : TextureProgressBar
 
 # fov variables
-var fov := 60
-var fov_change := 1.25 
-var t_bob := 0.0 
+var fov : int = 60
+var fov_change : float = 1.25 
+var t_bob : float = 0.1
+var sway_degrees : int = 2
 
 # flags
-var can_jump := true
-var can_sprint := true
-var can_crouch := true 
-var using_pda := false
-var uncrouching := false
-var can_play_footstep := false  
+var sprinting : bool = false
+var crouching : bool = false
+var can_jump : bool = true
+var can_sprint : bool = true
+var can_crouch : bool = true 
+var using_pda : bool = false
+var uncrouching : bool = false
+var can_play_footstep : bool = false  
 
-#items
-var artifacts : Array[ItemData]
-var stat_modifiers : Array[StatModifier]
-
-@onready var head = $Head
-@onready var camera = %Camera3D
+#nodes
+@onready var head : Node3D = $Head
+@onready var camera : Camera3D = %Camera3D
 @onready var equip_cam: Camera3D = %EquipCam
-@onready var collision = $PlayerCollisionShape
-@onready var col_above_detect_ray = $ColAboveDetectRay
-@onready var fps_arms = %Arms
-@onready var stairs_below_raycast_3d: RayCast3D = $StairsBelowRaycast3D
-@onready var stairs_ahead_raycast_3d: RayCast3D = $StairsAheadRaycast3D
+@onready var collision : CollisionShape3D= $PlayerCollisionShape
+@onready var col_above_detect_ray : RayCast3D = $ColAboveDetectRay
+@onready var fps_arms : Node3D = %Arms
+@onready var stairs_below_raycast_3d : RayCast3D = $StairsBelowRaycast3D
+@onready var stairs_ahead_raycast_3d : RayCast3D = $StairsAheadRaycast3D
 @onready var ground_pos: Marker3D = $GroundPos
 
+#stats
+@export var movement_speed : Stat 
+
+#components
 @export var health_component : HealthComponent
 @export var equipment_component : EquipmentComponent
 @export var status_handler_component : StatusHandlerComponent
@@ -63,10 +67,10 @@ var stat_modifiers : Array[StatModifier]
 func _ready():
 	Global.player = self 
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	current_speed = WALK_SPEED
+	#current_speed = WALK_SPEED
+	movement_speed.base_value = WALK_SPEED
 	
 	EventBus.on_upgrade_picked_up.connect(update_items)
-	EventBus.on_pickup.connect(use_pickup)
 	sprint_bar = get_node("/root/" + get_tree().current_scene.name + "/PlayerUI/SprintBar") #REPLACE
  
 func _unhandled_input(event: InputEvent) -> void:
@@ -91,26 +95,33 @@ func _physics_process(delta: float) -> void:
 	#jumping
 	if(can_jump && (is_on_floor() or _snapped_to_stairs_last_frame) && Input.is_action_just_pressed("jump")):
 		velocity.y = JUMP_VELOCITY
-
-	# Get the input direction 
+	
+	# Get the input direction and sway 
 	if not using_pda: 
 		var input_dir := Input.get_vector("left", "right", "forward", "backward")
 		direction = lerp(direction, (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized(), delta*10.0) 
+			
+		if input_dir.x > 0:
+			head.rotation.z = lerp_angle(head.rotation.z, deg_to_rad(-sway_degrees), 0.05)
+		elif input_dir.x < 0:
+			head.rotation.z = lerp_angle(head.rotation.z, deg_to_rad(sway_degrees), 0.05)
+		else:
+			head.rotation.z = lerp_angle(head.rotation.z, deg_to_rad(0), 0.05)		
 	else: 
 		direction = Vector3(0, 0, 0)
-	
+
 	#movement acceleration
 	if is_on_floor():
 		if direction:
-			velocity.x = direction.x * current_speed
-			velocity.z = direction.z * current_speed
+			velocity.x = direction.x * movement_speed.adjusted_value #current_speed
+			velocity.z = direction.z * movement_speed.adjusted_value #current_speed
 		else:
-			velocity.x = lerp(velocity.x, direction.x * current_speed, delta * 5.0)
-			velocity.z = lerp(velocity.z, direction.z * current_speed, delta * 5.0)
+			velocity.x = lerp(velocity.x, direction.x * movement_speed.adjusted_value, delta * 5.0)
+			velocity.z = lerp(velocity.z, direction.z * movement_speed.adjusted_value, delta * 5.0)
 	else:
-		velocity.x = lerp(velocity.x, direction.x * current_speed, delta * 2.0)
-		velocity.z = lerp(velocity.z, direction.z * current_speed, delta * 2.0)
-	
+		velocity.x = lerp(velocity.x, direction.x * movement_speed.adjusted_value, delta * 2.0)
+		velocity.z = lerp(velocity.z, direction.z * movement_speed.adjusted_value, delta * 2.0)
+
 	#stair handling
 	if is_on_floor(): _last_frame_was_on_floor = Engine.get_physics_frames()
 	
@@ -128,27 +139,30 @@ func _process(delta: float) -> void:
 	
 	# sprinting
 	if Input.is_action_pressed("sprint"): 
-		if (can_sprint && current_speed != CROUCH_SPEED):
-			current_speed = SPRINT_SPEED
+		if (can_sprint && !crouching):
+			movement_speed.base_value = SPRINT_SPEED
+			sprinting = true
 	
-	if Input.is_action_just_released("sprint") and current_speed == SPRINT_SPEED:
-		current_speed = WALK_SPEED
+	if Input.is_action_just_released("sprint") and sprinting:
+		movement_speed.base_value = WALK_SPEED
+		sprinting = false
 		sprint_bar_timer = sprint_time_on_screen
 		
 	if sprint_bar.value <= sprint_bar.min_value:
 		can_sprint = false
 		sprint_bar.tint_progress = Color.DARK_GRAY
 		
-	if current_speed == SPRINT_SPEED and Input.get_vector("left", "right", "forward", "backward").length() > 0.1 :  
+	if sprinting  and Input.get_vector("left", "right", "forward", "backward").length() > 0.1 :  
 		sprint_bar.visible = true
 		sprint_bar.value = sprint_bar.value - sprint_drain_amount * delta
 		sprint_bar.tint_progress = Color.WHITE
 			
 		if !can_sprint:
+			movement_speed.base_value = WALK_SPEED
+			sprinting = false 
 			can_crouch = true 
-			current_speed = WALK_SPEED
 			
-	else: # not sprinting 
+	else: # sprint bar handling 
 		if sprint_bar_timer > 0:
 			sprint_bar_timer = sprint_bar_timer - delta
 		if sprint_bar_timer <= 0: 
@@ -170,19 +184,20 @@ func _process(delta: float) -> void:
 
 	# crouching 
 	if Input.is_action_just_pressed("crouch"):
-		if(current_speed == CROUCH_SPEED):
+		if(crouching):
 			if !col_above_detect_ray.is_colliding():
 				cancel_crouch()
 			else:
 				uncrouching = true 
 		elif(can_crouch and !col_above_detect_ray.is_colliding()):
-			current_speed = CROUCH_SPEED
+			movement_speed.base_value = CROUCH_SPEED
+			crouching = true
 			can_jump = false
 			can_sprint = false
 			collision.shape.height = original_capsule_height - (collision.shape.height / original_capsule_height)
 			collision.position.y = -(collision.shape.height / original_capsule_height)
 			
-	if(current_speed == CROUCH_SPEED):
+	if(crouching):
 		head.position.y = lerp(head.position.y, -(original_head_pos / 2), delta * 2.0) 
 		if uncrouching and !col_above_detect_ray.is_colliding():
 			cancel_crouch()
@@ -212,8 +227,6 @@ func _headbob(time) -> Vector3:
 	
 	if pos.y < -low_pos and can_play_footstep:
 		can_play_footstep = false
-		print("Camera global position: ", get_viewport().get_camera_3d().global_transform.origin)
-		print("Camera World3D: ", get_viewport().get_camera_3d().get_world_3d())
 		AudioManager.play_3d_audio_at_location(ground_pos, SoundEffect.SOUND_EFFECT_TYPE.FOOTSTEP_CONCRETE)
 	return pos
 
@@ -268,11 +281,9 @@ func _on_health_component_died() -> void:
 func update_items(item): #trigger item effects 
 	pass
 	
-func use_pickup(pickup : ItemData): #add simple pickup effect 
-	pass
-	
 func cancel_crouch():
-	current_speed = WALK_SPEED 
+	movement_speed.base_value = WALK_SPEED
+	crouching = false
 	can_sprint = true
 	can_jump = true
 	collision.shape.height = original_capsule_height

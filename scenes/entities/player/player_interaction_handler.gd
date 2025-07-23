@@ -25,12 +25,11 @@ func PickupNearestItem():
 		for i in ItemTypes.size(): #if proper item type 
 			if(ItemTypes[i].WorldPrefab != null and ItemTypes[i].WorldPrefab.resource_path == itemPrefab):
 				print("Item ID: " + str(i) + " Item Name: " + ItemTypes[i].ItemName) 
-				if ItemTypes[i].ITEM_TYPE.UPGRADE: #add to artifacts 
-					Global.player.artifacts.append(ItemTypes[i])
-					EventBus.on_upgrade_picked_up.emit(ItemTypes[i])
-				elif ItemTypes[i].ITEM_TYPE.PICKUP: #immediately execute 
-					ItemTypes[i].apply_effects(Global.player)
-					EventBus.on_pickup.emit(ItemTypes[i])
+				match ItemTypes[i].Type: #add to artifacts 
+					ItemData.ITEM_TYPE.ARTIFACT:
+						EventBus.on_upgrade_picked_up.emit(ItemTypes[i])
+					ItemData.ITEM_TYPE.INSTANT_TRIGGER:
+						ItemTypes[i].use_item(Global.player)
 				EventBus.on_item_picked_up.emit(ItemTypes[i]) #add to inventory 
 				AudioManager.play_audio(SoundEffect.SOUND_EFFECT_TYPE.ITEM_PICKUP)
 				return 

@@ -1,16 +1,38 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=8 format=3 uid="uid://qchubvlyjppd"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=13 format=3 uid="uid://qchubvlyjppd"]
 
 [ext_resource type="Texture2D" uid="uid://cqxys502v7tli" path="res://assets/items/textures/inventory_items_texture_MAT_adrenaline_AlbedoTransparency.png" id="1_8nd7j"]
 [ext_resource type="Script" uid="uid://baoy6u33e3c3d" path="res://scenes/items/custom_resources/effect.gd" id="1_gjb2v"]
 [ext_resource type="Script" uid="uid://dn4l2qsl25b66" path="res://scenes/items/custom_resources/item_data.gd" id="2_kk85r"]
 [ext_resource type="Script" uid="uid://1nc7fvwdkdim" path="res://scenes/items/custom_resources/regen_effect.gd" id="3_12t2d"]
+[ext_resource type="Script" uid="uid://de11g23wrgvkx" path="res://scenes/items/custom_resources/stat_modifier_status_effect.gd" id="4_16cs5"]
 [ext_resource type="PackedScene" uid="uid://52cwh3a6c18l" path="res://scenes/items/viewmodels/adrenaline_viewmodel.tscn" id="4_dhk0b"]
 [ext_resource type="PackedScene" uid="uid://dlt6codyfktr8" path="res://scenes/items/world_prefabs/adrenaline_item.tscn" id="4_uao47"]
+[ext_resource type="Resource" uid="uid://o4stqua285h0" path="res://scenes/entities/player/stats/movement_speed.tres" id="5_4jhdp"]
+[ext_resource type="Script" uid="uid://cvc6jffotbpah" path="res://scenes/items/custom_resources/stat_modifier.gd" id="5_uyf6r"]
 
-[sub_resource type="Resource" id="Resource_xu36p"]
+[sub_resource type="Resource" id="Resource_4jhdp"]
+script = ExtResource("5_uyf6r")
+type = 2
+value = 1.5
+metadata/_custom_type_script = "uid://cvc6jffotbpah"
+
+[sub_resource type="Resource" id="Resource_4gq57"]
+script = ExtResource("4_16cs5")
+stat_modifier = SubResource("Resource_4jhdp")
+stat = ExtResource("5_4jhdp")
+id = "Adrenaline"
+stack_type = 0
+can_expire = true
+duration = 10
+stacks = 1
+visible = false
+tooltip = ""
+metadata/_custom_type_script = "uid://de11g23wrgvkx"
+
+[sub_resource type="Resource" id="Resource_uyf6r"]
 script = ExtResource("3_12t2d")
 num_ticks = 10
-tick_rate_seconds = 0.5
+tick_rate_seconds = 1.0
 flat = true
 amount = -1
 metadata/_custom_type_script = "uid://1nc7fvwdkdim"
@@ -19,7 +41,7 @@ metadata/_custom_type_script = "uid://1nc7fvwdkdim"
 script = ExtResource("2_kk85r")
 ItemName = "Adrenaline Injector"
 Type = 0
-ItemEffects = Array[ExtResource("1_gjb2v")]([SubResource("Resource_xu36p")])
+ItemEffects = Array[ExtResource("1_gjb2v")]([SubResource("Resource_4gq57"), SubResource("Resource_uyf6r")])
 Equipable = true
 Consumable = true
 UseTime = 1.5

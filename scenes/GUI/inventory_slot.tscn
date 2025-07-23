@@ -40,6 +40,8 @@ shadow_size = 10
 shadow_offset = Vector2(2, 2)
 
 [node name="InventorySlot" type="Button" node_paths=PackedStringArray("IconSlot")]
+offset_right = 128.0
+offset_bottom = 120.0
 theme_override_styles/focus = SubResource("StyleBoxFlat_a8cau")
 theme_override_styles/hover = SubResource("StyleBoxFlat_a8cau")
 theme_override_styles/normal = SubResource("StyleBoxFlat_drvje")

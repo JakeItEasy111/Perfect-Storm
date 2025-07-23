@@ -2,6 +2,7 @@ extends Node
 
 signal on_item_picked_up(item)
 signal on_upgrade_picked_up(item)
+signal on_upgrade_removed(item)
 signal on_pickup(item)
 signal equip_item(slot)
 signal action_timer_begin(action_time)

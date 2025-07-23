@@ -3,20 +3,21 @@
 [ext_resource type="Texture2D" uid="uid://dx68cmy8w5buv" path="res://assets/items/icons/BoxIcon.png" id="1_4sn61"]
 [ext_resource type="Script" uid="uid://baoy6u33e3c3d" path="res://scenes/items/custom_resources/effect.gd" id="1_j5pxc"]
 [ext_resource type="Script" uid="uid://dn4l2qsl25b66" path="res://scenes/items/custom_resources/item_data.gd" id="2_b18ad"]
-[ext_resource type="Script" uid="uid://c006j4ppd4mw2" path="res://scenes/items/custom_resources/damage_effect.gd" id="2_v6mw0"]
+[ext_resource type="Script" uid="uid://y1vl35xqwxq7" path="res://scenes/items/custom_resources/health_effect.gd" id="3_258nt"]
 [ext_resource type="PackedScene" uid="uid://bs866e70gxptk" path="res://scenes/items/viewmodels/cube_viewmodel.tscn" id="4_ef6d1"]
 [ext_resource type="PackedScene" uid="uid://cdpxuqie2rs7e" path="res://scenes/items/world_prefabs/test_item.tscn" id="5_gp6sh"]
 
-[sub_resource type="Resource" id="Resource_3jwd4"]
-script = ExtResource("2_v6mw0")
-flat = false
-amount = 50
+[sub_resource type="Resource" id="Resource_258nt"]
+script = ExtResource("3_258nt")
+flat = true
+amount = -50
+metadata/_custom_type_script = "uid://y1vl35xqwxq7"
 
 [resource]
 script = ExtResource("2_b18ad")
 ItemName = "Qube"
-Type = 0
-ItemEffects = Array[ExtResource("1_j5pxc")]([SubResource("Resource_3jwd4")])
+Type = 2
+ItemEffects = Array[ExtResource("1_j5pxc")]([SubResource("Resource_258nt")])
 Equipable = true
 Consumable = false
 UseTime = 3.0

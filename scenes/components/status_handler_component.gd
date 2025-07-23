@@ -1,18 +1,8 @@
 class_name StatusHandlerComponent
 extends Node
 
-const STATUS_APPLY_INTERVAL := 0.25
-
 @export var status_owner : Node
 var status_effects : Array[StatusEffect]
-
-func apply_statuses():
-	
-	var tween := create_tween()
-	for status in status_effects:
-		tween.tween_callback(status.apply_status.bind(status_owner))
-		tween.tween_interval(STATUS_APPLY_INTERVAL)
-		_on_status_applied(status)
 	
 func add_status(status : StatusEffect) -> void:
 	var stackable := status.stack_type != StatusEffect.StackType.NONE
@@ -21,7 +11,7 @@ func add_status(status : StatusEffect) -> void:
 	if not _has_status(status.id):
 		status_effects.append(status)
 		status.status_applied.connect(_on_status_applied)
-		status.initialize_status(status_owner)
+		status.apply_status(status_owner)
 		return
 	
 	# If it's unique and we already have it 
@@ -56,6 +46,7 @@ func _get_status(id : String):
 func _on_status_applied(status: StatusEffect) -> void:
 	EventBus.status_applied.emit(status)
 	run_status_duration(status)
+	print(str(status.id) + " applied for " + str(status.duration) + " seconds")
 
 func run_status_duration(status : StatusEffect) -> void:
 	if status.can_expire:
@@ -64,24 +55,13 @@ func run_status_duration(status : StatusEffect) -> void:
 		add_child(timer)
 		timer.wait_time = status.duration
 		timer.one_shot = true
-		timer.connect("timeout", status_expired(status))
 		timer.start()
-		
-		if status is TickStatus:
-			run_tick_status(status) 
-			
+
 		await timer.timeout
+		status_expired(status)
 		timer.queue_free()
 	
 func status_expired(expired_status : StatusEffect):
 	expired_status.on_status_removed(status_owner)
 	status_effects.erase(expired_status)
-
-func run_tick_status(status : TickStatus):
-	var timer := Timer.new()
-	timer.name = status.id + "Interval"
-	timer.wait_time = status.tick_interval
-	
-	await timer.timeout
-	status.base_effect.execute(status_owner)
-	run_tick_status(status)
+	print(str(expired_status.id) + " expired.")

@@ -48,10 +48,10 @@ func use_equipped_item():
 		if current_item.Consumable:
 			load_item(null)
 
-func unequip_animation(pda_open):
+func unequip_animation(is_closed):
 	var tween : Tween = create_tween()
 	tween.set_trans(tween.TRANS_SINE)
-	if pda_open:
-		tween.tween_property(self, 'position', Vector3(0.25, -0.166, -0.25), 0.5)
+	if is_closed:
+		tween.tween_property(self, 'position', Vector3(0.25, -0.166, -0.25), 1.0)
 	else:
 		tween.tween_property(self, 'position', Vector3(0.25, -0.666, -0.25), 0.5)
