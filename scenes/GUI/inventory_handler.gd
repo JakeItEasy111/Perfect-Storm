@@ -7,7 +7,7 @@ class_name InventoryHandler
 @export var InventoryGrid : GridContainer
 @export var InventorySlotPrefab : PackedScene = preload("res://scenes/GUI/inventory_slot.tscn")
 
-@onready var selector: Sprite2D = $AspectRatioContainer/Panel/MarginContainer/GridContainer/Selector
+@onready var selector: Sprite2D = $Panel/MarginContainer/GridContainer/Selector
 
 var InventorySlots : Array[InventorySlot] = []
 

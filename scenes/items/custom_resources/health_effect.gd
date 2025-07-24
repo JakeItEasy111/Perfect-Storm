@@ -1,6 +1,7 @@
 class_name HealthEffect
 extends Effect
 
+@export_category("Health Effect")
 @export var flat := true 
 @export var amount := 0
 
