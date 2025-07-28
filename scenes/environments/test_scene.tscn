@@ -1,16 +1,14 @@
-[gd_scene load_steps=24 format=3 uid="uid://bb7pbtyh8k5dj"]
+[gd_scene load_steps=22 format=3 uid="uid://bb7pbtyh8k5dj"]
 
 [ext_resource type="PackedScene" uid="uid://dc63egb7vfe03" path="res://scenes/entities/player/player.tscn" id="1_jnr1s"]
 [ext_resource type="Texture2D" uid="uid://ddpnefmq78md6" path="res://assets/placeholder/FPS arms/hdris/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="2_cy4nd"]
-[ext_resource type="Texture2D" uid="uid://ckr0xbk2e88aa" path="res://assets/placeholder/kenney_particle-pack/PNG (Black background)/magic_01.png" id="3_cnb2j"]
-[ext_resource type="Texture2D" uid="uid://cuusdo42jh70c" path="res://assets/placeholder/kenney_particle-pack/PNG (Black background)/light_03.png" id="4_av0mf"]
+[ext_resource type="Texture2D" uid="uid://bty1o0qxc181f" path="res://assets/placeholder/Flashlight/light-64.png" id="3_cnb2j"]
 [ext_resource type="Script" uid="uid://cob1cmfvhx0ep" path="res://assets/stages/prototype_map/prototype_environment.gd" id="4_ww0ob"]
-[ext_resource type="Texture2D" uid="uid://daujibgpdrd8k" path="res://assets/placeholder/kenney_particle-pack/PNG (Black background)/window_02.png" id="5_6he04"]
 [ext_resource type="Shader" uid="uid://bkmvxlkbe84vk" path="res://shaders/psx.gdshader" id="5_kim31"]
 [ext_resource type="AudioStream" uid="uid://rg28cr483o0g" path="res://assets/audio/music/Steve-Roden-8-Breaths-Of-Different-Lengths.ogg" id="5_uw3r6"]
 [ext_resource type="PackedScene" uid="uid://bxks16bf3tgu0" path="res://scenes/entities/npc/stretchy.tscn" id="7_n8iwv"]
 [ext_resource type="PackedScene" uid="uid://cyussufkwu443" path="res://scenes/items/world_prefabs/coffee_item.tscn" id="7_rht8s"]
-[ext_resource type="Texture2D" uid="uid://cvd54qbp81wk0" path="res://assets/placeholder/kenney_particle-pack/PNG (Black background)/window_03.png" id="8_e0o4y"]
+[ext_resource type="Texture2D" uid="uid://d1aq7d07iaxr3" path="res://assets/placeholder/Flashlight/light-128.png" id="8_e0o4y"]
 [ext_resource type="PackedScene" uid="uid://da5gotuaa5rxh" path="res://scenes/GUI/player_ui.tscn" id="8_ib0sg"]
 [ext_resource type="PackedScene" uid="uid://cdpxuqie2rs7e" path="res://scenes/items/world_prefabs/test_item.tscn" id="8_mme7b"]
 [ext_resource type="PackedScene" uid="uid://dlt6codyfktr8" path="res://scenes/items/world_prefabs/adrenaline_item.tscn" id="9_cjc8j"]
@@ -85,7 +83,7 @@ shadow_enabled = true
 transform = Transform3D(-0.966348, 0.115334, 0.229933, 0.244824, 0.138045, 0.95969, 0.0789434, 0.983688, -0.161636, -7.66135, 2.8228, -4.47952)
 light_color = Color(0.988173, 0.791591, 0.467727, 1)
 light_energy = 50.0
-light_projector = ExtResource("4_av0mf")
+light_projector = ExtResource("8_e0o4y")
 shadow_enabled = true
 spot_angle = 46.51
 spot_angle_attenuation = 1.10957
@@ -94,7 +92,7 @@ spot_angle_attenuation = 1.10957
 transform = Transform3D(-0.892719, 0.0350516, 0.44925, 0.449799, 0.129283, 0.883723, -0.0271045, 0.990988, -0.13118, -2.35792, 2.8228, -18.1393)
 light_color = Color(0.988173, 0.791591, 0.467727, 1)
 light_energy = 50.0
-light_projector = ExtResource("5_6he04")
+light_projector = ExtResource("8_e0o4y")
 shadow_enabled = true
 spot_range = 14.266
 spot_angle = 47.66

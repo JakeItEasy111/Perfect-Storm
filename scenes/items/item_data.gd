@@ -23,5 +23,4 @@ func use_item(target):
 	EventBus.item_used.emit(self)
 	
 func apply_effects(target): 
-	for effect in ItemEffects:
-		effect.execute(target) #instead add to effect list and they will execute when triggered 
+	EventBus.effects_applied.emit(target, ItemEffects) #effect manager 

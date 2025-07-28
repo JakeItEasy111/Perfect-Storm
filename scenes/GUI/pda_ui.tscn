@@ -38,21 +38,22 @@ corner_radius_bottom_left = 5
 
 [node name="PDA UI" type="Control"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_right = 0.666667
+anchor_bottom = 0.666667
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="TabContainer" type="TabContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+ratio = 1.8
+alignment_vertical = 0
+
+[node name="TabContainer" type="TabContainer" parent="AspectRatioContainer"]
+layout_mode = 2
 theme_override_colors/font_unselected_color = Color(1, 1, 1, 1)
 theme_override_colors/font_selected_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 25
@@ -64,16 +65,16 @@ theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_oqyoo")
 tab_alignment = 1
 current_tab = 0
 
-[node name="Inventory" parent="TabContainer" instance=ExtResource("1_j6hv6")]
+[node name="Inventory" parent="AspectRatioContainer/TabContainer" instance=ExtResource("1_j6hv6")]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="Status" type="Control" parent="TabContainer"]
+[node name="Status" type="Control" parent="AspectRatioContainer/TabContainer"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="Documents" type="Control" parent="TabContainer"]
+[node name="Documents" type="Control" parent="AspectRatioContainer/TabContainer"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 2

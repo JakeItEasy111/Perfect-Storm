@@ -1,8 +1,8 @@
-extends Effect
-class_name StatusEffect
+extends Resource
+class_name Status
 
-signal status_applied(status : StatusEffect)
-signal status_changed()
+signal status_applied(status : Status)
+signal status_changed(status : Status)
 
 enum StackType {NONE, INTENSITY, DURATION}
 
@@ -12,6 +12,7 @@ enum StackType {NONE, INTENSITY, DURATION}
 @export var can_expire: bool
 @export var duration: int : set = set_duration
 @export var stacks : int : set = set_stacks
+@export var effects : Array[Effect]
 var active = false
 
 @export_group("Visual Settings")
@@ -36,15 +37,3 @@ func apply_status(target: Node) -> void: #trigger actual status effect
 	
 func on_status_removed(target: Node) -> void:
 	status_changed.emit() 
-
-func _has_status_handler(target : Node) -> bool:
-	var children = target.get_children()
-	for child in children:
-		if child is StatusHandlerComponent:
-			return true
-	return false  
- 
-func execute(target : Node): #add this status to status handler
-	if not (_has_status_handler(target)) : return
-
-	target.status_handler_component.add_status(self)

@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=8 format=3 uid="uid://cg21g41y4xws1"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=9 format=3 uid="uid://cg21g41y4xws1"]
 
 [ext_resource type="Texture2D" uid="uid://dx68cmy8w5buv" path="res://assets/items/icons/BoxIcon.png" id="1_4sn61"]
-[ext_resource type="Script" uid="uid://baoy6u33e3c3d" path="res://scenes/items/custom_resources/effect.gd" id="1_j5pxc"]
-[ext_resource type="Script" uid="uid://dn4l2qsl25b66" path="res://scenes/items/custom_resources/item_data.gd" id="2_b18ad"]
-[ext_resource type="Script" uid="uid://y1vl35xqwxq7" path="res://scenes/items/custom_resources/health_effect.gd" id="3_258nt"]
+[ext_resource type="Script" uid="uid://baoy6u33e3c3d" path="res://scenes/custom_resources/effects/effect.gd" id="1_j5pxc"]
+[ext_resource type="Script" uid="uid://dn4l2qsl25b66" path="res://scenes/items/item_data.gd" id="2_b18ad"]
+[ext_resource type="Script" uid="uid://y1vl35xqwxq7" path="res://scenes/custom_resources/effects/health_effect.gd" id="3_258nt"]
+[ext_resource type="Script" uid="uid://8k5pmakcx7i8" path="res://scenes/custom_resources/conditions/condition.gd" id="3_674uu"]
 [ext_resource type="PackedScene" uid="uid://bs866e70gxptk" path="res://scenes/items/viewmodels/cube_viewmodel.tscn" id="4_ef6d1"]
 [ext_resource type="PackedScene" uid="uid://cdpxuqie2rs7e" path="res://scenes/items/world_prefabs/test_item.tscn" id="5_gp6sh"]
 
@@ -11,6 +12,8 @@
 script = ExtResource("3_258nt")
 flat = true
 amount = -50
+type = 0
+conditions = Array[ExtResource("3_674uu")]([])
 metadata/_custom_type_script = "uid://y1vl35xqwxq7"
 
 [resource]

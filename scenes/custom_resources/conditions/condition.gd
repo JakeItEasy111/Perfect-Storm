@@ -1,5 +1,5 @@
 extends Resource
 class_name Condition
 
-func check(target : Node) -> bool:
+func check(context : EventContext) -> bool:
 	return false 

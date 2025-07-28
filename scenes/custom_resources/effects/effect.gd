@@ -18,7 +18,13 @@ enum TRIGGER_TYPE {
 }
 
 @export var type : TRIGGER_TYPE
-@export var condition : Condition
+@export var conditions : Array[Condition]
 
 func execute(_target: Node) -> void:
 	pass
+
+func conditions_met(context : EventContext) -> bool:
+	for condition in conditions:
+		if not condition.check(context):
+			return false
+	return true 

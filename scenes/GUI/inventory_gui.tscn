@@ -7,27 +7,35 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ql478"]
 bg_color = Color(0.459302, 0.485339, 0.515013, 1)
 
-[node name="Inventory_GUI" type="Control" node_paths=PackedStringArray("InventoryGrid")]
+[node name="Inventory_GUI" type="Control" node_paths=PackedStringArray("InventoryGrid", "selector")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -640.0
+offset_bottom = -360.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ae3jl")
 CollisionMask = 1
-InventoryGrid = NodePath("Panel/MarginContainer/GridContainer")
+InventoryGrid = NodePath("AspectRatioContainer/Panel/MarginContainer/GridContainer")
+selector = NodePath("AspectRatioContainer/Panel/MarginContainer/GridContainer/Selector")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+ratio = 1.8
+alignment_vertical = 0
+
+[node name="Panel" type="Panel" parent="AspectRatioContainer"]
+layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ql478")
 
-[node name="TextureRect" type="TextureRect" parent="Panel"]
+[node name="TextureRect" type="TextureRect" parent="AspectRatioContainer/Panel"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -36,7 +44,7 @@ offset_right = 1.0
 offset_bottom = 7.60791
 texture = ExtResource("2_a6si2")
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="AspectRatioContainer/Panel"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.1
@@ -49,14 +57,14 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="GridContainer" type="GridContainer" parent="Panel/MarginContainer"]
+[node name="GridContainer" type="GridContainer" parent="AspectRatioContainer/Panel/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
 columns = 4
 
-[node name="Selector" type="Sprite2D" parent="Panel/MarginContainer/GridContainer"]
+[node name="Selector" type="Sprite2D" parent="AspectRatioContainer/Panel/MarginContainer/GridContainer"]
 visible = false
 modulate = Color(0.854338, 1, 0.991613, 1)
 z_index = 1

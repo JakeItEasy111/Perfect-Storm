@@ -3,7 +3,6 @@ class_name Player
 
 # signals 
 signal pda_use(is_closed) #sent to PDA
-signal update_sprint_bar #sent to player UI 
 
 # constants
 const WALK_SPEED : float = 2.5

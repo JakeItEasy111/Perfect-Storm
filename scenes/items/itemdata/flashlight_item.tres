@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="ItemData" load_steps=6 format=3 uid="uid://dj1i24lwlewlr"]
 
 [ext_resource type="Texture2D" uid="uid://bpqhb6738peaw" path="res://assets/placeholder/Flashlight/TEX_flashlight_64.png" id="1_o6a07"]
-[ext_resource type="Script" uid="uid://baoy6u33e3c3d" path="res://scenes/items/custom_resources/effect.gd" id="1_sqq86"]
+[ext_resource type="Script" uid="uid://baoy6u33e3c3d" path="res://scenes/custom_resources/effects/effect.gd" id="1_sqq86"]
 [ext_resource type="PackedScene" uid="uid://fp8uc2loubtd" path="res://scenes/items/world_prefabs/flashlight_item.tscn" id="2_1pdgw"]
 [ext_resource type="PackedScene" uid="uid://cee3dc2duwavk" path="res://scenes/items/viewmodels/flashlight_equipment.tscn" id="3_g8ajg"]
-[ext_resource type="Script" uid="uid://dn4l2qsl25b66" path="res://scenes/items/custom_resources/item_data.gd" id="3_o6a07"]
+[ext_resource type="Script" uid="uid://dn4l2qsl25b66" path="res://scenes/items/item_data.gd" id="3_o6a07"]
 
 [resource]
 script = ExtResource("3_o6a07")

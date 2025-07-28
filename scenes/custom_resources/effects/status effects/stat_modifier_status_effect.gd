@@ -1,4 +1,4 @@
-extends StatusEffect
+extends Status
 class_name StatModifierStatus
 
 @export var stat_modifier : StatModifier

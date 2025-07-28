@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=8 format=3 uid="uid://dn0vs31kgcpl1"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=9 format=3 uid="uid://dn0vs31kgcpl1"]
 
 [ext_resource type="Texture2D" uid="uid://csiu3i30dvjiw" path="res://assets/items/textures/inventory_items_texture_MAT_bandage_AlbedoTransparency.png" id="1_5jbcp"]
-[ext_resource type="Script" uid="uid://baoy6u33e3c3d" path="res://scenes/items/custom_resources/effect.gd" id="1_8p4id"]
-[ext_resource type="Script" uid="uid://dn4l2qsl25b66" path="res://scenes/items/custom_resources/item_data.gd" id="2_8mk37"]
-[ext_resource type="Script" uid="uid://1nc7fvwdkdim" path="res://scenes/items/custom_resources/regen_effect.gd" id="3_hps1f"]
+[ext_resource type="Script" uid="uid://baoy6u33e3c3d" path="res://scenes/custom_resources/effects/effect.gd" id="1_8p4id"]
+[ext_resource type="Script" uid="uid://dn4l2qsl25b66" path="res://scenes/items/item_data.gd" id="2_8mk37"]
+[ext_resource type="Script" uid="uid://1nc7fvwdkdim" path="res://scenes/custom_resources/effects/regen_effect.gd" id="3_hps1f"]
 [ext_resource type="PackedScene" uid="uid://bg4j86to2gx1" path="res://scenes/items/world_prefabs/bandage_item.tscn" id="3_il0j6"]
+[ext_resource type="Script" uid="uid://8k5pmakcx7i8" path="res://scenes/custom_resources/conditions/condition.gd" id="3_t5h22"]
 [ext_resource type="PackedScene" uid="uid://dampeabh6vet1" path="res://scenes/items/viewmodels/bandage_viewmodel.tscn" id="3_ym4bn"]
 
 [sub_resource type="Resource" id="Resource_jfqpo"]
@@ -13,6 +14,8 @@ num_ticks = 4
 tick_rate_seconds = 1.0
 flat = true
 amount = 5
+type = 0
+conditions = Array[ExtResource("3_t5h22")]([])
 
 [resource]
 script = ExtResource("2_8mk37")

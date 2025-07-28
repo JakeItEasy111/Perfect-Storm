@@ -4,10 +4,9 @@ class_name StatThresholdCondition
 enum COMPARISON_TYPE {LESS_THAN, GREATER_THAN, LESS_THAN_EQUAL, GREATER_THAN_EQUAL, EQUAL}
 @export var comparison : COMPARISON_TYPE
 @export var stat : Stat 
-@export var variable_name : String
 @export var threshold_percentage : int 
 
-func check(target : Node) -> bool:
+func check(context : EventContext) -> bool:
 	match comparison:
 		COMPARISON_TYPE.LESS_THAN:
 			if stat.adjusted_value < threshold_percentage:

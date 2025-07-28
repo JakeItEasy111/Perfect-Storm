@@ -30,8 +30,9 @@ func PickupNearestItem():
 						EventBus.on_upgrade_picked_up.emit(ItemTypes[i])
 					ItemData.ITEM_TYPE.INSTANT_TRIGGER:
 						ItemTypes[i].use_item(Global.player)
-				EventBus.on_item_picked_up.emit(ItemTypes[i]) #add to inventory 
-				AudioManager.play_audio(SoundEffect.SOUND_EFFECT_TYPE.ITEM_PICKUP)
+					ItemData.ITEM_TYPE.INVENTORY:
+						EventBus.on_item_picked_up.emit(ItemTypes[i]) #add to inventory 
+						AudioManager.play_audio(SoundEffect.SOUND_EFFECT_TYPE.ITEM_PICKUP)
 				return 
 		
 func OnOnjectEnteredArea(body: Node3D):
