@@ -1,49 +1,10 @@
-[gd_scene load_steps=9 format=4 uid="uid://fp8uc2loubtd"]
+[gd_scene load_steps=6 format=4 uid="uid://fp8uc2loubtd"]
 
 [ext_resource type="Script" uid="uid://cgws83agneyi7" path="res://scenes/items/interactible_item.gd" id="1_8hppy"]
-[ext_resource type="Texture2D" uid="uid://bpqhb6738peaw" path="res://assets/placeholder/Flashlight/TEX_flashlight_64.png" id="2_8hppy"]
+[ext_resource type="PackedScene" uid="uid://ctp1ugenojrgf" path="res://assets/placeholder/Flashlight/flash_light_model.tscn" id="2_8hppy"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bqw6l"]
-resource_name = "MAT_flashlight"
-vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("2_8hppy")
-emission_enabled = true
-uv1_scale = Vector3(1.04, 1.1, 1.04)
-texture_filter = 0
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_n5jbb"]
-_surfaces = [{
-"aabb": AABB(-0.00099127, -0.000260223, -0.000227473, 0.00200237, 0.000520446, 0.000494937),
-"format": 34359742465,
-"index_count": 180,
-"index_data": PackedByteArray("CAAJAA8ACQAQAA8AEAAJAAwAEQAJAAgACQARAAwAEgARAAgAEwASAAgAEgAUABEAEgATABQAEQAVAAwADAAVABMAFgAVABEAFQAWABMAFAAXABEAFwAWABEADgATAAgADgAMABMACAAPAA4ADAAOABgADwAYAA4AGQAMABgAGQAQAAwAGAAPAAcAGAAHABkAEAAaAA8AGgAQABkABwANABkADQAaABkADQAHABsADQAbABoABwAcABsADwAKAAcABwAKABwAGgAKAA8ACwAbABwACgALABwAGwAEABoAGgAEAAoAGwALAAQABAALAAoAEwAdABQAFgAdABMAFAAdAAEAFAABABcAFgADAB0AAwAWABcAHQAGAAEAAwAGAB0AAQAAABcAAAADABcAAQAGAAUABQAGAAMAAAABAAIAAwAAAAIAHgABAAUAAQAeAAIAHwAFAAMAHgAFAB8AHwADAAIAAgAeAB8A"),
-"lods": [0.000171537, PackedByteArray("CAAJAAoACQAEAAoABAALAAoABAAJAAwADQALAAQADQAKAAsADQAEAAwACgANAA4ACAAKAA4ADAAOAA0ACAAAAAkAAAAMAAkADgAGAAgADAAGAA4ACAABAAAACAAGAAEAAwAMAAAADAADAAYAAwAAAAIAAAABAAIABQAGAAMAAQAGAAUAAgAFAAMAAQAFAAIA"), 0.000232791, PackedByteArray("AAABAAIAAQAFAAIAAQAGAAUAAgAFAAMABQAGAAMAAwAAAAIABwAGAAEAAwAGAAcAAAAHAAEAAwAHAAAAAAAEAAcABAAAAAcA"), 0.00024495, PackedByteArray("AAABAAIAAgABAAMAAwAAAAIAAAAEAAEAAwABAAQAAwAEAAAA")],
-"name": "MAT_flashlight",
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 32,
-"vertex_data": PackedByteArray("EIeEOoJuiLkuu6c3EIeEOgAAAABbOow5U1mDOtNaZLkuu6c3EIeEOgAAAADqhW65fe2Buk5sULkqu6c3U1mDOtNaZDkuu6c3EIeEOoJuiDkuu6c3BKktuk5sUDkqu6c3AQCLOQAAAAD9NEI5AQCLOU5sULkmu6c3BKktugAAAACEwl85fe2BugAAAACEwl85AQCLOQAAAAAzRhi5BKktugAAAAC60zW5AQCLOU5sUDkmu6c3ZB8RugAAAAD9NEI5ZB8Ruk5sULkmu6c3P+u1OdYKd7kqu6c3P+u1OQAAAABjMYE5P+u1OdYKdzkqu6c39nszOgAAAACg+Yg5P+u1OQAAAAD7c1i59nszOgAAAAB0BGi59nszOu6kg7kuu6c3ZB8Ruk5sUDkmu6c3ZB8RugAAAAAzRhi5BKktuk5sULkqu6c3fe2BugAAAAC60zW5fe2Buk5sUDkqu6c39nszOu6kgzkuu6c3U1mDOgAAAABPsm05U1mDOgAAAACDw0O5")
-}]
-blend_shape_mode = 0
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_dljxi"]
-resource_name = "Cube_001"
-_surfaces = [{
-"aabb": AABB(-0.00099127, -0.000260223, -0.000227473, 0.00200237, 0.000520446, 0.000494937),
-"attribute_data": PackedByteArray("AABuPwAAqD0AAG4/AAAIPgAAYD8AAKg9AABuPwAACD4AAHE/AAAQPgAAqD0AABA+AABxPwAAmD0AAHE/AACYPQAAYD8AAKg9AABuPwAAqD0AAGA+AAAQPgAAcT8AABA+AAAWPwAAvD0AABY/AAAQPgAAYD4AALw9AAAWPwAAvD0AABY/AAAQPgAAYD4AALw9AACoPQAAvD0AAIY+AAC8PQAAhj4AABA+AAAfPwAAED4AAB8/AACgPQAAHz8AABA+AABOPwAAmD0AAB8/AACgPQAATj8AAJg9AABOPwAAED4AAE4/AAAQPgAAhj4AABA+AACGPgAAvD0AAGA+AAAQPgAAqD0AALw9AACoPQAAED4AAPA+AAAMPgAArD4AAAw+AADOPgAA0D0AAM4+AADQPQAAqD4AAAk/AACQPQAAUD8AAJA9AACQPgAAqD4AAAk/AABgPwAACD4AAGA/AAAIPg=="),
-"format": 34359742487,
-"index_count": 180,
-"index_data": PackedByteArray("DAANABMADQAUABMAFAANAA8AFQANAAwADQAVAA8AFgAVAAwAFwAWAAwAFgAYABUAFgAXABgAFQAZAA8ADwAZABcAGgAZABUAGQAaABcAGAAbABUAGwAaABUAGAAGABsABgAEABsABAAHABsABwAaABsAGAAcAAYAGgAHABwAFwAcABgAGgAcABcABwALABwAHAALAAYAEAAXAAwAEAAPABcADAATABAADwAQAB0AEwAdABAAHgAPAB0AHgAUAA8AHQATAAoAHQAKAB4AFAAfABMAHwAUAB4ACgARAB4AEQAfAB4AEQAKACAAEQAgAB8ACgAhACAAIAAFAB8AEwAOAAoACgAOACEAHwAOABMAHwAFAA4ADgASACEABQASAA4AIgAjACQAIwAiACUAJgAnACgAJwApACgAAAABAAIAAwAAAAIAAQAqAAIAKwADAAIAKgABAAgAKwAIAAMAAQAJAAgACAAJAAMA"),
-"lods": [0.000171537, PackedByteArray("DAANAA4ADAAEAA0ADAAGAAQADAALAAYABAAPAA0ABwAPAAQADwAHAAsAEAALAAwADwALABAADAAOABAABQANAA8ADQAFAA4ADwAQABEAEQAFAA8ADgARABAAEQASAAUABQASAA4AEQAOABIAAAABAAIAAwAAAAIAAQAIAAIAAgAIAAMAAQAJAAgACAAJAAMA"), 0.000232791, PackedByteArray("AAABAAIAAwAAAAIAAQAIAAIAAgAIAAMAAQAJAAgACAAJAAMABAAKAAYACgALAAYABwALAAoABwAKAAQABQAEAAoABAAFAAoA"), 0.00024495, PackedByteArray("AAABAAIAAgABAAMAAwAAAAIABAAFAAYABwAGAAUABwAFAAQA")],
-"material": SubResource("StandardMaterial3D_bqw6l"),
-"name": "MAT_flashlight",
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 44,
-"vertex_data": PackedByteArray("EIeEOoJuiLkuu6c3EIeEOgAAAABbOow5U1mDOtNaZLkuu6c3EIeEOgAAAADqhW65EIeEOoJuiLkuu6c3fe2Buk5sULkqu6c3EIeEOgAAAABbOow5EIeEOgAAAADqhW65U1mDOtNaZDkuu6c3EIeEOoJuiDkuu6c3BKktuk5sUDkqu6c3EIeEOoJuiDkuu6c3AQCLOQAAAAD9NEI5AQCLOU5sULkmu6c3BKktugAAAACEwl85AQCLOQAAAAAzRhi5AQCLOU5sUDkmu6c3BKktugAAAAC60zW5fe2BugAAAACEwl85ZB8RugAAAAD9NEI5ZB8Ruk5sULkmu6c3P+u1OdYKd7kqu6c3P+u1OQAAAABjMYE5P+u1OdYKdzkqu6c39nszOgAAAACg+Yg5P+u1OQAAAAD7c1i59nszOgAAAAB0BGi59nszOu6kg7kuu6c39nszOu6kgzkuu6c3ZB8Ruk5sUDkmu6c3ZB8RugAAAAAzRhi5BKktuk5sULkqu6c3fe2BugAAAAC60zW5fe2Buk5sUDkqu6c3fe2BugAAAAC60zW5fe2BugAAAACEwl85fe2Buk5sULkqu6c3fe2Buk5sUDkqu6c3U1mDOtNaZLkuu6c3U1mDOgAAAABPsm05U1mDOgAAAACDw0O5U1mDOtNaZDkuu6c3U1mDOgAAAABPsm05U1mDOgAAAACDw0O5ebh6OHo4PFxXuf9/TzxPPX3ugJFLlYt3/v+mxl8FJ955uHo4hMc83BhL5zQXy3NaV7n/f5n+8CL+/6bG4cWywH3ufm5LlYv3ebiEx3o4PNxQhK77ZfbuvXm4hMeExzxcnV7/fyzL2TIbZ+MYG+eNs8iN/3///xs5AACd3rHlaNobZxvnG+dwzP//NvI28v+/3Er/f9vK/z+Ti/9///81Ov9/AAD///8/s2ZLGSXlirNLYf9/b9DpNLNms+Yl5YozG3z/f4H5qD4AAErh0enH1wAAG/xQ/T3DsHtOBAL72r2we7D7AvvbPf9//v////+///9q9Gr0/79QhFAEZfbvPQAA3Mr//5DaGEsXyxfLctoAANzK//9uJdxK/38AAG4lGEvnNAAAAIAYSxfLAAAAAH3ugJHgkLmK///Fkc2A5QI47v9/MX/lAn3ufm7gkLkK///FkcWR/7847v9////iiA==")
-}]
-blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_n5jbb")
+[sub_resource type="BoxShape3D" id="BoxShape3D_v5nru"]
+size = Vector3(0.5, 0.1, 0.1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8hppy"]
 emission_enabled = true
@@ -63,23 +24,20 @@ _surfaces = [{
 "vertex_data": PackedByteArray("BQroOiZ0abpOAhW5srToOv/zBDlW3Gs6lzQDO62UWrkpXUY3gr/oOv6vBTkGPWG6BQroOiZ0abpOAhW5kpzNukUOhbpCYgM4srToOv/zBDlW3Gs6gr/oOv6vBTkGPWG6qjQDO+a1Wjn5Yk03ygfoOkKEazril+K47RkpurYOnTpYQem2ygfoOkKEazril+K4EKktuISB3LhfRpQ6bqldOWjvnLp/T5M33gXcuV+9Wze0G5s6AKktuISB3LiGCI+6+PasuJDzlDqtIro3j/zauWL0oza8z5W6kpzNukbwODcw+YY6/wIOugBXE7j8QZs6ZB8RutIfnbpkco43+HsPuEoOmLqztqc3Wuo6ue2trbYf1Y86xjI9uW89jjrWlKc3I/onOjuZpLcIKqU6Tuo6uQKurbZGl4q6I/onOjyZpLcu7J+636EnOlzZo7qzMKY3JyYuOrj0ozo34Kg3ZB8RuvcfnTpcH6M3/wIOuvZWEzgiBJa67RkpurYOnbpYQem2kpzNukbwODdXu4G6kpzNukUOhTpCYgM4kpzNukbwODdXu4G6kpzNukbwODcw+YY6kpzNukUOhbpCYgM4kpzNukUOhTpCYgM4lzQDO62UWrkpXUY3pTQDOz3K/zZAzmM5pTQDOz3K/zZ03zm5qjQDO+a1Wjn5Yk03pTQDOz3K/zZAzmM5pTQDOz3K/zZ03zm5ebh6OHo4PFxXuf9/TjxOPX3ugJFLlYt3/v+mxl8FJ955uHo4hMc83BhL5zQXy3JaV7n/f5n+8CL+/6bG4cWywH3ufm5KlYv3ebiEx3o4PNxQhK77ZfbuvXm4hMeExzxcnV7/fyzL2TIbZ+MYG+eNs8iN/3///xs5AACd3rHlaNobZxvnG+dwzP//NvI28v+/3Er/f9vK/z+Ti/9///80OgCAAAD///8/s2ZKGSXlirNLYf9/b9DpNLJms+Yl5YozG3z/f4H5qD4AAErh0enH1wAAG/xQ/T3DsHtOBAL72r2ve7D7AfvbPf9//v////+///9q9Gr0/79QhFAEZfbvPQAA3Mr//5DaF0sXyxfLctoAANzK//9uJdxK/38AAG4lGEvnNAAA/v8XSxfL//8AAH3ugJHgkLmK///Fkc2A5QI47v9/MX/lAn3ufm7gkLkK///FkcWR/7847v9///8c9w==")
 }]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_v5nru"]
-size = Vector3(0.75, 0.2, 0.3)
-
 [node name="Flashlight" type="RigidBody3D" node_paths=PackedStringArray("ItemHighlightMesh")]
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_8hppy")
-ItemHighlightMesh = NodePath("flashlight/Outline")
+ItemHighlightMesh = NodePath("FlashLightModel/Outline")
 metadata/_custom_type_script = "uid://cgws83agneyi7"
-
-[node name="flashlight" type="MeshInstance3D" parent="."]
-transform = Transform3D(200, 0, 0, 0, -200, -1.74846e-05, 0, 1.74846e-05, -200, 0, 0, 0)
-mesh = SubResource("ArrayMesh_dljxi")
-
-[node name="Outline" type="MeshInstance3D" parent="flashlight"]
-transform = Transform3D(0.66, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
-mesh = SubResource("ArrayMesh_v5nru")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_v5nru")
+
+[node name="FlashLightModel" parent="." instance=ExtResource("2_8hppy")]
+
+[node name="Outline" type="MeshInstance3D" parent="FlashLightModel"]
+transform = Transform3D(0.66, 0, 0, 0, -1.09279e-08, 0.25, 0, -0.25, -1.09279e-08, 0, 0, 0)
+visible = false
+mesh = SubResource("ArrayMesh_v5nru")
+skeleton = NodePath("")

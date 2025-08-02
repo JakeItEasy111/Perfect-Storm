@@ -43,6 +43,10 @@ version_control/autoload_on_startup=true
 
 enabled=PackedStringArray("res://addons/signal_lens/plugin.cfg")
 
+[global_group]
+
+enemies=""
+
 [input]
 
 console={

@@ -1,0 +1,118 @@
+[gd_scene load_steps=13 format=4 uid="uid://dyich82es5gnv"]
+
+[ext_resource type="Script" uid="uid://douc02j5qcjwi" path="res://scenes/entities/npc/spectre_entity.gd" id="1_ra16i"]
+[ext_resource type="Shader" uid="uid://nrvhux70hxlu" path="res://shaders/spatial_pixelation.gdshader" id="1_y5g7k"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ra16i"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_a3o74"]
+material = SubResource("StandardMaterial3D_ra16i")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_t0udm"]
+_surfaces = [{
+"aabb": AABB(-0.528867, -0.528867, -0.528867, 1.05773, 1.05773, 1.05773),
+"attribute_data": PackedByteArray("AAAAAAAAAACrqio/AAAAAKuqqj4AAAAAAACAPwAAAAAAAAAAAAAAP6uqKj8AAAA/q6qqPgAAAD8AAIA/AAAAP6uqqj4AAAAAAAAAAAAAAD+rqio/AAAAAKuqqj4AAAA/q6qqPgAAAD8AAAAAAACAP6uqKj8AAAA/q6qqPgAAgD+rqqo+AAAAP6uqKj8AAAA/q6oqPwAAAD8AAIA/AAAAP6uqqj4AAIA/q6oqPwAAgD+rqio/AACAPwAAgD8AAIA/"),
+"format": 34359742487,
+"index_count": 36,
+"index_data": PackedByteArray("AAAEAAIAAgAEAAYAAQAFAAMAAwAFAAcACAAMAAoACgAMAA4ACQANAAsACwANAA8AEAAUABIAEgAUABYAEQAVABMAEwAVABcA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("3GMHv9xjBz/cYwc/3GMHP9xjBz/cYwe/3GMHP9xjBz/cYwc/3GMHv9xjBz/cYwe/3GMHv9xjB7/cYwc/3GMHP9xjB7/cYwe/3GMHP9xjB7/cYwc/3GMHv9xjB7/cYwe/3GMHP9xjBz/cYwc/3GMHv9xjBz/cYwe/3GMHP9xjBz/cYwe/3GMHv9xjBz/cYwc/3GMHP9xjB7/cYwc/3GMHv9xjB7/cYwe/3GMHP9xjB7/cYwe/3GMHv9xjB7/cYwc/3GMHP9xjBz/cYwc/3GMHv9xjB7/cYwc/3GMHv9xjBz/cYwc/3GMHP9xjB7/cYwc/3GMHP9xjBz/cYwe/3GMHv9xjB7/cYwe/3GMHv9xjBz/cYwe/3GMHP9xjB7/cYwe//3//f////7//////AAD/v/9//3////+//////wAA/7//f/9/////v/////8AAP+//3//f////7//////AAD/v///AID/////AAAAgP9//7///wCA/////wAAAID/f/+///8AgP////8AAACA/3//v///AID/////AAAAgP9//78AgP//AAD/vwCAAAD///+/AID//wAA/78AgAAA////vwCA//8AAP+/AIAAAP///78AgP//AAD/vwCAAAD///+/")
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_88ewa"]
+render_priority = 0
+shader = ExtResource("1_y5g7k")
+shader_parameter/pixelation = 0.01
+shader_parameter/opacity = 1.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_y5g7k"]
+radius = 0.75
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ra16i"]
+radius = 8.0
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_ra16i"]
+length = 1.5
+slide_on_slope = true
+
+[sub_resource type="Animation" id="Animation_a3o74"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ra16i"]
+resource_name = "speen"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 6.28319, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t0udm"]
+_data = {
+&"RESET": SubResource("Animation_a3o74"),
+&"speen": SubResource("Animation_ra16i")
+}
+
+[node name="SpectreEntity" type="CharacterBody3D" groups=["enemies"]]
+script = ExtResource("1_ra16i")
+
+[node name="Model" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_a3o74")
+
+[node name="Pixelation" type="MeshInstance3D" parent="Model"]
+mesh = SubResource("ArrayMesh_t0udm")
+surface_material_override/0 = SubResource("ShaderMaterial_88ewa")
+
+[node name="Hitbox" type="Area3D" parent="."]
+
+[node name="HitboxShape" type="CollisionShape3D" parent="Hitbox"]
+shape = SubResource("SphereShape3D_y5g7k")
+
+[node name="ChaseRange" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ChaseRange"]
+shape = SubResource("SphereShape3D_ra16i")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+target_desired_distance = 0.5
+path_height_offset = 0.1
+
+[node name="GroundOffset" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("SeparationRayShape3D_ra16i")
+
+[node name="StallTimer" type="Timer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_t0udm")
+}
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="body_entered" from="ChaseRange" to="." method="_on_chase_range_body_entered"]
+[connection signal="body_exited" from="ChaseRange" to="." method="_on_chase_range_body_exited"]
+[connection signal="timeout" from="StallTimer" to="." method="_on_stall_timer_timeout"]

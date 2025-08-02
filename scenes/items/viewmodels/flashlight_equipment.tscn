@@ -1,62 +1,19 @@
-[gd_scene load_steps=8 format=4 uid="uid://cee3dc2duwavk"]
+[gd_scene load_steps=5 format=3 uid="uid://cee3dc2duwavk"]
 
 [ext_resource type="Script" uid="uid://bfaat5kafc0ra" path="res://scenes/items/equipped_item_scripts/flashlight_equipment.gd" id="1_cua5m"]
-[ext_resource type="Texture2D" uid="uid://bpqhb6738peaw" path="res://assets/placeholder/Flashlight/TEX_flashlight_64.png" id="2_6g6e3"]
+[ext_resource type="PackedScene" uid="uid://ctp1ugenojrgf" path="res://assets/placeholder/Flashlight/flash_light_model.tscn" id="2_6g6e3"]
 [ext_resource type="Texture2D" uid="uid://bty1o0qxc181f" path="res://assets/placeholder/Flashlight/light-64.png" id="3_6g6e3"]
 [ext_resource type="Texture2D" uid="uid://c74428p1267tm" path="res://assets/placeholder/Flashlight/flare-64-trans.png" id="4_6g6e3"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bqw6l"]
-resource_name = "MAT_flashlight"
-vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("2_6g6e3")
-emission_enabled = true
-texture_filter = 0
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_n5jbb"]
-_surfaces = [{
-"aabb": AABB(-0.00099127, -0.000260223, -0.000227473, 0.00200237, 0.000520446, 0.000494937),
-"format": 34359742465,
-"index_count": 180,
-"index_data": PackedByteArray("CAAJAA8ACQAQAA8AEAAJAAwAEQAJAAgACQARAAwAEgARAAgAEwASAAgAEgAUABEAEgATABQAEQAVAAwADAAVABMAFgAVABEAFQAWABMAFAAXABEAFwAWABEADgATAAgADgAMABMACAAPAA4ADAAOABgADwAYAA4AGQAMABgAGQAQAAwAGAAPAAcAGAAHABkAEAAaAA8AGgAQABkABwANABkADQAaABkADQAHABsADQAbABoABwAcABsADwAKAAcABwAKABwAGgAKAA8ACwAbABwACgALABwAGwAEABoAGgAEAAoAGwALAAQABAALAAoAEwAdABQAFgAdABMAFAAdAAEAFAABABcAFgADAB0AAwAWABcAHQAGAAEAAwAGAB0AAQAAABcAAAADABcAAQAGAAUABQAGAAMAAAABAAIAAwAAAAIAHgABAAUAAQAeAAIAHwAFAAMAHgAFAB8AHwADAAIAAgAeAB8A"),
-"lods": [0.000171537, PackedByteArray("CAAJAAoACQAEAAoABAALAAoABAAJAAwADQALAAQADQAKAAsADQAEAAwACgANAA4ACAAKAA4ADAAOAA0ACAAAAAkAAAAMAAkADgAGAAgADAAGAA4ACAABAAAACAAGAAEAAwAMAAAADAADAAYAAwAAAAIAAAABAAIABQAGAAMAAQAGAAUAAgAFAAMAAQAFAAIA"), 0.000232791, PackedByteArray("AAABAAIAAQAFAAIAAQAGAAUAAgAFAAMABQAGAAMAAwAAAAIABwAGAAEAAwAGAAcAAAAHAAEAAwAHAAAAAAAEAAcABAAAAAcA"), 0.00024495, PackedByteArray("AAABAAIAAgABAAMAAwAAAAIAAAAEAAEAAwABAAQAAwAEAAAA")],
-"name": "MAT_flashlight",
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 32,
-"vertex_data": PackedByteArray("EIeEOoJuiLkuu6c3EIeEOgAAAABbOow5U1mDOtNaZLkuu6c3EIeEOgAAAADqhW65fe2Buk5sULkqu6c3U1mDOtNaZDkuu6c3EIeEOoJuiDkuu6c3BKktuk5sUDkqu6c3AQCLOQAAAAD9NEI5AQCLOU5sULkmu6c3BKktugAAAACEwl85fe2BugAAAACEwl85AQCLOQAAAAAzRhi5BKktugAAAAC60zW5AQCLOU5sUDkmu6c3ZB8RugAAAAD9NEI5ZB8Ruk5sULkmu6c3P+u1OdYKd7kqu6c3P+u1OQAAAABjMYE5P+u1OdYKdzkqu6c39nszOgAAAACg+Yg5P+u1OQAAAAD7c1i59nszOgAAAAB0BGi59nszOu6kg7kuu6c3ZB8Ruk5sUDkmu6c3ZB8RugAAAAAzRhi5BKktuk5sULkqu6c3fe2BugAAAAC60zW5fe2Buk5sUDkqu6c39nszOu6kgzkuu6c3U1mDOgAAAABPsm05U1mDOgAAAACDw0O5")
-}]
-blend_shape_mode = 0
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_dljxi"]
-resource_name = "Cube_001"
-_surfaces = [{
-"aabb": AABB(-0.00099127, -0.000260223, -0.000227473, 0.00200237, 0.000520446, 0.000494937),
-"attribute_data": PackedByteArray("AABuPwAAqD0AAG4/AAAIPgAAYD8AAKg9AABuPwAACD4AAHE/AAAQPgAAqD0AABA+AABxPwAAmD0AAHE/AACYPQAAYD8AAKg9AABuPwAAqD0AAGA+AAAQPgAAcT8AABA+AAAWPwAAvD0AABY/AAAQPgAAYD4AALw9AAAWPwAAvD0AABY/AAAQPgAAYD4AALw9AACoPQAAvD0AAIY+AAC8PQAAhj4AABA+AAAfPwAAED4AAB8/AACgPQAAHz8AABA+AABOPwAAmD0AAB8/AACgPQAATj8AAJg9AABOPwAAED4AAE4/AAAQPgAAhj4AABA+AACGPgAAvD0AAGA+AAAQPgAAqD0AALw9AACoPQAAED4AAPA+AAAMPgAArD4AAAw+AADOPgAA0D0AAM4+AADQPQAAqD4AAAk/AACQPQAAUD8AAJA9AACQPgAAqD4AAAk/AABgPwAACD4AAGA/AAAIPg=="),
-"format": 34359742487,
-"index_count": 180,
-"index_data": PackedByteArray("DAANABMADQAUABMAFAANAA8AFQANAAwADQAVAA8AFgAVAAwAFwAWAAwAFgAYABUAFgAXABgAFQAZAA8ADwAZABcAGgAZABUAGQAaABcAGAAbABUAGwAaABUAGAAGABsABgAEABsABAAHABsABwAaABsAGAAcAAYAGgAHABwAFwAcABgAGgAcABcABwALABwAHAALAAYAEAAXAAwAEAAPABcADAATABAADwAQAB0AEwAdABAAHgAPAB0AHgAUAA8AHQATAAoAHQAKAB4AFAAfABMAHwAUAB4ACgARAB4AEQAfAB4AEQAKACAAEQAgAB8ACgAhACAAIAAFAB8AEwAOAAoACgAOACEAHwAOABMAHwAFAA4ADgASACEABQASAA4AIgAjACQAIwAiACUAJgAnACgAJwApACgAAAABAAIAAwAAAAIAAQAqAAIAKwADAAIAKgABAAgAKwAIAAMAAQAJAAgACAAJAAMA"),
-"lods": [0.000171537, PackedByteArray("DAANAA4ADAAEAA0ADAAGAAQADAALAAYABAAPAA0ABwAPAAQADwAHAAsAEAALAAwADwALABAADAAOABAABQANAA8ADQAFAA4ADwAQABEAEQAFAA8ADgARABAAEQASAAUABQASAA4AEQAOABIAAAABAAIAAwAAAAIAAQAIAAIAAgAIAAMAAQAJAAgACAAJAAMA"), 0.000232791, PackedByteArray("AAABAAIAAwAAAAIAAQAIAAIAAgAIAAMAAQAJAAgACAAJAAMABAAKAAYACgALAAYABwALAAoABwAKAAQABQAEAAoABAAFAAoA"), 0.00024495, PackedByteArray("AAABAAIAAgABAAMAAwAAAAIABAAFAAYABwAGAAUABwAFAAQA")],
-"material": SubResource("StandardMaterial3D_bqw6l"),
-"name": "MAT_flashlight",
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 44,
-"vertex_data": PackedByteArray("EIeEOoJuiLkuu6c3EIeEOgAAAABbOow5U1mDOtNaZLkuu6c3EIeEOgAAAADqhW65EIeEOoJuiLkuu6c3fe2Buk5sULkqu6c3EIeEOgAAAABbOow5EIeEOgAAAADqhW65U1mDOtNaZDkuu6c3EIeEOoJuiDkuu6c3BKktuk5sUDkqu6c3EIeEOoJuiDkuu6c3AQCLOQAAAAD9NEI5AQCLOU5sULkmu6c3BKktugAAAACEwl85AQCLOQAAAAAzRhi5AQCLOU5sUDkmu6c3BKktugAAAAC60zW5fe2BugAAAACEwl85ZB8RugAAAAD9NEI5ZB8Ruk5sULkmu6c3P+u1OdYKd7kqu6c3P+u1OQAAAABjMYE5P+u1OdYKdzkqu6c39nszOgAAAACg+Yg5P+u1OQAAAAD7c1i59nszOgAAAAB0BGi59nszOu6kg7kuu6c39nszOu6kgzkuu6c3ZB8Ruk5sUDkmu6c3ZB8RugAAAAAzRhi5BKktuk5sULkqu6c3fe2BugAAAAC60zW5fe2Buk5sUDkqu6c3fe2BugAAAAC60zW5fe2BugAAAACEwl85fe2Buk5sULkqu6c3fe2Buk5sUDkqu6c3U1mDOtNaZLkuu6c3U1mDOgAAAABPsm05U1mDOgAAAACDw0O5U1mDOtNaZDkuu6c3U1mDOgAAAABPsm05U1mDOgAAAACDw0O5ebh6OHo4PFxXuf9/TzxPPX3ugJFLlYt3/v+mxl8FJ955uHo4hMc83BhL5zQXy3NaV7n/f5n+8CL+/6bG4cWywH3ufm5LlYv3ebiEx3o4PNxQhK77ZfbuvXm4hMeExzxcnV7/fyzL2TIbZ+MYG+eNs8iN/3///xs5AACd3rHlaNobZxvnG+dwzP//NvI28v+/3Er/f9vK/z+Ti/9///81Ov9/AAD///8/s2ZLGSXlirNLYf9/b9DpNLNms+Yl5YozG3z/f4H5qD4AAErh0enH1wAAG/xQ/T3DsHtOBAL72r2we7D7AvvbPf9//v////+///9q9Gr0/79QhFAEZfbvPQAA3Mr//5DaGEsXyxfLctoAANzK//9uJdxK/38AAG4lGEvnNAAAAIAYSxfLAAAAAH3ugJHgkLmK///Fkc2A5QI47v9/MX/lAn3ufm7gkLkK///FkcWR/7847v9////iiA==")
-}]
-blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_n5jbb")
 
 [node name="FlashlightItem" type="Node3D"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 script = ExtResource("1_cua5m")
 
-[node name="FlashLightModel" type="MeshInstance3D" parent="."]
-transform = Transform3D(200, 0, 0, 0, -8.74228e-06, 200, 0, -200, -8.74228e-06, 0, 0, 0)
-mesh = SubResource("ArrayMesh_dljxi")
-skeleton = NodePath("")
+[node name="FlashLightModel" parent="." instance=ExtResource("2_6g6e3")]
 
 [node name="Light" type="SpotLight3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.037488, 0, 0)
+visible = false
 light_color = Color(0.777196, 0.837154, 0.830602, 1)
 light_energy = 50.0
 light_projector = ExtResource("3_6g6e3")
@@ -66,6 +23,7 @@ spot_angle = 30.0
 
 [node name="Flare" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22353, 0.0168763, -7.71376e-09)
+visible = false
 modulate = Color(1, 1, 1, 0.6)
 billboard = 1
 texture_filter = 0

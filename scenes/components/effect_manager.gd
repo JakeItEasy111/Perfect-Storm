@@ -4,9 +4,9 @@ class_name EffectManager
 signal effect_list_updated
 
 @export var effect_holder : Node
+@export var trigger_lists : Dictionary[Effect.TRIGGER_TYPE, Array] = {}
 
 var effects : Array[Effect]
-var trigger_lists : Dictionary[Effect.TRIGGER_TYPE, Array] = {}
 
 func _ready() -> void:
 	EventBus.effects_applied.connect(add_effects) #item_data
@@ -47,7 +47,7 @@ func trigger_effects(context : EventContext):
 		
 	var trigger_type
 	for trigger in trigger_lists:
-		if context.event_type == Effect.TRIGGER_TYPE.keys()[trigger]: #this SHOULD compare to the string 
+		if context.event_type == Effect.TRIGGER_TYPE.keys()[trigger]: #this ISNT working, can cause errors! 
 			trigger_type = trigger 
 	
 	for effect in trigger_lists[trigger_type]:

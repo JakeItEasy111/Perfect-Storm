@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bb7pbtyh8k5dj"]
+[gd_scene load_steps=23 format=3 uid="uid://bb7pbtyh8k5dj"]
 
 [ext_resource type="PackedScene" uid="uid://dc63egb7vfe03" path="res://scenes/entities/player/player.tscn" id="1_jnr1s"]
 [ext_resource type="Texture2D" uid="uid://ddpnefmq78md6" path="res://assets/placeholder/FPS arms/hdris/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="2_cy4nd"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cdpxuqie2rs7e" path="res://scenes/items/world_prefabs/test_item.tscn" id="8_mme7b"]
 [ext_resource type="PackedScene" uid="uid://dlt6codyfktr8" path="res://scenes/items/world_prefabs/adrenaline_item.tscn" id="9_cjc8j"]
 [ext_resource type="PackedScene" uid="uid://djqm8y5jabkyi" path="res://assets/stages/prototype_map/prototype_environment.tscn" id="9_lm0kf"]
+[ext_resource type="PackedScene" uid="uid://dyich82es5gnv" path="res://scenes/entities/npc/spectre_entity.tscn" id="9_y0hr6"]
 [ext_resource type="PackedScene" uid="uid://duxihvjxin0en" path="res://scenes/items/world_prefabs/medkit_item.tscn" id="10_o8xk6"]
 [ext_resource type="PackedScene" uid="uid://bg4j86to2gx1" path="res://scenes/items/world_prefabs/bandage_item.tscn" id="11_am4cr"]
 [ext_resource type="PackedScene" uid="uid://bu4git7irg1t7" path="res://scenes/items/world_prefabs/painkiller_item.tscn" id="14_tj6k1"]
@@ -126,6 +127,9 @@ spot_angle = 60.0
 
 [node name="Stretchy" parent="DitherFilter/SubViewport/Environment/Stage" instance=ExtResource("7_n8iwv")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.995148, -1.7, 22.6)
+
+[node name="SpectreEntity" parent="DitherFilter/SubViewport/Environment" instance=ExtResource("9_y0hr6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.76181, 7.65969)
 
 [node name="Items" type="Node3D" parent="DitherFilter/SubViewport"]
 
